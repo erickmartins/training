@@ -1,0 +1,1254 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Introduction to Data Analysis with Python</title>
+<link rel="stylesheet" href="css/reveal.css">
+<link rel="stylesheet" href="css/theme/cci.css">
+<link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+<!-- Theme used for syntax highlighting of code -->
+<link rel="stylesheet" href="lib/css/zenburn.css">
+<!-- Printing and PDF exports -->
+<script>
+var link = document.createElement( 'link' );
+link.rel = 'stylesheet';
+link.type = 'text/css';
+link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+document.getElementsByTagName( 'head' )[0].appendChild( link );
+</script>
+</head>
+<body>
+<div class="reveal">
+<!-- Header logo -->
+<!--img style="position:fixed;top:1em;right:1em;" src="img/logo_cci.png" width="15%"-->
+<!-- Slide Title -->
+<header style="position: absolute;top: 1em; left: 1em; z-index:10;"></header>
+
+
+
+<!-- ---------------------- START OF SLIDES -------------------------- -->
+
+
+
+<div class="slides">
+
+<section data-menu-title="Title">
+<h2>Introduction to Data Analysis with Python</h2>
+<h4>Erick Martins Ratamero<br>Research Fellow</h4>
+</section>
+
+<section data-menu-title="Summary" data-state="intro0"><style>.intro0 header:after { content: "Summary"; }</style>
+<ul>
+<li>These slides: http://tiny.cc/camdupython2 (redirects to https://erickmartins.github.io/DataAnalysisPython.html)</li>	
+<li>Tidy data</li>
+<li>Some relevant libraries</li>
+<li>String manipulation</li>
+<li>File input/output</li>
+<li>Plotting</li>
+<li>If we have time: introduction to pandas and numpy</li> 
+</ul>
+</section>
+
+
+
+
+<section data-menu-title="Tidy data" data-state="tidy"><style>.tidy header:after { content: "Tidying your data"; }</style>
+<h2>"Happy families are all alike; every unhappy family is unhappy in its own way"</h2> <br>
+<h4>Leo Tolstoy</h4>
+ 
+</section>
+
+<section data-state="tidy1"><style>.tidy1 header:after { content: "Tidying your data"; }</style>
+
+<h4>We will discuss a standardised way to link the structure of a dataset to its semantics.</h4><br>
+<h4>(i.e. we will relate the physical layout of data to its meaning in a predictable way.)</h4>
+ 
+</section>
+
+<section data-state="tidy2"><style>.tidy2 header:after { content: "Data structure"; }</style>
+
+<pre><code class="python">import pandas as pd
+test = pd.read_csv("test.csv")
+test
+      name condition1 condition2
+ 1   Alice         NA          8
+ 2     Bob          4          2
+ 3   Carol          6          9
+</code></pre>
+
+<pre><code class="python">import pandas as pd
+test2 = pd.read_csv("test2.csv")
+test2
+   condition      Alice      Bob        Carol
+ 1         1         NA        4            6
+ 2         2          8        2            9
+</code></pre>
+
+<h4>Data is the same, but layout is different - no easy way of knowing it is the same data!</h4>
+ 
+</section>
+
+
+<section data-state="tidy3"><style>.tidy3 header:after { content: "Data semantics"; }</style>
+
+<h4>A dataset is a collection of <font color="orange">values.</font></h4><br>
+<h4>A <font color="orange">value</font> belongs to a <font color="orange">variable</font> and an <font color="orange">observation.</font></h4><br>
+<h4>A <font color="orange">variable</font> contains all <font color="orange">values</font> that measure the same attribute (height, duration, frequency).</h4><br>
+ <h4>An <font color="orange">observation</font> contains all <font color="orange">values</font> measured on the same "experiment".</h4><br>
+</section>
+
+
+<section data-state="tidy4"><style>.tidy4 header:after { content: "Making our example dataset tidy"; }</style>
+
+<pre><code class="python">import pandas as pd
+test_tidy = pd.read_csv("test_tidy.csv")
+test_tidy
+      name condition       n  
+ 1   Alice         1      NA 
+ 2   Alice         2       8
+ 3     Bob         1       4
+ 4     Bob         2       2
+ 5   Carol         1       6
+ 6   Carol         2       9
+</code></pre><br>
+
+<h4>Tidy data depends on your <font color="red">experimental design</font>.</h4>
+</section>
+
+<section data-state="tidy5"><style>.tidy5 header:after { content: "Data structure from data semantics"; }</style>
+
+<h4>Each <font color="orange">variable</font> should be a <font color="green">column</font>.</h4><br>
+<h4>Each <font color="orange">observation</font> should be a <font color="green">row</font>.</h4><br>
+<h4>Each <font color="orange">type</font> of observation (demographic, medical, meteorological, etc.) should be a <font color="green">table</font>.</h4><br>
+</section>
+
+<section data-state="tidy6"><style>.tidy6 header:after { content: "Real datasets, though..."; }</style>
+Common issues: <br>
+<ul>
+<li>Column headers as values instead of variable names</li> 
+<li>Multiple variables in the same column</li>  
+<li>Variables in rows <b>and</b> columns</li> 
+<li>Multiple types of obervations in the same table</li> 
+<li>Same type of observation in different tables</li>  
+  </ul>
+</section>
+
+
+<section data-state="tidy7"><style>.tidy7 header:after { content: "Column headers as values instead of variable names"; }</style>
+<pre><code class="python">
+    religion `<$10k` `$10-20k` `$20-30k` `$30-40k` `$40-50k` `$50-75k`
+  1 Agnostic      27        34        60        81        76       137
+  2 Atheist       12        27        37        52        35        70
+  3 Buddhist      27        21        30        34        33        58
+  4 Catholic     418       617       732       670       638      1116
+  5 Don’t k…      15        14        15        11        10        35
+  6 Evangel…     575       869      1064       982       881      1486
+  7 Hindu          1         9         7         9        11        34
+  8 Histori…     228       244       236       238       197       223
+  9 Jehovah…      20        27        24        24        21        30
+ 10 Jewish        19        19        25        25        30        95
+</code></pre><br>
+</section>
+
+
+<section data-state="tidy8"><style>.tidy8 header:after { content: "Multiple variables in the same column"; }</style>
+<pre><code class="python">
+    iso2   year   m04  m514  m014 m1524 m2534 m3544 m4554 m5564   m65    mu
+  1 AD     1989    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA
+  2 AD     1990    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA
+  3 AD     1991    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA
+  4 AD     1992    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA
+  5 AD     1993    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA
+  6 AD     1994    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA
+  7 AD     1996    NA    NA     0     0     0     4     1     0     0    NA
+  8 AD     1997    NA    NA     0     0     1     2     2     1     6    NA
+  9 AD     1998    NA    NA     0     0     0     1     0     0     0    NA
+ 10 AD     1999    NA    NA     0     0     0     1     1     0     0    NA
+</code></pre><br>
+</section>
+
+
+<section data-state="tidy9"><style>.tidy9 header:after { content: "Variables in rows and columns"; }</style>
+<pre><code class="python">
+    id     year month element    d1    d2    d3    d4    d5    d6    d7
+  1 MX17…  2010     1 tmax       NA  NA    NA      NA  NA      NA    NA
+  2 MX17…  2010     1 tmin       NA  NA    NA      NA  NA      NA    NA
+  3 MX17…  2010     2 tmax       NA  27.3  24.1    NA  NA      NA    NA
+  4 MX17…  2010     2 tmin       NA  14.4  14.4    NA  NA      NA    NA
+  5 MX17…  2010     3 tmax       NA  NA    NA      NA  32.1    NA    NA
+  6 MX17…  2010     3 tmin       NA  NA    NA      NA  14.2    NA    NA
+  7 MX17…  2010     4 tmax       NA  NA    NA      NA  NA      NA    NA
+  8 MX17…  2010     4 tmin       NA  NA    NA      NA  NA      NA    NA
+  9 MX17…  2010     5 tmax       NA  NA    NA      NA  NA      NA    NA
+ 10 MX17…  2010     5 tmin       NA  NA    NA      NA  NA      NA    NA
+</code></pre><br>
+</section>
+
+<section data-menu-title="Libraries" data-state="intro1"><style>.intro1 header:after { content: "These are some relevant libraries"; }</style>
+<ul>
+<li><b><u><i>numpy:</i></u></b> NUMerical PYthon. Has multidimensional arrays, basic linear algebra, Fourier transforms, random number generation...</li>	
+<li><b><u><i>scipy:</i></u></b> SCIentific PYthon. Higher-level science and engineering modules (optimization, e.g.).</li>	
+<li><b><u><i>matplotlib:</i></u></b> Plotting library. Histograms, line plots, heat plots...</li>	
+<li><b><u><i>pandas:</i></u></b> Structured data manipulation and operations. Data scientists love this one.</li>	
+<li><b><u><i>seaborn:</i></u></b> Also does plotting, but it looks nice compared to matplotlib.</li>	
+<li><b><u><i>os:</i></u></b> Opeating system stuff and file operations.</li>
+	</ul>
+</section>
+
+
+
+
+<section data-menu-title="Strings" data-state="strings"><style>.strings header:after { content: "String manipulation"; }</style>
+<p>We've talked a little bit about strings before.</p>
+<p>What if we want a string containing a quote?</p>
+ <pre><code class="python">string = 'That is Erick's presentation</code></pre> won't work.
+<p>Fix: use double quotes! </p>
+<pre><code class="python">string = "That is Erick's presentation"</code></pre> works!</p>
+<p>What if we need double quotes in the string?</p>
+</section>
+
+<section data-state="strings"><style>.strings  header:after { content: "String manipulation"; }</style>
+
+Escape characters allow you to use a character that would otherwise be impossible to be put into a string! Just use the reverse slash (\) before the character.<br>
+
+<ul>
+<li><b><code> \'</b> Single quote</code></li>	
+<li><b><code> \"</b> Double quote</code></li>	
+<li><b><code> \t</b> Tab</code></li>	
+<li><b><code> \n</b> New line (or line break)</code></li>	
+<li><b><code> \\</b> backslash</code></li>	
+</ul>
+<pre><code class="python">>>> print("Hello there!\nHow are you?\nI\'m doing fine.")</code>
+Hello there!
+How are you?
+I'm doing fine.</pre>
+</section>
+
+<section data-state="strings"><style>.strings  header:after { content: "String manipulation"; }</style>
+<div><img  src="img-py/helloworld.png"/></div>
+<p>Strings use indexing the same way lists do. It's just a list of characters! The space and exclamation points count, so 'Hello world!' has 12 characters (from 0 to 11).</p>
+<pre><code class="python">>>> test = 'Hello world!'
+>>> test[0]
+'H'
+>>> test[4]
+'o'
+>>> test[-1]
+'!'
+>>> test[0:5]
+'Hello'
+>>> test[:5]
+'Hello'
+>>> test[6:]
+'world!'</code></pre>
+</section>
+
+<section data-state="strings"><style>.strings  header:after { content: "String manipulation"; }</style>
+
+<p>The <code>in</code> and <code>not in</code> operators work for strings as well as lists (have I mentioned that strings are just lists of characters?). It will return <code>True</code> or <code>False</code>.</p>
+<pre><code class="python">>>> 'Hello' in 'Hello world!'
+True
+>>> 'Hello' in 'Hello'
+True
+>>> 'HELLO' in 'Hello world!'
+False
+>>> '' in 'test'
+True
+>>> 'cats' not in 'cats and dogs'
+False</code></pre>
+</section>
+
+
+<section data-state="strings"><style>.strings  header:after { content: "String manipulation"; }</style>
+
+<p>The <code>startswith()</code> and <code>endswith()</code> methods return <code>True</code> if the string they are called on begins or (respectively) ends with the string passed to the method.</p>
+<pre><code class="python">>>> 'Hello world!'.startswith('Hello')
+True
+>>> 'Hello world!'.endswith('world!')
+True
+>>> 'abc123'.startswith('abcdef')
+False
+>>> 'abc123'.endswith('12')
+False
+>>> 'Hello world!'.startswith('Hello world!')
+True
+>>> 'Hello world!'.endswith('Hello world!')
+True
+</code></pre>
+</section>
+
+<section data-state="strings"><style>.strings header:after { content: "String manipulation"; }</style>
+
+<p>The <code>join()</code> and <code>split()</code> do what you expect them to do. <code>split()</code> can take a string argument and will split the string upon the occurrence of this argument. It is especially useful when dealing with CSV files, as we will see later.</p>
+<pre><code class="python">>>> ', '.join(['cats', 'rats', 'bats'])
+'cats, rats, bats'
+>>> ' '.join(['My', 'name', 'is', 'Simon'])
+'My name is Simon'
+>>> 'ABC'.join(['My', 'name', 'is', 'Simon'])
+'MyABCnameABCisABCSimon'
+>>> 'My name is Simon'.split()
+['My', 'name', 'is', 'Simon']
+>>> 'MyABCnameABCisABCSimon'.split('ABC')
+['My', 'name', 'is', 'Simon']
+>>> 'My name is Simon'.split('m')
+['My na', 'e is Si', 'on']
+</code></pre>
+</section>
+
+
+<section data-state="strings"><style>.strings header:after { content: "String manipulation"; }</style>
+
+<p>We can use <code>strip()</code> and its friends to remove whitespace characters (space, tab, newline) from the ends of a string. It returns a new string without the whitespaces.</p>
+<pre><code class="python">>>> spam = '    Hello World     '
+>>> spam.strip()
+'Hello World'
+>>> spam.lstrip()
+'Hello World     '
+>>> spam.rstrip()
+'    Hello World'
+</code></pre>
+<p>Alternatively, you can tell <code>strip()</code> which characters you want to remove.</p>
+<pre><code class="python">>>> spam = 'SpamSpamBaconSpamEggsSpamSpam'
+>>> spam.strip('ampS')
+'BaconSpamEggs'
+</code></pre>
+</section>
+
+<section data-menu-title="String Exercises" data-state="stringsex"><style>.stringsex header:after { content: "String exercises!"; }</style>
+
+<ul>
+<li>Write a Python program to calculate the length of a string.</li>	
+<li>Write a Python program to add 'ing' at the end of a given string (length should be at least 3). If the given string already ends with 'ing' then add 'ly' instead. If the string length of the given string is less than 3, leave it unchanged. ('abc' returns 'abcing', 'string' returns 'stringly', etc etc) </li>	
+</ul>
+</section>
+
+<section data-state="stringsex"><style>.stringsex header:after { content: "String exercises!"; }</style>
+
+<p>Sample solution 1</p>
+<pre><code class="python">def string_length(str1):
+    count = 0
+    for char in str1:
+        count += 1
+    return count
+print(string_length('test'))</code></pre>
+</section>
+
+<section data-state="stringsex"><style>.stringsex header:after { content: "String exercises!"; }</style>
+
+<p>Sample solution 2</p>
+<pre><code class="python">def add_string(str1):
+  length = len(str1)
+
+  if length > 2:
+    if str1[-3:] == 'ing':
+      str1 += 'ly'
+    else:
+      str1 += 'ing'
+
+  return str1
+print(add_string('ab'))
+print(add_string('abc'))
+print(add_string('string'))</code></pre>
+</section>
+
+
+
+<section data-menu-title="File input/output" data-state="fileio"><style>.fileio header:after { content: "File input/output"; }</style>
+<ul>
+<li>Every file contains three key pieces of information: <i>path, filename</i> and <i>extension</i>.</li>	
+<ul>
+	<li><i>path:</i> indicates in which folder the file exists. Can be something like <code>C:\Users\User1\Desktop\</code> on Windows and <code>/home/User1/Desktop</code> on Mac/Linux.</li>
+	<li><i>filename:</i> the actual name of the file. Can be essentially anything you want except for some special characters.</li>
+	<li><i>extension: </i> indicates the file type. Common extensions are <code>.doc, .xls, .txt</code> and so on. They are often hidden in Windows.</li>
+</ul>
+</ul>
+<p>As you can see from the examples, Windows has a different way of indicating folders compared to Mac/Linux, including some weird backslashes.</p>
+<p>If you want your code to run in any system, it needs to be aware of which system it is! <code>os.path.join()</code> is your best friend. </p>
+<pre><code>>>> import os
+>>> os.path.join('usr', 'bin', 'spam')
+'usr\\bin\\spam'</code></pre>
+</section>
+
+<section data-state="fileio"><style>.fileio header:after { content: "File input/output"; }</style>
+<p>Every program has a <i>current working directory</i> - every path that doesn't start with the root folder (C:\ on Windows, / on Mac/Linux) is presumed to be inside the current working directory.</p>
+<pre><code>>>> import os
+>>> os.getcwd()
+'C:\\Python34'
+>>> os.chdir('C:\\Windows\\System32')
+>>> os.getcwd()
+'C:\\Windows\\System32'</code></pre>
+<p>File paths can be <i>absolute</i> (starts with root directory) or <i>relative</i> (from the current working directory).</p>
+<div><img  src="img-py/paths.jpg" width="60%"/></div>
+</section>
+
+<section data-state="fileio"><style>.fileio header:after { content: "File input/output"; }</style>
+
+<p>Some additional <code>os</code> functions that can be useful:</p>
+<pre><code class="python">>>> os.path.abspath('.\\Scripts')
+'C:\\Python34\\Scripts'
+>>> os.path.relpath('C:\\Windows', 'C:\\spam\\eggs')
+'..\\..\\Windows'
+>>> os.getcwd() 
+'C:\\Python34'
+>>> path = 'C:\\Windows\\System32\\calc.exe'
+>>> os.path.basename(path)
+'calc.exe'
+>>> os.path.dirname(path)
+'C:\\Windows\\System32'
+>>> os.path.split(path)
+('C:\\Windows\\System32', 'calc.exe')
+>>> os.path.exists('C:\\Windows')
+True
+>>> os.path.exists('C:\\some_made_up_folder')
+False
+>>> os.path.isdir('C:\\Windows\\System32')
+True
+>>> os.path.isfile('C:\\Windows\\System32')
+False
+>>> os.path.isdir('C:\\Windows\\System32\\calc.exe')
+False
+>>> os.path.isfile('C:\\Windows\\System32\\calc.exe')
+True
+</code></pre>
+</section>
+
+<section data-state="fileio"><style>.fileio header:after { content: "File input/output"; }</style>
+
+<p>For finding everything that is inside a folder, use <code>os.listdir(path)</code>:</p>
+<pre><code class="python">>>> os.listdir('C:\\Windows\\System32')
+['0409', '12520437.cpx', '12520850.cpx', '5U877.ax', 'aaclient.dll',
+--snip--
+'xwtpdui.dll', 'xwtpw32.dll', 'zh-CN', 'zh-HK', 'zh-TW', 'zipfldr.dll']</code></pre>
+<p>If you want to recursively go into every subfolder, you will need something like this:</p>
+<pre><code class="python">>>> import os
+>>> path = '/home/erick/Desktop'
+>>> for root,dirs,files in os.walk('.'):
+...     print("current directory is "+root)
+...     print("immediate subdirectories are "+' '.join(dirs))
+...     print("files in this subfolder are "+' '.join(files))
+... 
+current directory is .
+immediate subdirectories are js img-ia css .git plugin test img img-py lib material
+files in this subfolder are test.md bower.json handout.png DataAnalysisPython.html package.json LICENSE ImageAnalysisWithFiji.html CONTRIBUTING.md index.html README.md Gruntfile.js README_REVEAL.md IntroPython.html ImageAnalysis.html
+current directory is ./js
+(...)
+</code></pre>
+</section>
+
+
+
+<section data-state="fileio"><style>.fileio header:after { content: "File input/output"; }</style>
+<p>To read or write files, you first need to open them. Try saving the file <a href="material/hello.txt" target="_blank">hello.txt</a> file on your home folder and then opening it:</p>
+<pre><code class="python">>>> helloFile = open('C:\\Users\\your_home_folder\\hello.txt')</code></pre>
+<p>Or if you're Mac/Linux</p>
+<pre><code class="python">>>> helloFile = open('/Users/your_home_folder/hello.txt')</code></pre>
+<p>This will open the file in <i>read-only</i> mode. If you want to open the file in <i>write</i> mode:</p>
+<pre><code class="python">>>> helloFile = open('/Users/your_home_folder/hello.txt', 'w')</code></pre>
+
+</section>
+
+
+<section data-state="fileio"><style>.fileio header:after { content: "File input/output"; }</style>
+<p>Two ways of reading the contents of a file (try it yourself with the <a href="material/sonnet29.txt" target="_blank">sonnet29.txt</a> file):</p>
+<pre><code class="python">>>> f = open('/Users/your_home_folder/sonnet29.txt')
+>>> f.read()
+"When, in disgrace with fortune and men's eyes,\nI all alone beweep my outcast state,\nAnd trouble deaf heaven with my bootless cries,\nAnd look upon myself and curse my fate,"
+>>> f2 = open('material/sonnet29.txt')
+>>> f2.readlines()
+["When, in disgrace with fortune and men's eyes,\n", 'I all alone beweep my outcast state,\n', 'And trouble deaf heaven with my bootless cries,\n', 'And look upon myself and curse my fate,']
+</code></pre>
+
+</section>
+
+<section data-state="fileio"><style>.fileio header:after { content: "File input/output"; }</style>
+<p>Now let's try writing to a file. Remember: we need to use <i>'w'</i> when opening it. After that, we just need to use the <i>write</i> method:</p>
+<pre><code class="python">>>> myFile = open('test.txt', 'w')
+>>> myFile.write('Hello world!\n')
+>>> myFile.close()
+>>> myFile = open('test.txt', 'a')
+>>> myFile.write('This is a nice extra message!')
+>>> myFile.close()
+>>> myFile = open('test.txt')
+>>> content = myFile.read()
+>>> myFile.close()
+>>> print(content)
+Hello world!
+This is a nice extra message!
+</code></pre>
+
+</section>
+
+<section data-menu-title="File Exercises" data-state="fileex"><style>.fileex header:after { content: "File exercises!"; }</style>
+
+<ul>
+<li>Write a Python program to print the first 5 lines of the <a href="material/cereal.csv" target="_blank">cereal.csv</a> file.</li>	
+<li>Write a Python program to print the first 5 columns of the <a href="material/cereal.csv" target="_blank">cereal.csv</a> file.</li>
+<li>Write a Python program to print all lines of the <a href="material/cereal.csv" target="_blank">cereal.csv</a> file where <b>calories >= 120</b>.</li>
+</ul>
+</section>
+
+
+<section data-state="fileex"><style>.fileex header:after { content: "File exercises!"; }</style>
+
+<p>Sample solution 1</p>
+<pre><code class="python">import os
+os.chdir('Whatever directory your cereal.csv file is in')
+
+f = open('cereal.csv')
+lines = f.readlines()
+for i in range(5):
+    print(lines[i])
+         
+f.close()</code></pre>
+</section>
+
+<section data-state="fileex"><style>.fileex header:after { content: "File exercises!"; }</style>
+
+<p>Sample solution 2</p>
+<pre><code class="python">import os
+os.chdir('Whatever directory your cereal.csv file is in')
+
+f = open('cereal.csv')
+lines = f.readlines()
+for line in lines:
+    line_split = line.split(',')
+    print(','.join(line_split[:5])+'\n')
+         
+f.close()</code></pre>
+</section>
+
+
+<section data-state="fileex"><style>.fileex header:after { content: "File exercises!"; }</style>
+
+<p>Sample solution 3</p>
+<pre><code class="python">import os
+os.chdir('Whatever directory your cereal.csv file is in')
+
+f = open('cereal.csv')
+lines = f.readlines()[1:]
+for line in lines:
+    line_split = line.split(',')
+    cal = int(line_split[3])
+    if (cal >= 120):
+        print(line)
+         
+f.close()</code></pre>
+</section>
+
+<section data-menu-title="Plotting" data-state="plotting"><style>.plotting header:after { content: "Plotting"; }</style>
+
+<p>Our best friend in this section will be <code class="python">matplotlib.pyplot</code></p>
+<pre><code class="python">import matplotlib.pyplot as plt</code></pre>
+<img src="img-py/figure.png">
+
+</section>
+
+<section data-state="plotting"><style>.plotting header:after { content: "Plotting"; }</style>
+
+
+<img src="img-py/anatomy.png">
+
+</section>
+
+
+<section data-state="plotting"><style>.plotting header:after { content: "Plotting"; }</style>
+
+<p>Let's start with an advanced example and then move back to the basics.</p>
+<pre><code class="python">import matplotlib.pyplot as plt
+import numpy as np
+
+rng = np.arange(50)
+rnd = np.random.randint(0, 10, size=(3, rng.size))
+yrs = 1950 + rng
+
+fig, ax = plt.subplots(figsize=(5, 3))
+ax.stackplot(yrs, rng + rnd, labels=['Eastasia', 'Eurasia', 'Oceania'])
+ax.set_title('Combined debt growth over time')
+ax.legend(loc='upper left')
+ax.set_ylabel('Total debt')
+ax.set_xlim(left=yrs[0], right=yrs[-1])
+fig.tight_layout()
+plt.show()</code></pre>
+<div><img src="img-py/plot.png"></div>
+</section>
+
+
+<section data-state="plotting"><style>.plotting header:after { content: "Plotting"; }</style>
+
+<p>A basic example:</p>
+<pre><code class="python">import matplotlib.pyplot as plt
+plt.plot([1,2,3,4])
+plt.ylabel('some numbers')
+plt.show()</code></pre>
+<div><img src="img-py/simpleplot.png"></div>
+</section>
+
+
+
+<section data-state="plotting"><style>.plotting header:after { content: "Plotting"; }</style>
+
+<p>Changing default format ('b-') to red circles ('ro'):</p>
+<pre><code class="python">import matplotlib.pyplot as plt
+plt.plot([1,2,3,4], [1,4,9,16], 'ro')
+plt.axis([0, 6, 0, 20])
+plt.show()
+</code></pre>
+<div><img src="img-py/reddots.png"></div>
+</section>
+
+<section data-state="plotting"><style>.plotting header:after { content: "Plotting"; }</style>
+
+<p>We can have multiple plots in the same axes.</p>
+<pre><code class="python">import numpy as np
+import matplotlib.pyplot as plt
+
+t = np.arange(0., 5., 0.2)
+
+# red dashes, blue squares and green triangles
+plt.plot(t, t, 'r--', t, t**2, 'bs', t, t**3, 'g^')
+plt.show()
+</code></pre>
+<div><img src="img-py/polplot.png" width="50%"></div>
+</section>
+
+<section data-menu-title="Plotting Exercises" data-state="plotex"><style>.plotex header:after { content: "Plotting exercises!"; }</style>
+
+<ul>
+<li>Plot the following dataset in Python. Use a blue dashed line. Don't forget to add a title and axis labels!</li>	
+</ul>
+
+<div><table>
+<tbody>
+<tr>
+<td>&nbsp;Time (decade):&nbsp;</td>
+<td>0&nbsp;</td>
+<td>1&nbsp;</td>
+<td>2&nbsp;</td>
+<td>3&nbsp;</td>
+<td>4&nbsp;</td>
+<td>5&nbsp;</td>
+<td>6&nbsp;</td>
+</tr>
+<tr>
+<td>&nbsp;CO2 concentration (ppm):</td>
+<td>&nbsp;250</td>
+<td>265&nbsp;</td>
+<td>272&nbsp;</td>
+<td>260&nbsp;</td>
+<td>300&nbsp;</td>
+<td>320&nbsp;</td>
+<td>389&nbsp;</td>
+</tr>
+</tbody>
+</table></div>
+
+
+<ul>
+	<li>Repeat the multiple plots in the same figure as a few slides ago, but using the following properties:
+		<ul>
+			<li>y = t: teal, dotted line</li>
+			<li>y = t^2: Yellow, dashed line</li>
+			<li>y = t^3: Magenta circles</li>
+		</ul>
+	</li>
+</ul>
+<p>A few sites that might be useful:</p>
+<ul><li><a href="https://matplotlib.org/gallery/lines_bars_and_markers/line_styles_reference.html" target="_blank">https://matplotlib.org/gallery/lines_bars_and_markers/line_styles_reference.html</a></li>
+<li><a href="https://matplotlib.org/api/colors_api.html" target="_blank">https://matplotlib.org/api/colors_api.html</a></li>
+<li><a href="https://matplotlib.org/gallery/color/color_demo.html" target="_blank">https://matplotlib.org/gallery/color/color_demo.html</a></li>
+
+</ul>
+</section>
+
+
+<section data-state="plotex"><style>.plotex header:after { content: "Plotting exercises!"; }</style>
+
+<p>Sample solution 1</p>
+<pre><code class="python">import matplotlib.pyplot as plt
+times = range(7)
+co2 = [250, 265, 272, 260, 300, 320, 389]
+#plt.plot(times, co2)
+plt.plot(times, co2, 'b--')
+plt.title("Concentration of CO2 versus time")
+plt.ylabel("[CO2]")
+plt.xlabel("Time (decade)")
+plt.show()</code></pre>
+<div><img src="img-py/sol1.png" width="50%"></div>
+</section>
+
+
+
+<section data-state="plotex"><style>.plotex header:after { content: "Plotting exercises!"; }</style>
+
+<p>Sample solution 2</p>
+<pre><code class="python">import numpy as np
+import matplotlib.pyplot as plt
+
+t = np.arange(0., 5., 0.2)
+
+plt.plot(t, t, color='teal', linestyle=':')
+plt.plot(t, t**2, 'y--', t, t**3, 'mo')
+plt.show()</code></pre>
+<div><img src="img-py/sol2.png" width="50%"></div>
+</section>
+
+
+<section data-menu-title="Numpy and Pandas" data-state="nppd"><style>.nppd header:after { content: "Numpy and Pandas"; }</style>
+
+<p><i>Pandas</i> is a data analysis/manipulation library. It operates on top of the numerical library <i>numpy</i>, so we will start by having a look at it.</p>
+<pre><code class="python">>>> import numpy as np
+>>> np.zeros(10)
+array([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.])
+>>> np.full((3,5),1.23)
+array([[1.23, 1.23, 1.23, 1.23, 1.23],
+       [1.23, 1.23, 1.23, 1.23, 1.23],
+       [1.23, 1.23, 1.23, 1.23, 1.23]])
+>>> np.arange(0, 20, 2)
+array([ 0,  2,  4,  6,  8, 10, 12, 14, 16, 18])
+>>> np.linspace(0, 1, 5)
+array([0.  , 0.25, 0.5 , 0.75, 1.  ])
+>>> np.random.randint(10, size=6)
+array([0, 4, 1, 3, 9, 1])
+>>> np.random.randint(10, size=(3,4))
+array([[0, 3, 5, 7],
+       [3, 4, 7, 2],
+       [5, 2, 1, 0]])
+>>> np.random.randint(10, size=(3,4,5))
+array([[[5, 3, 2, 5, 6],
+        [2, 6, 0, 2, 3],
+        [3, 7, 7, 7, 5],
+        [5, 1, 1, 5, 9]],
+
+       [[5, 4, 0, 0, 1],
+        [6, 4, 2, 6, 5],
+        [6, 1, 7, 4, 8],
+        [2, 1, 7, 9, 4]],
+
+       [[7, 1, 9, 2, 7],
+        [5, 8, 3, 3, 0],
+        [6, 5, 9, 1, 4],
+        [0, 4, 7, 8, 4]]])
+</code></pre>
+</section>
+
+
+<section data-state="nppd"><style>.nppd header:after { content: "Numpy and Pandas"; }</style>
+
+<p>Indexing and slicing work in the same way as they do for lists.</p>
+<pre><code class="python">>>> x1 = np.array([4, 3, 4, 4, 8, 4])
+>>> x1[0]
+4
+>>> x1[-2]
+8
+>>> x2 = np.array([[3, 7, 5, 5],
+...       [0, 1, 5, 9],
+...       [3, 0, 5, 0]])
+>>> x2[2,3]
+0
+>>> x2[2,-1]
+0
+>>> x = np.arange(10)
+>>> x[:5]
+array([0, 1, 2, 3, 4])
+>>> x[4:7]
+array([4, 5, 6])
+</code></pre>
+</section>
+
+
+<section data-state="nppd"><style>.nppd header:after { content: "Numpy and Pandas"; }</style>
+
+<p>Numpy arrays can be concatenated and split in many different ways.</p>
+<pre><code class="python">>>> x = np.array([1, 2, 3])
+>>> y = np.array([3, 2, 1])
+>>> z = [21,21,21]
+>>> np.concatenate([x, y,z])
+array([ 1,  2,  3,  3,  2,  1, 21, 21, 21])
+>>> x = np.array([3,4,5])
+>>> grid = np.array([[1,2,3],[17,18,19]])
+>>> np.vstack([x,grid])
+array([[ 3,  4,  5],
+       [ 1,  2,  3],
+       [17, 18, 19]])
+>>> z = np.array([[9],[9]])
+>>> np.hstack([grid,z])
+array([[ 1,  2,  3,  9],
+       [17, 18, 19,  9]])
+>>> grid = np.arange(16).reshape((4,4))
+>>> grid
+array([[ 0,  1,  2,  3],
+       [ 4,  5,  6,  7],
+       [ 8,  9, 10, 11],
+       [12, 13, 14, 15]])
+>>> upper,lower = np.vsplit(grid,[2])
+>>> print (upper, lower)
+(array([[0, 1, 2, 3],
+       [4, 5, 6, 7]]), array([[ 8,  9, 10, 11],
+       [12, 13, 14, 15]]))
+</code></pre>
+</section>
+
+
+<section data-state="nppd"><style>.nppd header:after { content: "Numpy and Pandas"; }</style>
+
+<p>The main Pandas structure we will be interested in is the <i>DataFrame</i>.</p>
+<pre><code class="python">import pandas as pd
+data = pd.DataFrame({'Country': ['Russia','Colombia','Chile','Equador','Nigeria'],
+                    'Rank':[121,40,100,130,11]})
+print(data)
+
+    Country  Rank
+0    Russia   121
+1  Colombia    40
+2     Chile   100
+3   Equador   130
+4   Nigeria    11
+</code></pre>
+<p>A quick way of having a summary of the statistics your data set is using the <code>describe()</code> method.</p>
+<pre><code class="python">data.describe()
+             Rank
+count    5.000000
+mean    80.400000
+std     52.300096
+min     11.000000
+25%     40.000000
+50%    100.000000
+75%    121.000000
+max    130.000000
+</code></pre>
+</section>
+
+
+<section data-state="nppd"><style>.nppd header:after { content: "Numpy and Pandas"; }</style>
+
+<p>Of course, that will only give you information about the numeric fields of your dataset. If you want more general information, use <code>info()</code>.</p>
+<pre><code class="python">>>> data.info()
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 5 entries, 0 to 4
+Data columns (total 2 columns):
+Country    5 non-null object
+Rank       5 non-null int64
+dtypes: int64(1), object(1)
+memory usage: 160.0+ bytes
+</code></pre>
+<p>We can, of course, sort the data set.</p>
+<pre><code class="python">>>> data.sort_values(by=['Rank'],ascending=True,inplace=False)
+    Country  Rank
+4   Nigeria    11
+1  Colombia    40
+2     Chile   100
+0    Russia   121
+3   Equador   130
+</code></pre>
+</section>
+
+
+<section data-state="nppd"><style>.nppd header:after { content: "Numpy and Pandas"; }</style>
+
+<p>You can sort by more than one column.</p>
+<pre><code class="python">>>> data = pd.DataFrame({'k1':['one']*3 + ['two']*4 + ['one']*2, 'k2':[2,1,3,3,3,4,4,2,5]})
+>>> data
+    k1  k2
+0  one   2
+1  one   1
+2  one   3
+3  two   3
+4  two   3
+5  two   4
+6  two   4
+7  one   2
+8  one   5
+>>> data.sort_values(by=['k1','k2'],ascending=[True,False],inplace=False)
+    k1  k2
+8  one   5
+2  one   3
+0  one   2
+7  one   2
+1  one   1
+5  two   4
+6  two   4
+3  two   3
+4  two   3
+</code></pre>
+
+<p>Removing duplicates is very easy!</p>
+<pre><code class="python">>>> data.drop_duplicates()
+    k1  k2
+0  one   2
+1  one   1
+2  one   3
+3  two   3
+5  two   4
+8  one   5
+</code></pre>
+
+
+</section>
+
+<section data-state="nppd"><style>.nppd header:after { content: "Numpy and Pandas"; }</style>
+
+<p>This is how you create a new variable based on a combination of the existing ones:</p>
+<pre><code class="python">>>> data.assign(new_variable = data['k2']*20)
+    k1  k2  new_variable
+0  one   2            40
+1  one   1            20
+2  one   3            60
+3  two   3            60
+4  two   3            60
+5  two   4            80
+6  two   4            80
+7  one   2            40
+8  one   5           100
+</code></pre>
+</section>
+
+
+<section data-state="nppd"><style>.nppd header:after { content: "Numpy and Pandas"; }</style>
+
+<p>Now, let's try binning some data.</p>
+<pre><code class="python">data = pd.DataFrame({'names':['Alice','Bob','Charlie','Dan','Eve','Frank','Grace','Heidi','Judy','Michael','Oscar','Pat'], 'ages':[20, 22, 25, 27, 21, 23, 37, 31, 61, 45, 41, 32]})
+>>> data
+      names  ages
+0     Alice    20
+1       Bob    22
+2   Charlie    25
+3       Dan    27
+4       Eve    21
+5     Frank    23
+6     Grace    37
+7     Heidi    31
+8      Judy    61
+9   Michael    45
+10    Oscar    41
+11      Pat    32
+>>> bins = [18, 25, 35, 60, 100]
+>>> brackets = pd.cut(data['ages'],bins)
+>>> brackets
+0      (18, 25]
+1      (18, 25]
+2      (18, 25]
+3      (25, 35]
+4      (18, 25]
+5      (18, 25]
+6      (35, 60]
+7      (25, 35]
+8     (60, 100]
+9      (35, 60]
+10     (35, 60]
+11     (25, 35]
+Name: ages, dtype: category
+Categories (4, interval[int64]): [(18, 25] < (25, 35] < (35, 60] < (60, 100]]
+>>> pd.value_counts(brackets)
+(18, 25]     5
+(35, 60]     3
+(25, 35]     3
+(60, 100]    1
+Name: ages, dtype: int64
+</code></pre>
+
+
+</section>
+
+
+
+<section data-state="nppd"><style>.nppd header:after { content: "Numpy and Pandas"; }</style>
+
+<p>A very useful operation for datasets is grouping data and creating summaries. </p>
+<pre><code class="python">>>> df = pd.DataFrame({'key1' : ['a', 'a', 'b', 'b', 'a'],
+                   'key2' : ['one', 'two', 'one', 'two', 'one'],
+                   'data1' : np.random.randn(5),
+                   'data2' : np.random.randn(5)})
+>>> df
+  key1 key2     data1     data2
+0    a  one -0.369708 -1.215059
+1    a  two -0.341208 -0.884716
+2    b  one -0.672269  0.149367
+3    b  two -1.468556  1.386700
+4    a  one -0.366804 -0.634380
+>>> grouped = df['data1'].groupby(df['key1'])
+
+>>> grouped.mean()
+key1
+a   -0.359240
+b   -1.070413
+Name: data1, dtype: float64
+</code></pre>
+</section>
+
+
+<section data-state="nppd"><style>.nppd header:after { content: "Numpy and Pandas"; }</style>
+
+<p>There are many, many ways of accessing specific subsets of our data set. </p>
+<pre><code class="python">>>> dates = pd.date_range('20130101',periods=6)
+>>> df = pd.DataFrame(np.random.randn(6,4),index=dates,columns=list('ABCD'))
+>>> df
+                   A         B         C         D
+2013-01-01  0.482837  0.005617  1.011802 -0.817221
+2013-01-02 -1.351376  0.552897  0.503408 -0.431504
+2013-01-03 -0.244983 -0.470076 -0.489829 -0.763309
+2013-01-04  0.019689 -1.759921  0.740204  0.763700
+2013-01-05  0.607637  1.679538 -0.599785 -0.365752
+2013-01-06  1.371928 -1.148383 -1.586073  0.784124
+
+>>> df[:3]
+                   A         B         C         D
+2013-01-01  0.482837  0.005617  1.011802 -0.817221
+2013-01-02 -1.351376  0.552897  0.503408 -0.431504
+2013-01-03 -0.244983 -0.470076 -0.489829 -0.763309
+>>> df['20130101':'20130104']
+                   A         B         C         D
+2013-01-01  0.482837  0.005617  1.011802 -0.817221
+2013-01-02 -1.351376  0.552897  0.503408 -0.431504
+2013-01-03 -0.244983 -0.470076 -0.489829 -0.763309
+2013-01-04  0.019689 -1.759921  0.740204  0.763700
+</code></pre>
+</section>
+
+
+<section data-state="nppd"><style>.nppd header:after { content: "Numpy and Pandas"; }</style>
+
+<p>There are many, many ways of accessing specific subsets of our data set. </p>
+<pre><code class="python">>>> df.loc[:,['A','B']]
+                   A         B
+2013-01-01  0.482837  0.005617
+2013-01-02 -1.351376  0.552897
+2013-01-03 -0.244983 -0.470076
+2013-01-04  0.019689 -1.759921
+2013-01-05  0.607637  1.679538
+2013-01-06  1.371928 -1.148383
+>>> df.loc['20130102':'20130103',['A','B']]
+                   A         B
+2013-01-02 -1.351376  0.552897
+2013-01-03 -0.244983 -0.470076
+>>> df[df.A > 1]
+                   A         B         C         D
+2013-01-06  1.371928 -1.148383 -1.586073  0.784124
+>>> df.query('A > C')
+                   A         B         C         D
+2013-01-03 -0.244983 -0.470076 -0.489829 -0.763309
+2013-01-05  0.607637  1.679538 -0.599785 -0.365752
+2013-01-06  1.371928 -1.148383 -1.586073  0.784124
+</code></pre>
+</section>
+
+
+<section data-state="nppd"><style>.nppd header:after { content: "Numpy and Pandas"; }</style>
+
+<p>Pandas can do plotting, too! </p>
+<pre><code class="python">>>> df = pd.DataFrame({
+    'name':['john','mary','peter','jeff','bill','lisa','jose'],
+    'age':[23,78,22,19,45,33,20],
+    'gender':['M','F','M','M','M','F','M'],
+    'state':['california','dc','california','dc','california','texas','texas'],
+    'num_children':[2,0,0,3,2,1,4],
+    'num_pets':[5,1,0,5,2,2,3]
+})
+>>> import matplotlib.pyplot as plt
+>>> df.plot(kind='scatter',x='num_children',y='num_pets',color='red')
+&lt;matplotlib.axes._subplots.AxesSubplot object at 0x7f56722e22e8&gt;
+>>> plt.show()
+</code></pre>
+<div><img src="img-py/pdplot1.png" width="50%"></div>
+</section>
+
+<section data-state="nppd"><style>.nppd header:after { content: "Numpy and Pandas"; }</style>
+
+
+<pre><code class="python">>>> df.plot(kind='bar',x='name',y='age')
+&lt;matplotlib.axes._subplots.AxesSubplot object at 0x7f56722e22e8&gt;
+>>> plt.show()
+</code></pre>
+<div><img src="img-py/pdplot2.png" width="50%"></div>
+
+
+</section>
+
+<section data-state="nppd"><style>.nppd header:after { content: "Numpy and Pandas"; }</style>
+
+
+<pre><code class="python">>>> fig, ax = plt.subplots()
+>>> df.plot(kind='line',x='name',y='num_children',ax=ax)
+&lt;matplotlib.axes._subplots.AxesSubplot object at 0x7f56622145c0&gt;
+>>> df.plot(kind='line',x='name',y='num_pets', color='red', ax=ax)
+&lt;matplotlib.axes._subplots.AxesSubplot object at 0x7f56622145c0&gt;
+>>> plt.show()
+</code></pre>
+<div><img src="img-py/pdplot3.png" width="50%"></div>
+
+</section>
+
+
+
+
+<section data-state="nppd"><style>.nppd header:after { content: "Numpy and Pandas"; }</style>
+
+<p>CSV files are pandas' best friend. Try this with <a href="material/cereal.csv" target="_blank">cereal.csv</a>:</p>
+<pre><code class="python">>>> import os
+>>> os.chdir('Whatever directory you\'ve saved cereal.csv in')
+
+>>> df = pd.read_csv('cereal.csv')
+>>> df.head(5)
+                        name mfr type    ...      weight  cups     rating
+0                  100% Bran   N    C    ...         1.0  0.33  68.402973
+1          100% Natural Bran   Q    C    ...         1.0  1.00  33.983679
+2                   All-Bran   K    C    ...         1.0  0.33  59.425505
+3  All-Bran with Extra Fiber   K    C    ...         1.0  0.50  93.704912
+4             Almond Delight   R    C    ...         1.0  0.75  34.384843
+
+[5 rows x 16 columns]
+</code></pre>
+<p>You can also easily save a dataframe as a CSV file:</p>
+<pre><code class="python">>>> df.to_csv('cereal_copy.csv')
+</code></pre>
+<p>Do you see any difference between the copies?</p>
+</section>
+
+
+
+<section data-menu-title="Numpy/pandas Exercises" data-state="nppdex"><style>.nppdex header:after { content: "Numpy/pandas exercises!"; }</style>
+
+<ul>
+<li>Write a Python program to plot all the data in <a href="material/fdata.csv" target="_blank">fdata.csv</a>.</li>	
+<li>Write a Python program to create a 5x5 numpy array with 1 on the border and 0 inside. </li>	
+<li>Write a Python program to create a 5x5 array with random values and find the minimum and maximum values.</li>
+<li>Write a Python program to iterate over rows in a DataFrame.</li>
+</ul>
+<p>A few sites that might be useful:</p>
+<ul><li><a href="http://pandas.pydata.org/pandas-docs/stable/api.html" target="_blank">http://pandas.pydata.org/pandas-docs/stable/api.html</a></li>
+<li><a href="https://docs.scipy.org/doc/numpy-1.15.1/reference/" target="_blank">https://docs.scipy.org/doc/numpy-1.15.1/reference/</a></li>
+
+</ul>
+
+</section>
+
+
+<section data-state="nppdex"><style>.nppdex header:after { content: "Numpy/pandas exercises!"; }</style>
+
+<p>Sample solution 1</p>
+<pre><code class="python">import matplotlib.pyplot as plt
+import pandas as pd
+import os
+os.chdir('Whatever directory you\'ve saved fdata.csv in')
+df = pd.read_csv('fdata.csv')
+df.plot(x="Date",y=["Open", "High", "Low", "Close"])
+plt.show()</code></pre>
+<div><img src="img-py/sol1pd.png" width="50%"></div>
+</section>
+
+<section data-state="nppdex"><style>.nppdex header:after { content: "Numpy/pandas exercises!"; }</style>
+
+<p>Sample solution 2</p>
+<pre><code class="python">import numpy as np
+x = np.ones((5,5))
+x[1:-1,1:-1] = 0
+print(x)
+
+[[1. 1. 1. 1. 1.]
+ [1. 0. 0. 0. 1.]
+ [1. 0. 0. 0. 1.]
+ [1. 0. 0. 0. 1.]
+ [1. 1. 1. 1. 1.]]</code></pre>
+</section>
+
+
+
+<section data-state="nppdex"><style>.nppdex header:after { content: "Numpy/pandas exercises!"; }</style>
+
+<p>Sample solution 3</p>
+<pre><code class="python">import numpy as np
+x = np.random.random((5,5))
+print("Original Array:")
+print(x) 
+xmin, xmax = x.min(), x.max()
+print("Minimum and Maximum Values:")
+print(xmin, xmax)
+
+Original Array:
+[[0.96108746 0.66272609 0.42670443 0.5463886  0.13583066]
+ [0.78215537 0.29811248 0.26380749 0.93835562 0.00176633]
+ [0.09763454 0.52875892 0.71247172 0.7065642  0.76375718]
+ [0.7768379  0.85771292 0.17135697 0.83372476 0.83760277]
+ [0.20412887 0.9024384  0.68057959 0.38648805 0.62763643]]
+Minimum and Maximum Values:
+0.0017663346508800526 0.9610874575010275</code></pre>
+</section>
+
+
+<section data-state="nppdex"><style>.nppdex header:after { content: "Numpy/pandas exercises!"; }</style>
+
+<p>Sample solution 4</p>
+<pre><code class="python">import pandas as pd
+import os
+os.chdir('Whatever directory you\'ve saved cereal.csv in')
+
+df = pd.read_csv('cereal.csv')
+for index, row in df.iterrows():
+    print(row['name'], row['calories'])
+
+100% Bran 70
+100% Natural Bran 120
+All-Bran 70
+All-Bran with Extra Fiber 50
+Almond Delight 110
+Apple Cinnamon Cheerios 110
+Apple Jacks 110
+(...)
+</code></pre>
+</section>
+
+
+<section data-state="nppdex"><style>.nppdex header:after { content: "Numpy/pandas exercises!"; }</style>
+<a href="https://github.com/milliams/data_analysis_python/" target="_blank">Bristol data analysis notebooks</a></p>
+
+
+</section>
+
+
+
+<section data-state="end"><style>.end header:after { content: "That's all!"; }</style>
+	<p>Thank you for your attention!</p>
+	<p>We will send you a survey for feedback; please take 2 minutes to answer, it helps us a lot!</p>
+	
+	</section>
+
+
+</div> <!-- ---------------------- END OF SLIDES -------------------------- -->
+
+
+</div>
+<!-- Footer -->
+<img style="position:fixed;bottom:1em;right:1em;" src="img/logo_WMS.jpg" width="10%">
+<!--img style="position:fixed;bottom:1em;left:1em;" src="img/logo_tw.png" width="20%"-->
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+
+<script>
+// More info about config & dependencies:
+// - https://github.com/hakimel/reveal.js#configuration
+// - https://github.com/hakimel/reveal.js#dependencies
+Reveal.initialize({
+    controls: false,
+	slideNumber: true, //-- Added for development
+dependencies: [
+{ src: 'plugin/markdown/marked.js' },
+{ src: 'plugin/markdown/markdown.js' },
+{ src: 'plugin/notes/notes.js', async: true },
+{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+{ src: 'plugin/menu/menu.js' }
+],
+menu: {
+hideMissingTitles: true,
+themes: false,
+transitions: false,
+//markers: true,
+numbers: true,
+openButton: false,
+titleSelector: 'span.menu-title',
+
+}
+});
+</script>
+</body>
+</html>

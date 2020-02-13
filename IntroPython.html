@@ -1,0 +1,1401 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Introduction to Programming with Python</title>
+<link rel="stylesheet" href="css/reveal.css">
+<link rel="stylesheet" href="css/theme/cci.css">
+<link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+<!-- Theme used for syntax highlighting of code -->
+<link rel="stylesheet" href="lib/css/zenburn.css">
+<!-- Printing and PDF exports -->
+<script>
+var link = document.createElement( 'link' );
+link.rel = 'stylesheet';
+link.type = 'text/css';
+link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+document.getElementsByTagName( 'head' )[0].appendChild( link );
+</script>
+</head>
+<body>
+<div class="reveal">
+<!-- Header logo -->
+<!--img style="position:fixed;top:1em;right:1em;" src="img/logo_cci.png" width="15%"-->
+<!-- Slide Title -->
+<header style="position: absolute;top: 1em; left: 1em; z-index:10;"></header>
+
+
+<div class="slides">
+    <section data-menu-title="Title">
+<h2>Introduction to Programming with Python</h2>
+<h4>Erick Martins Ratamero<br>Research Fellow</h4>
+</section>
+
+
+    <section data-menu-title="Introduction" data-state="intro0">
+        <h2>Hello</h2>
+        
+            <br/>
+        
+            <br/>
+        
+            <br/>
+        
+        
+            
+            <a href="https://twitter.com/erickratamero" target="_blank">@erickratamero</a>
+        
+    </section>
+    
+
+
+<section data-state="intro0">
+        <h2>
+            <b>Acknowledgements</b>
+        </h2>
+        
+   
+    <ul>
+        <li>Philo van Kemenade (<a href="https://twitter.com/phivk">@phivk</a>) from whom I "stole" the general structure of the presentation and some of the images </li>
+        <li>(original at <a href="https://slides.com/phivk/intro2python">https://slides.com/phivk/intro2python</a>)</li>
+        </ul>
+    
+    </section>
+
+
+
+    <section data-state="intro0">
+        <h2>
+            <b>This Workshop</b>
+        </h2>
+        
+   
+    <ul>
+        <li>Building blocks</li>
+        <li>Putting the pieces together</li>
+        <li>Writing complete structures</li></ul>
+    
+    </section>
+
+
+
+
+    <section data-state="intro0">
+        <h2>These Slides</h2>
+        
+            <br/>
+        
+            <br/>
+        
+            <br/>
+        
+            <a href="http://tiny.cc/camdupython" target="_blank">tiny.cc/camdupython</a>
+            <br/>
+       
+    </section>
+    
+
+
+
+
+    <section data-menu-title="Python" data-state="python">
+        
+           
+            
+            <h1>
+                Let's talk about Python
+            </h1>
+            
+     
+        </section>
+
+
+
+
+
+
+
+    
+    <section data-state="python">
+        <h2>Talking Python</h2>
+        <div class="absolute-element" style="position: absolute; width: 413px; height: 46px; z-index: 4; left: 490px; top: 308px; max-height: none; max-width: none;">One of Python's most
+            attractive features
+        </div>
+        <img src="img-py/language_spectrum_whitebg.png" style="width: 423.659px; height: 449.582px; max-height: none; max-width: none; position: absolute; z-index: 4; left: 10px; top: 128px;" class="absolute-element"/>
+    </section>
+
+
+
+
+
+
+    
+        <section data-state="python">
+            <h2 >Two Modes of Operation</h2>
+            
+            <div class="absolute-element" style="position: absolute; width: 281px; height: 195px; z-index: 7; left: 581px; top: 131px;">
+                <p>                   
+                        <span class="s1">
+                            <b>
+                                Scripting Mode
+                            </b>
+                        </span>
+                </p>
+                <ul>
+                    <li>
+                        
+                            <span>
+                                Code in file
+                            </span>
+                        
+                    </li>
+                    <li>
+                        
+                            <span>
+                                Save &amp; load programs
+                            </span>
+                        
+                    </li>
+                    <li>
+                        <span>
+                           
+                                More control
+                            
+                        </span>
+                        
+                    </li>
+                </ul>
+            </div>
+            <div class="absolute-element" style="position: absolute; width: 281.479px; height: 195px; z-index: 8; left: 74px; top: 132px; max-height: none; max-width: none;">
+                <p>                   
+                        <span class="s1">
+                            <b>
+                                Interactive Mode
+                            </b>
+                        </span>
+                </p>
+                <ul>
+                    <li>
+                        
+                            <span>
+                                Terminal-based
+                            </span>
+                        
+                    </li>
+                    <li>
+                        
+                            <span>
+                                Direct feedback
+                            </span>
+                        
+                    </li>
+                    <li>
+                        <span>
+                           
+                                Try out code
+                            
+                        </span>
+                        
+                    </li>
+                </ul>
+                
+            </div>
+            <img src="img-py/python_modes.png" class="absolute-element" style="position: absolute; max-height: none; max-width: none; width: 927.256px; height: 502.582px; z-index: 4; left: 7px; top: 136px;"/>
+            <br/>
+        </section>
+
+
+
+
+
+
+ 
+    <section data-state="python">
+        <h2>Setting Up</h2>
+        <p>Download Thonny from <a href="https://thonny.org" target="_blank">
+                                https://thonny.org</a></p> 
+                            
+            <p>Install Thonny</p>
+            <p>Done!</p> 
+        
+    </section>
+
+
+
+
+    <section data-state="python">
+        <h2>Getting help</h2>
+       
+            <pre><code>help()</code></pre>
+        
+        <p>(then Q for quit)</p>
+        <p>Documentation at <a href="https://docs.python.org/3/" target="_blank">docs.python.org/3</a> </p>
+        <p>Just googling stuff is surprisingly helpful (and what everyone does)</p>      
+                
+    </section>
+
+
+
+
+
+    <section data-state="python">
+        <h2>Syntax</h2>
+         
+            
+
+    </section>
+
+
+
+
+    <section data-state="python">
+        <h2> Some of it you already know</h2>
+            <img src="img-py/calculator.png"/>
+        
+        <p>Python as a calculator
+        </p>
+    </section>
+    
+
+
+
+    <section data-menu-title="Building Blocks" data-state="bb">
+        
+        
+        <h1>
+            
+                Building Blocks
+        </h1>
+        
+    </section>
+
+
+
+
+
+    <section data-state="bb">
+        <h2>VARIABLES</h2>
+        
+            <img src="img-py/var-name-red.png"/>
+        <br/>
+            <font color="#e06666">
+                <b><i>Variables</i></b></font> store <i>values</i> under a specified name
+            <br/>
+        
+    </section>
+
+
+
+
+
+
+    <section data-state="bb">
+        <h2>VARIABLES</h2>
+        
+        <img src="img-py/vars-nametags.png"/>
+       
+    </section>
+
+
+
+    <section data-state="bb">
+        <h2>Assigning variables in python</h2>
+        
+            <pre><code>name = "Erick"
+gender = "male"
+height = 1.73 </code></pre>
+        
+    </section>
+
+
+
+
+
+   
+        <section data-state="bb">
+            <h2>Types of variables</h2>
+            
+                <p>Variables can store values of different <b><i>types</i></b>:</p>
+              
+                <p style="text-align: left;">
+                    <font color="#e06666"><b>string</b></font> - a sequence of characters, comprising text
+                </p>
+                
+                <pre><code>"a", "London", 'X', 'General Assembly'</code></pre>
+
+                <p style="text-align: left;">
+                    <font color="#e06666"><b>int</b></font> - an integer, or whole number
+                </p>
+                
+                <pre><code>1, 5, 9999, -7</code></pre>
+
+                <p style="text-align: left;">
+                    <font color="#e06666"><b>float</b></font> - a floating point number (using a decimal point)
+                </p>
+                
+                <pre><code>3.14, 1.68, 1.0</code></pre>
+
+                <p style="text-align: left;">
+                    <font color="#e06666"><b>bool</b></font> - boolean; binary true or false values
+                </p>
+                
+                <pre><code>True, False</code></pre>
+
+                
+        </section>
+        
+   
+
+    <section data-state="bb">
+            <h2>Changing types</h2>
+            <p>'Casting' a variable to another type</p>
+            <p>
+                <br/>
+            </p>
+            <pre><code>int("42")
+float("1.69")
+str(1.5) </code></pre>
+            <br/>
+        </section>
+
+
+    <section data-state="bb">
+        <h2>Exercise
+            
+        </h2>
+        <br/>
+        Choose 4 things in this room and create variables of 4 different types based on them
+    </section>
+
+
+
+    
+    <section data-state="bb">
+        <h2>Operators</h2>
+        
+            <p>
+                <span class="s1">You can process the values in your variables by 
+                    <b>
+                        <i>
+                            <font color="#e06666">operators</font>
+                        </i>
+                    </b>:
+                </span>
+            </p>
+            <table width="100%" cellspacing="10" cellpadding="5" border="0">
+                <tbody>
+                    <tr>
+                        <td>
+                            <font style="font-size: 30px;" color="#e06666">
+                                <b>=</b>
+                            </font>
+                        </td>
+                        <td>
+                            <font style="font-size: 30px;">Assignment: assign a value to a variable </font>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <font style="font-size: 30px;" color="#e06666">
+                                <b>==</b>
+                            </font>
+                        </td>
+                        <td>
+                            <font style="font-size: 30px;">Comparison: are two variables equal?</font>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <font style="font-size: 30px;" color="#e06666">
+                                <b>!=</b>
+                            </font>
+                        </td>
+                        <td>
+                            <font style="font-size: 30px;">Comparison: are two variables not equal?</font>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p class="p1">
+                                <span class="s1">
+                                    <b>
+                                        <font style="font-size: 30px;" color="#e06666">&lt;, &gt;, &lt;=, &gt;=</font>
+                                    </b>
+                                </span>
+                            </p>
+                        </td>
+                        <td>
+                            <font style="font-size: 30px;">Less-than, greater-than, less or equal, greater or equal</font>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <font style="font-size: 30px;" color="#e06666">
+                                <b>+, -, *, /</b>
+                            </font>
+                        </td>
+                        <td>
+                            <font style="font-size: 30px;">Mathematical operators</font>
+                        </td>
+                    </tr>
+                    <tr></tr>
+                    <tr>
+                        <td>
+                            <font style="font-size: 30px;" color="#e06666">
+                                <b>and, or</b>
+                            </font>
+                        </td>
+                        <td>
+                            <font style="font-size: 30px;">Logical operators</font>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+       
+    </section>
+
+
+
+
+
+
+    <section data-state="bb">
+        <h2>Specific behaviour depends on data type
+            <br/>
+        </h2>
+        <div style="width: 421px; height: 275px; max-height: none; max-width: none; position: absolute; z-index: 4; left: 535px; top: 154px;">
+            <pre><code class="python">&gt;&gt;&gt; start = "Lon"
+&gt;&gt;&gt; start
+'Lon'
+&gt;&gt;&gt; end = "don"
+&gt;&gt;&gt; start + end
+'London'
+&gt;&gt;&gt; start + start + end
+'LonLondon'
+&gt;&gt;&gt; town = 3 * start + end
+&gt;&gt;&gt; town
+'LonLonLondon'</code></pre>
+        </div>
+  <div style="width: 421px; height: 275px; max-height: none; max-width: none; position: absolute; z-index: 4; left: 0px; top: 154px;">
+            <pre><code class="python">&gt;&gt;&gt; 1 + 1
+2
+&gt;&gt;&gt; cats = 2
+&gt;&gt;&gt; cats
+2
+&gt;&gt;&gt; dogs = 3
+&gt;&gt;&gt; cats == dogs
+False
+&gt;&gt;&gt; cats &lt; dogs
+True
+&gt;&gt;&gt; dogs + 1
+4
+&gt;&gt;&gt; dogs
+3
+&gt;&gt;&gt; dogs = dogs + 1
+&gt;&gt;&gt; dogs
+4
+&gt;&gt;&gt; pets = cats + dogs
+&gt;&gt;&gt; pets
+6</code></pre>
+        </div>      
+        
+        <br/>
+    </section>
+
+
+
+
+
+    <section data-state="bb">
+        
+        <h2>
+            
+                &nbsp;Questions?&nbsp;
+            
+        </h2>
+        
+    </section>
+
+
+
+
+    <section data-state="bb">
+        <h2>Exercise</h2>
+        
+            <p>
+                Create two 
+                    <font color="#e06666">
+                        <i>string variables</i>
+                    </font>:
+                
+            </p>
+            <p>
+                
+                    <i>first</i> for your first name and <i>last</i> for your last name.
+
+            </p>
+
+            <p>
+                
+                    Can you make your full name by combining <i>first</i> and <i>last</i>?
+                    
+            </p>
+      
+            <p>
+                Bonus:
+            </p>
+
+            <p>
+                
+                    What happens if we compare <i>first</i> and <i>last</i> with the ‘&lt;' and ‘&gt;' operators?
+                    
+            </p>
+            <p>
+                
+                    Why?
+                    
+            </p>
+          <p>
+                <font color="#e06666">
+
+(Cheating encouraged)
+</font>
+            </p>
+       
+    </section>
+
+
+    <section data-state="bb">
+        <h2>Extra exercises</h2>
+        <a href="https://www.w3resource.com/python-exercises/python-basic-exercises.php">https://www.w3resource.com/python-exercises/python-basic-exercises.php</a>
+       
+    </section>
+
+
+
+
+
+    <section data-state="bb">
+        
+        
+        <h2>
+            
+                Collections
+            
+        </h2>
+    </section>
+
+
+
+
+
+    <section data-state="bb">
+        <h2>Collections of Values</h2>
+        
+        Values can also be stored in a 
+                <font color="#e06666">
+                    <b>
+                        <i>collection</i>
+                    </b>
+                </font>:
+            
+               <p><b>List</b></p> 
+            <p><b>Dictionary</b></p>
+         
+    </section>
+    
+    
+
+
+
+    
+        <section data-state="bb">
+            <h2>Lists</h2>
+            
+                <p>
+                    We can store multiple values in a <b><i><font color="#e06666">list</font>:</i></b>
+                </p>
+                    
+                <pre><code class="python">&gt;&gt;&gt; l = [1,3,9,4,884328881]
+&gt;&gt;&gt; n = ['first', 'second', 'third', 'fourth']
+&gt;&gt;&gt; m = l + n
+&gt;&gt;&gt; m
+[1, 3, 9, 4, 884328881, 'first', 'second', 'third', 'fourth']</code></pre>
+            
+            <br/>A list is a ordered sequence of items (between [...]) each with their own index:
+
+
+                
+                    <pre><code class="python">&gt;&gt;&gt; m[0]
+1
+&gt;&gt;&gt; m[8]
+'fourth' </code></pre>
+               
+            
+            <br/>
+        </section>
+
+
+
+
+
+
+        <section data-state="bb">
+            <h2>Indices</h2>
+            
+                <img src="http://i.stack.imgur.com/vIKaD.png"/>
+           
+        </section>
+
+
+
+
+
+
+
+        <section data-state="bb">
+            <h2>Cool things you can do with lists
+                <br/>
+            </h2>
+            
+                <pre><code class="python">
+&gt;&gt;&gt; l = list(range(10))
+&gt;&gt;&gt; l
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+&gt;&gt;&gt; l[1:5]
+[1, 2, 3, 4]
+&gt;&gt;&gt; l[:5]
+[0, 1, 2, 3, 4]
+                                
+&gt;&gt;&gt; del l[5:]
+&gt;&gt;&gt; l
+[0, 1, 2, 3, 4] 
+&gt;&gt;&gt; l.append(5)
+&gt;&gt;&gt; l
+[0, 1, 2, 3, 4, 5] 
+&gt;&gt;&gt; l.reverse()
+&gt;&gt;&gt; l
+[5, 4, 3, 2, 1, 0]
+&gt;&gt;&gt; 5 in l
+True
+                                                
+                    </code></pre>
+           
+            
+                <a href="https://docs.python.org/3/tutorial/datastructures.html#more-on-lists" target="_blank">https://docs.python.org/3/tutorial/datastructures.html#more-on-lists</a>
+            
+            <br/>
+        </section>
+
+
+
+
+
+
+
+
+
+        <section data-state="bb">
+            <h2>Bonus</h2>
+           
+                
+                  Lists are sequences, and so are strings
+                    
+                <pre><code class="python">&gt;&gt;&gt; s = "General Assembly"
+&gt;&gt;&gt; s[0]
+'G'
+&gt;&gt;&gt; s[:7]
+'General' </code></pre>
+            
+        </section>
+
+
+
+
+
+
+
+
+
+
+        <section data-state="bb">
+            <h2>Dictionaries</h2>
+            Dictionaries store <i><font color="#e06666">key</font>: <font color="#3d85c6">value</font>
+                                    </i> pairs associatively.
+                        
+                <pre><code class="python">&gt;&gt;&gt; personX = {'first':'Erick', 'last':'Ratamero', 'twitter':'@erickratamero'}
+&gt;&gt;&gt; personX['first']
+'Erick'
+&gt;&gt;&gt; personX['age'] = 32
+&gt;&gt;&gt; personX
+{'twitter': '@erickratamero', 'last': 'Ratamero', 'age': 32, 'first': 'Erick'}
+>>> for i in personX.items():
+...     print(i)
+... 
+('first', 'Erick')
+('last', 'Ratamero')
+('twitter', '@erickratamero')
+</code></pre>
+            
+            <br/>
+        </section>
+
+
+
+
+        <section data-state="bb">
+            <h2>some things you can do with Dictionaries
+                <br/>
+            </h2>
+            <pre><code class="python">&gt;&gt;&gt; list(personX.keys())
+['twitter', 'last', 'first']
+&gt;&gt;&gt; list(personX.values())
+['@erickratamero', 'Ratamero', 'Erick']</code></pre>
+            
+        </section>
+
+
+
+
+
+    
+    <section data-state="bb">
+        
+        <h2>
+            
+                Questions?
+            
+        </h2>
+        
+    </section>
+
+
+
+
+
+
+    <section data-state="bb">
+        <h2>Exercise</h2>
+        Create a dictionary to represent yourself (or someone else) with some attributes (e.g. hometown, favourite film, height)
+
+        <p>Bonus:</p>
+       Add a <b><i>list</i></b> of interests to the <b><i>dictionary</i></b>. What do you use as <b><i>key</i></b>, what do you use as <i><b>value</b></i>?
+        
+            <font color="#e06666">
+
+(Cheating encouraged)
+</font>
+     
+    </section>
+
+
+    <section data-state="bb">
+        <h2>Extra exercises</h2>
+        <a href="https://www.w3resource.com/python-exercises/list/">https://www.w3resource.com/python-exercises/list/</a><br>
+        <a href="https://www.w3resource.com/python-exercises/dictionary/">https://www.w3resource.com/python-exercises/dictionary/</a>
+       
+    </section>
+
+
+
+    <section data-menu-title="Putting the pieces together" data-state="pp">
+        
+        
+        <h1>
+                Putting the pieces together
+
+        </h1>
+        
+    </section>
+
+
+
+<section data-state="pp">
+        
+        
+        <h1>
+                Loops
+        </h1>
+        
+    </section>
+
+
+
+
+
+
+    
+        <section data-state="pp">
+            <h2>For Loops</h2>
+            
+                <p>
+                    You use <i><font color="#e06666">loops</font></i> to repeat a statement.
+                
+                </p>
+                <p>
+                   A <b><i><font color="#e06666">for-loop</font></i></b> is useful when you know how many times you want to repeat an action (e.g. for every item in a list)
+                
+                </p>
+                
+                <pre><code class="python">for item in sequence:
+                        
+    do something with item</code></pre>
+            
+            <br/>
+            <br/>Mind the <i>Indentation</i>
+        </section>
+
+
+
+
+
+        <section data-state="pp">
+            <h2>For Loops</h2>
+            <br/>
+            <img src="img-py/python_for_loop.jpg"/>
+        </section>
+
+
+
+    <section data-state="pp">
+        <h2>For Loops</h2>
+        
+        <p>for example:
+        </p>
+        <pre><code class="python">&gt;&gt;&gt; ages = [18, 21, 16, 12]
+&gt;&gt;&gt; for age in ages:
+....    print(age)
+....
+18
+21
+16
+12 </code></pre>
+        <br/>
+        
+            <a href="http://pythontutor.com/visualize.html#code=ages+%3D+%5B18,+21,+16,+12%5D%0Afor+age+in+ages%3A%0A++++print(age%29&amp;mode=display&amp;origin=opt-frontend.js&amp;cumulative=false&amp;heapPrimitives=false&amp;textReferences=false&amp;py=3&amp;rawInputLstJSON=%5B%5D&amp;curInstr=0" target="_blank">Visualise this code in action</a>
+       
+        <br/>
+    </section>
+
+
+
+
+
+        <section data-state="pp">
+            <h2>While Loops</h2>
+            
+                <p>A <b><i><font color="#e06666">while-loop</font></i></b> is useful when you don’t know when you want to stop looping yet.
+                </p>
+                <p>A while-loop statement checks a <i>condition</i> and loops until the condition is no longer satisfied.
+                </p>
+                
+                
+                <pre><code class="python">while condition true:
+    do something</code></pre>
+                
+           
+        </section>
+
+
+
+        <section data-state="pp">
+            <h2>While loops</h2>
+            
+            <img src="img-py/python_while_loop.jpg"/>
+        </section>
+
+
+
+
+
+
+
+
+
+
+    <section data-state="pp">
+        <h2>While Loops</h2>
+        <p>for example:
+           
+        </p>
+        
+        <pre><code class="python">&gt;&gt;&gt; gas = 42
+&gt;&gt;&gt; while gas &gt; 0:
+...     print("Vroom!")
+...     gas = gas - 10
+... 
+Vroom!
+Vroom!
+Vroom!
+Vroom!
+Vroom! </code></pre>
+        <a href="http://pythontutor.com/visualize.html#code=gas+%3D+42%0Awhile+gas+%3E+0%3A%0A++++print(%22Vroom!%22%29%0A++++gas+%3D+gas+-+10&amp;mode=display&amp;origin=opt-frontend.js&amp;cumulative=false&amp;heapPrimitives=false&amp;textReferences=false&amp;py=3&amp;rawInputLstJSON=%5B%5D&amp;curInstr=0" target="_blank">
+            Visualise this code in action
+        </a>
+    </section>
+
+
+
+<section data-state="pp">
+        <h2>Exercise</h2>
+        <p>
+            Write a program that prints all even numbers between 0 and 50
+        </p>
+        <p>
+            Write a program that prints the first 10 odd numbers
+        </p>
+        <font color="#e06666">
+
+(Cheating encouraged)
+</font>
+    </section>
+
+
+
+    <section data-state="pp">
+        
+        <h2>
+            Conditional Statements
+        </h2>
+        
+    </section>
+
+
+
+
+
+
+
+
+        <section data-state="pp">
+            <h2>Conditional statements</h2>
+            
+                <p><b><i><font color="#e06666">Conditional statements</font></i></b> enable you to deal with multiple options.
+                </p>
+                <p>
+                    A part of your code is executed based on the truth value of a condition. You perform conditional checks with: <b>if, elif, else</b>
+
+                </p>
+                <pre><code class="python">if condition:
+    action
+elif other condition: #optional
+    other action
+else:
+    final action</code></pre>
+                <pre><code class="python">&gt;&gt;&gt; age = 17
+&gt;&gt;&gt; if age &lt; 18:
+...     print("no drinks for you")
+... 
+no drinks for you</code></pre>
+                    
+        </section>
+
+
+
+
+
+
+
+
+
+        <section data-state="pp">
+            <h2>conditional statements</h2>
+            
+            <img src="img-py/if_else_statement.jpg"/>
+            
+        </section>
+
+
+
+
+
+
+
+
+
+
+
+    <section data-state="pp">
+        <h2>Conditional statements</h2>
+        
+            
+            <pre><code class="python">&gt;&gt;&gt; ages = [18, 21, 16, 12]
+&gt;&gt;&gt; for age in ages:
+...     if age &gt;= 18:
+...         print("come on in")
+...     elif age &gt;= 16:   
+            print("not quite yet")
+        else:
+...         print("get outta here")
+... 
+come on in
+come on in
+not quite yet
+get outta here</code></pre>
+     
+        <a href="http://pythontutor.com/visualize.html#code=ages+%3D+%5B18,+21,+16,+12%5D%0Afor+age+in+ages%3A%0A++++if+age+%3E%3D+18%3A%0A++++++++++++print(%22come+on+in%22%29%0A++++elif+age+%3E%3D+16%3A%0A++++++++++++print(%22not+quite+yet%22%29%0A++++else%3A%0A++++++++++++print(%22get+outta+here%22%29&amp;mode=display&amp;origin=opt-frontend.js&amp;cumulative=false&amp;heapPrimitives=false&amp;textReferences=false&amp;py=3&amp;rawInputLstJSON=%5B%5D&amp;curInstr=0" target="_blank">
+            
+Visualise this code in action
+        </a>
+    </section>
+
+
+
+
+<section data-state="pp">
+        <h2>Exercise</h2>
+        <p>
+            Write a program to find all numbers which are divisible by 7 and multiple of 5, between 1500 and 2700
+        </p>
+        <p>
+            Write a program that prints all the numbers from 0 to 6 except 3 and 6.
+        </p>
+        <font color="#e06666">
+
+(Cheating encouraged)
+</font>
+    </section>
+
+
+
+    <section data-state="pp">
+        <h2>Extra exercises</h2>
+        <a href="https://www.w3resource.com/python-exercises/python-conditional-statements-and-loop-exercises.php">https://www.w3resource.com/python-exercises/python-conditional-statements-and-loop-exercises.php</a><br>
+       
+    </section>
+
+    <section data-state="pp">
+        
+        <h2>
+            Functions
+        </h2>
+        
+    </section>
+
+
+
+
+
+
+
+
+        <section data-state="pp">
+            <h2>Functions</h2>
+            
+                <p><font color="#e06666"><b><i>Functions</i></b></font> perform a collections of tasks, bundled under a specific name
+                </p>
+                <p>Take input <i>argument(s)</i>, execute statement(s), return output
+                </p>
+                <p>
+                    Input and output can be of all different types
+                </p>
+                
+                <pre><code class="python">&gt;&gt;&gt; name = "Erick Ratamero"
+&gt;&gt;&gt; length = len(name)
+&gt;&gt;&gt; length
+18
+&gt;&gt;&gt; type(length)
+&lt;type 'int'&gt; </code></pre>
+            
+            <br/>
+        </section>
+
+
+
+
+
+
+        <section data-state="pp">
+            <h2>Built in functions</h2>
+            
+            <p>
+                <a href="https://docs.python.org/3/library/functions.html" target="_blank">docs.python.org/3/library/functions.html</a>
+            </p>
+           
+        </section>
+
+
+
+
+
+    <section data-state="pp">
+        <h2>Functions</h2>
+        
+            <p>You can <i>define</i> your own functions like this:
+            </p>
+          
+            <pre><code class="python">def function_name(argument(s)):
+    action with argument(s)</code></pre>
+           
+            <pre><code class="python">&gt;&gt;&gt; def multiply(a, b):
+...     return a * b
+...
+&gt;&gt;&gt; multiply(3,4)
+12
+
+&gt;&gt;&gt; def greet(name):
+...     print("hello "+ name)
+... 
+&gt;&gt;&gt; greet('Erick')
+>hello Erick</code></pre>
+       
+Mind the 
+        <i>Indentation</i>
+        
+    </section>
+
+
+
+
+
+
+
+
+     <section data-state="pp">
+        
+        <h2>
+            
+                Questions?
+            
+        </h2>
+        
+    </section>
+
+
+
+
+
+
+
+
+
+
+    <section data-state="pp">
+        <h2>Exercise</h2>
+        <p>
+            Write a function with an appropriate name that:
+        </p>
+        <ul>
+            <li>
+                takes as input a person (represented as dictionary)
+            </li>
+            <li>prints out information about the person</li>
+        </ul>
+        <br>
+        <br>
+        <font color="#e06666">
+
+(Cheating encouraged)
+</font>
+    </section>
+
+
+
+    <section data-state="pp">
+        <h2>Extra exercises</h2>
+        <a href="https://www.w3resource.com/python-exercises/python-functions-exercises.php">https://www.w3resource.com/python-exercises/python-functions-exercises.php</a><br>
+       
+    </section>
+
+
+        <section data-menu-title="Writing complete structures" data-state="wcs">
+        
+        
+        <h1>
+            
+                Writing complete structures
+        </h1>
+        
+    </section>
+
+
+
+
+
+
+
+
+
+
+    <section data-state="wcs">
+        <h2>Modules</h2>
+        A <font color="#e06666"><b><i>module</i></b></font> is a package of code that extends the native functionality of Python.
+        <p>Use modules to:</p>
+        <ul>
+            <li>plot graphs</li>
+            <li>download web pages</li>
+            <li>read and write .csv files</li>
+            <li>anything else someone else has already written</li>
+        </ul>
+        <p>Importing a modules into your script is simple:</p>
+                <pre><code class="python">&gt;&gt;&gt; import random
+&gt;&gt;&gt; random.randint(0,10)
+0
+&gt;&gt;&gt; random.randint(0,10)
+9
+&gt;&gt;&gt; random.randint(0,10)
+3</code></pre>
+          <p>When necessary, we will use Thonny to install extra modules</p>
+    </section>
+
+
+
+
+
+
+
+
+    <section data-state="wcs">
+        <h2>Scripts</h2>
+        
+            <p>You can also write your code conveniently in a <b>file</b> using your favourite text editor
+            </p>
+            <p>
+                Such a file is a <b>program</b> or <font color="#e06666"><b>script</b></font> and can look as simple as this:
+            </p>
+            
+            <pre><code>print("Hello World")  </code></pre>
+            
+            <p>
+                Save your script as “[a_descriptive_name].py”
+            </p>
+            <p>
+                Navigate in terminal to the location of your file
+            </p>
+            
+            <p>Run “python [a_descriptive_name].py” either on command line or inside a program that does that for you (we will use Thonny)
+            </p>
+        
+    </section>
+
+
+
+
+
+
+    <section data-state="wcs">
+        <h2>Scripts</h2>
+        
+           
+            <pre><code class="python"># this is a comment, use them!
+'''
+Comments can also&nbsp;
+span multiple lines
+'''
+# print() is a very useful function
+# mind the quotes
+print("Hello World")
+</code></pre>
+      
+     
+<div><img src="img-py/runscript.png" width="40%"></div>
+
+
+
+    </section>
+
+
+
+
+
+
+    
+     <section data-state="wcs">
+        
+        <h2>
+            
+                Questions?
+            
+        </h2>
+        
+    </section>
+
+
+
+
+
+
+
+    <section data-state="wcs">
+        <h2>Exercise</h2>
+        <p>
+            Implement a function in a script, run it to let it print output
+             
+        </p>
+        
+        
+        <font color="#e06666">
+
+(Cheating encouraged)
+</font>
+    </section>
+    
+
+
+
+
+
+        <section data-menu-title="Useful Resources" data-state="use">
+            <h2>Useful Resources</h2>
+            
+                <p>
+                        <a href="http://www.google.com" target="_blank">google</a> “python” + your problem / question (not a joke)
+                </p>
+                <p>
+                            <a href="http://www.python.org/doc/" target="_blank">python.org/doc/</a>; official python documentation, useful to find which functions are available
+                </p>
+                <p>
+                            <a href="http://www.stackoverflow.com" target="_blank">stackoverflow.com</a>; huge gamified help forum with discussions on all sorts of programming questions, answers are ranked by community
+                </p>
+                <p>
+                            <a href="http://www.codecademy.com/tracks/python" target="_blank">codecademy.com/tracks/python</a>; interactive exercises that teach you coding by doing
+                </p>
+                <p>
+                <a href="https://wiki.python.org/moin/BeginnersGuide/Programmers" target="_blank">wiki.python.org/moin/BeginnersGuide/Programmers</a>; tools, lessons and tutorials
+        </section>
+
+
+
+
+    </div>
+
+
+
+
+
+<img style="position:fixed;bottom:1em;right:1em;" src="img/logo_WMS.jpg" width="10%">
+</div>
+
+    <script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+
+<script>
+// More info about config & dependencies:
+// - https://github.com/hakimel/reveal.js#configuration
+// - https://github.com/hakimel/reveal.js#dependencies
+Reveal.initialize({
+    controls: false,
+    slideNumber: true, //-- Added for development
+dependencies: [
+{ src: 'plugin/markdown/marked.js' },
+{ src: 'plugin/markdown/markdown.js' },
+{ src: 'plugin/notes/notes.js', async: true },
+{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+{ src: 'plugin/menu/menu.js' }
+],
+menu: {
+hideMissingTitles: true,
+themes: false,
+transitions: false,
+//markers: true,
+numbers: true,
+openButton: false,
+titleSelector: 'span.menu-title'
+
+}
+});
+</script>
+</body>
+</html>

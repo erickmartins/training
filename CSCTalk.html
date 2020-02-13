@@ -1,0 +1,170 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>ELNs with Wordpress</title>
+<link rel="stylesheet" href="css/reveal.css">
+<link rel="stylesheet" href="css/theme/cci.css">
+<link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+<!-- Theme used for syntax highlighting of code -->
+<link rel="stylesheet" href="lib/css/zenburn.css">
+<style>
+    div.container {
+      display:inline-block;
+    }
+
+    p {
+      text-align:center;
+    }
+  </style>
+<!-- Printing and PDF exports -->
+<script>
+
+var link = document.createElement( 'link' );
+link.rel = 'stylesheet';
+link.type = 'text/css';
+link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+document.getElementsByTagName( 'head' )[0].appendChild( link );
+</script>
+</head>
+<body>
+<div class="reveal">
+<!-- Header logo -->
+<!--img style="position:fixed;top:1em;right:1em;" src="img/logo_cci.png" width="15%"-->
+<!-- Slide Title -->
+<header style="position: absolute;top: 1em; left: 1em; z-index:10;"></header>
+
+
+
+<!-- ---------------------- START OF SLIDES -------------------------- -->
+
+
+
+<div class="slides">
+
+<section data-menu-title="Title">
+<h2>The light microscopy imaging pipeline at Warwick Medical School</h2>
+<h4>Erick Martins Ratamero<br>Research Fellow</h4>
+<h4><a href="http://www.twitter.com/erickratamero">@erickratamero</a></h4>
+</section>
+
+<section data-menu-title="Introduction" data-state="intro0"><style>.intro0 header:after { content: "Introduction"; }</style>
+<ul>
+<li>These slides: https://erickmartins.github.io/CSCTalk.html</li>	
+<ul><li>Navigation: arrow keys left and right to navigate</li><li>'m' key to get to navigation menu</li><li>Escape for slide overview</li></ul>
+
+</section>
+
+
+
+<section data-menu-title="Who are us?" data-state="intro1z"><style>.intro1z header:after { content: ""; }</style>
+<img height="250" src="img-csc/cell1.jpg">
+    <img height="250" src="img-csc/us.gif">
+    <img height="250" src="img-csc/cell_seg.jpg">
+
+
+</section>
+
+<section data-state="intro1"><style>.intro1 header:after { content: "But why Wordpress?"; }</style>
+<p>What we'd like from an Electronic Lab Notebook (ELN), according to <a href="http://quantixed.org/2017/04/25/the-soft-bulletin-electronic-lab-notebooks/">Steve</a>:</p>
+<ul>
+	<li>Easy-to-use. Allow adding pictures and notes easily.</li>
+<li>Versioning (ability to check edits and audit changes)</li>
+<li>Backup and data security</li>
+<li>Ability to export and go elsewhere if required</li>
+<li>Free or low cost</li>
+<li>Integration with existing lab systems if possible</li>
+<li>Open software, future development</li>
+<li>Clarity over who owns the software, who owns the data, and where the information is stored</li>
+<li>Can be deployed for the entire lab</li>
+</ul>
+</section>
+
+
+<section data-state="intro1"><style>.intro1 header:after { content: "But why Wordpress?"; }</style>
+<p>Most solutions stumble on steps 4, 5 and 7</p>
+<p>Self-hosted wiki would solve <i>almost</i> everything - but it fails right out of the gate on step 1</p>
+<p>Wordpress is not the only solution that works, but it works! (and if it's good enough for a third of the internet, it's probably good enough for us)</p>
+</section>
+
+
+<section data-menu-title="Introduction to Wordpress: dashboard" data-state="wp1z"><style>.wp1z header:after { content: ""; }</style>
+<h1>Introduction to Wordpress</h1>
+<h4>Chapter 1: the dashboard</h4>
+</section>
+
+<section data-state="wp1"><style>.wp1 header:after { content: "Introducing Wordpress: the dashboard"; }</style>
+Let's start by logging in. I have created a training website at <a href="http://k2.mechanochemistry.org/training">k2.mechanochemistry.org/training</a>.<br/>
+<img src="img-wp/login.png" width="50%">
+</section>
+
+<section data-state="wp1"><style>.wp1 header:after { content: "Introducing Wordpress: the dashboard"; }</style>
+Now let's go to the <a href="http://k2.mechanochemistry.org/training/wp-admin/">dashboard</a>.<br/>
+<img src="img-wp/dashboard1.png" width="70%">
+</section>
+
+<section data-state="wp1" data-transition="none-out"><style>.wp1 header:after { content: "Introducing Wordpress: the dashboard"; }</style>
+<img src="img-wp/dashboard2.png" width="70%">
+</section>
+
+<section data-state="wp1" data-transition="none-in"><style>.wp1 header:after { content: "Introducing Wordpress: the dashboard"; }</style>
+<img src="img-wp/dashboard3.png" width="70%">
+</section>
+
+<section data-menu-title="Introduction to Wordpress: posting" data-state="wp2" data-transition="none-out"><style>.wp2 header:after { content: "Introducing Wordpress: publishing a post"; }</style>
+<img src="img-wp/post1.png" width="70%">
+</section>
+
+<section data-state="wp2" data-transition="none-in"><style>.wp2 header:after { content: "Introducing Wordpress: publishing a post"; }</style>
+<img src="img-wp/post2.png" width="70%">
+</section>
+
+<section data-state="wp2"><style>.wp2 header:after { content: "Introducing Wordpress: publishing a post"; }</style>
+<img src="img-wp/post3.png" width="90%">
+</section>
+
+
+
+</div> <!-- ---------------------- END OF SLIDES -------------------------- -->
+
+
+</div>
+<!-- Footer -->
+<img style="position:fixed;bottom:1em;right:1em;" src="img/logo_WMS.jpg" width="10%">
+<!--img style="position:fixed;bottom:1em;left:1em;" src="img/logo_tw.png" width="20%"-->
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+
+<script>
+// More info about config & dependencies:
+// - https://github.com/hakimel/reveal.js#configuration
+// - https://github.com/hakimel/reveal.js#dependencies
+Reveal.initialize({
+    controls: false,
+	slideNumber: true, //-- Added for development
+dependencies: [
+{ src: 'plugin/markdown/marked.js' },
+{ src: 'plugin/markdown/markdown.js' },
+{ src: 'plugin/notes/notes.js', async: true },
+{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+{ src: 'plugin/menu/menu.js' }
+],
+menu: {
+hideMissingTitles: true,
+themes: false,
+transitions: false,
+//markers: true,
+numbers: true,
+openButton: false,
+titleSelector: 'span.menu-title',
+custom: [
+
+		]
+}
+});
+</script>
+</body>
+</html>

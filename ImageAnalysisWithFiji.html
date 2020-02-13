@@ -1,0 +1,1072 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Image Analysis with Fiji</title>
+<link rel="stylesheet" href="css/reveal.css">
+<link rel="stylesheet" href="css/theme/cci.css">
+<link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+<!-- Theme used for syntax highlighting of code -->
+<link rel="stylesheet" href="lib/css/zenburn.css">
+<!-- Printing and PDF exports -->
+<script>
+var link = document.createElement( 'link' );
+link.rel = 'stylesheet';
+link.type = 'text/css';
+link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+document.getElementsByTagName( 'head' )[0].appendChild( link );
+</script>
+</head>
+<body>
+<div class="reveal">
+<!-- Header logo -->
+<img style="position:fixed;top:1em;right:1em;" src="img/logo_cci.png" width="15%">
+<!-- Slide Title -->
+<header style="position: absolute;top: 1em; left: 1em; z-index:10;"></header>
+
+
+
+<!-- ---------------------- START OF SLIDES -------------------------- -->
+
+
+
+<div class="slides">
+
+<section data-menu-title="Title">
+<h2>Image Analysis with Fiji</h2>
+<h4>Erick Martins Ratamero<br>Technical Specialist In Image Analysis</h4>
+</section>
+
+<section data-menu-title="Links and Resources" data-state="intro0"><style>.intro0 header:after { content: "Links and Resources"; }</style>
+<ul>
+<li>These slides: http://tiny.cc/iaworkshop (redirects to https://pcwww.liv.ac.uk/~dnmason/ia.html)</li>	
+<ul><li>Navigation: arrow keys left and right to navigate</li><li>'m' key to get to navigation menu</li><li>Escape for slide overview</li></ul>
+<li>Where to find help after the workshop (links also available on the menu):</li>
+<ul><li><a target="_blank" href="https://imagej.net">ImageJ Website</a></li><li><a target="_blank" href="https://forum.imagej.net">Forum</a></li><li><a target="_blank" href="https://postacquisition.wordpress.com">Post-Acquisition (my blog)</a></li><li><a target="_blank" href="http://cci.liv.ac.uk/contact.html">The CCI</a></li></ul>
+</ul>
+</section>
+
+<section data-menu-title="Opening Test Data" data-state="fiji2a"><style>.fiji2a header:after { content: "Opening Test Data"; }</style>
+<p>Throughtout the presentation, test data will look like this: <a href="material/01-Photo.tif"><code>01-Photo.tif</code></a></p>
+<img class="half fragment" src="img-ia/material_01.png"/>
+<img class="half fragment" src="img-ia/material_02.png"/>
+<p class="fragment">Commands on the Fiji menu will look like: <code>[File > Save]</code></p>
+</section>
+
+<section data-menu-title="How an image is formed" data-state="intro1z"><style>.intro1z header:after { content: ""; }</style>
+<h1>How an Image is formed</h1>
+<h4>Understanding digital images</h4>
+</section>
+
+<section data-state="intro1"><style>.intro1 header:after { content: "How an image is formed"; }</style>
+<div><img  class="half" src="img-ia/scopes1.png"/>
+<img  class="half" src="img-ia/scopes2.png"/></div>
+<p>Widefield and Confocal microscopes acquire images in different ways.</p>
+</section>
+
+<section data-state="intro1"><style>.intro1 header:after { content: "How an image is formed"; }</style>
+<div><img  class="half" src="img-ia/acq_widefield.png"/>
+<img class="half fragment" src="img-ia/acq_lsm.png"/></div>
+<p>Widefield and laser-scanning microscopes acquire images in different ways.</p>
+</section>
+
+<section data-state="intro1"><style>.intro1 header:after { content: "How an image is formed"; }</style>
+<img  class="imbox" src="img-ia/detector.png"/>
+<p>Detectors collect photons and convert them to a voltage</p>
+</section>
+
+<section data-state="intro1"><style>.intro1 header:after { content: "How an image is formed"; }</style>
+<img  class="imbox" src="img-ia/ad_1.png"/>
+<p>The A/D converter determines the dynamic range of the data</p>
+</section>
+
+<section data-state="intro1"><style>.intro1 header:after { content: "How an image is formed"; }</style>
+<img  class="imbox" src="img-ia/bd1.png"/>
+<p></p>
+</section>
+<section data-state="intro1"><style>.intro1 header:after { content: "How an image is formed"; }</style>
+<img  class="imbox" src="img-ia/bd2.png"/>
+<p></p>
+</section>
+<section data-state="intro1"><style>.intro1 header:after { content: "How an image is formed"; }</style>
+<img  class="imbox" src="img-ia/bd3.png"/>
+<p>Unless you have good reason not to, always collect data at the highest possible bit depth</p>
+</section>
+
+<section data-menu-title="Introduction to ImageJ" data-state="fijiz"><style>.fiji1z header:after { content: ""; }</style>
+<h1>Introduction to ImageJ &amp; Fiji</h1>
+<h4>A cross platform, open source, Java-based image processing program</h4>
+</section>
+
+<section data-state="fiji1"><style>.fiji1 header:after { content: "Introducing ImageJ and Fiji"; }</style>
+<img class="imleft" src="img-ia/fiji1.png"/>
+<ul class="half right">
+<p>ImageJ is a java program for image processing and analysis.<br>Fiji extends this via plugins.</p>
+<li>Open Source (free to modify)</li>
+<li>Extensible (plugins)</li>
+<li>Cross-Platform (Java-Based)</li>
+<li>Scriptable for Automation</li>
+<li>Vast Functionality</li>
+<li>Includes the Bioformats Library</li>
+</ul>
+</section>
+<section data-state="fiji1"><style>.fiji1 header:after { content: "Introducing ImageJ and Fiji"; }</style>
+<img src="img-ia/bioformats.jpg"/>
+<p>Learn more about Bio-Formats <a href="https://www.openmicroscopy.org/bio-formats/" target="_blank">here</a></p>
+</section>
+
+<section data-state="fiji1"><style>.fiji1 header:after { content: "Introducing ImageJ and Fiji"; }</style>
+<img  class="imbox" src="img-ia/fiji2.png"/>
+<p></p>
+</section>
+<section data-state="fiji1"><style>.fiji1 header:after { content: "Introducing ImageJ and Fiji"; }</style>
+<img  class="imbox" src="img-ia/fiji3.png"/>
+<p></p>
+</section>
+<section data-state="fiji1"><style>.fiji1 header:after { content: "Introducing ImageJ and Fiji"; }</style>
+<img  class="imbox" src="img-ia/fiji4.png"/>
+<p></p>
+</section>
+
+<section data-menu-title="Fiji Basics" data-state="fiji2z"><style>.fiji2z header:after { content: ""; }</style>
+<h1>Hands on With Fiji</h1>
+<h4>Getting to know the interface, info &amp; status bars, calibrated vs non-calibrated images</h4>
+</section>
+
+<section data-state="fiji2"><style>.fiji2 header:after { content: "Fiji Basics"; }</style>
+<ol class="left twothirds">
+<li>Run Fiji (Look for the shortcut on your desktop)</li>
+<!-- <li>Right click <a href="">this link</a> and "copy link location"</li> -->
+<li>Open <code><a href="material/01-Photo.tif">01-Photo.tif</a></code> and <a href="material/02-Biological_Image.tif"><code>02-Biological_Image.tif</code></a></li>
+<ul>
+<li>Zoom using +/- keys</li>
+<li>When zoomed in, pan by holding space and click-dragging with mouse</li>
+<li>Hit 'Enter' to bring the Fiji window to the front</li>
+<li><code>[Window > Tile]</code> command is very useful when opening multiple images</li>
+<li data-fragment-index="1" class="fragment">Find:
+<ul><li>infobar (right top): gives info on the image</li><li>statusbar (right bottom): gives current cursor coordinates and intensity readout</li></ul>
+</ul></ol>
+<img data-fragment-index="1" class="fragment third" src="img-ia/fiji8.png"/>
+</section>
+
+<section data-state="fiji2b"><style>.fiji2b header:after { content: "Fiji Basics: Calibration"; }</style>
+<ul class="half">
+<li>The Infobar is a great way to tell if your image is calibrated</li>
+<li>Running <code>[Image > Properties]</code> also allows you to view and set calibration</li>
+<li>The spatial calibration can be in any unit you like but (almost) all subsequent measurements will use that unit!</li>
+<li>For &mu;m, use <code>um</code> or <code>micron</code></li>
+<li>Dolphins</li>
+</ul>
+<img class="third imright" src="img-ia/fiji9.png"/>
+</section>
+
+<section data-menu-title="Basic Adjustments: Intensity" data-state="fiji3az"><style>.fiji3az header:after { content: ""; }</style>
+<h1>Basic Manipulations</h1>
+<h4>Intensity and Geometric adjustments</h4>
+</section>
+
+
+<!-- Add histogram stuff here -->
+
+
+<section data-state="fiji3p"><style>.fiji3p header:after { content: "Understanding Intensity Histograms"; }</style>
+<p class="">Images are an array of intensity values. The intensity histogram shows the number (on the y-axis) of each intensity value (on the x-axis) and thus the distribution of intensities</p>
+<img class="half" src="img-ia/intensity_10.png"/>
+</section>
+<section data-state="fiji3p"><style>.fiji3p header:after { content: "Understanding Intensity Histograms"; }</style>
+<p>Photos typically have a broad range of intensity values and so the distribution of intensities varies greatly</p>
+<img class="twothirds" src="img-ia/intensity_11.png"/>
+</section>
+<section data-state="fiji3p"><style>.fiji3p header:after { content: "Understanding Intensity Histograms"; }</style>
+<p>Fluorescent micrographs will typically have a much more predicatble distribution:</p>
+<img class="twothirds" src="img-ia/intensity_12.png"/>
+</section>
+<section data-state="fiji3p"><style>.fiji3p header:after { content: "Understanding Intensity Histograms"; }</style>
+<p>The Black and White points of the histogram dictate the bounds of the display (changing these values alters the brightness and contrast of the image)</p>
+<img class="twothirds" src="img-ia/intensity_13a.png"/>
+<ul><li>Brightness: horizontal position of the display window</li>
+<li>Contrast: distance between the black and white point</li></ul>
+
+</section>
+<section data-state="fiji3p"><style>.fiji3p header:after { content: "Understanding Intensity Histograms"; }</style>
+<img class="half" src="img-ia/intensity_13.png"/>
+<p data-fragment-index="1" class="fragment">The histogram is now stretched and the intensity value of every pixel is effectively doubled which increases the contrast in the image</p>
+<img data-fragment-index="1" class="fragment half" src="img-ia/intensity_14a.png"/>
+</section>
+<section data-state="fiji3p"><style>.fiji3p header:after { content: "Understanding Intensity Histograms"; }</style>
+<p>If we repeat the same manipulation, the maximum intensity value in the image is now outside the bounds of the display scale!</p>
+<img class="twothirds" src="img-ia/intensity_14.png"/>
+</section>
+<section data-state="fiji3p"><style>.fiji3p header:after { content: "Understanding Intensity Histograms"; }</style>
+<p>Values falling beyond the new White point are dumped into the top bin of the histogram (IE 256 in an 8-bit image) and information from the image is lost</p>
+<img class="twothirds" src="img-ia/intensity_15.png"/>
+</section>
+<section data-state="fiji3p"><style>.fiji3p header:after { content: "Understanding Intensity Histograms"; }</style>
+<img class="left third" src="img-ia/intensity_16.png"/>
+<div class="right twothirds">
+<p>Be warned: removing information from an image is deemed an unacceptable maniplulation and can constitute academic fraud!</p>
+<p>For an excellent (if slightly dated) review of permissible image manipulation see:</br><a target="_blank" href="https://doi.org/10.1083/jcb.200406019">Rossner &amp; Yamada (2004): "What's in a picture? The temptation of image manipulation"</a></p>
+</div>
+<p class="clear">The best advice is to get it right during acquisition!</p>
+</section>
+
+<section data-state="fiji3a"><style>.fiji3a header:after { content: "Basic Adjustments: Intensity"; }</style>
+<div>
+<ul style="font-size:90%" class="left half">
+<li>Open <a href="material/02-Biological_Image.tif"><code>02-Biological Image.tif</code></a></li>
+<li>Run <code>[Image > Adjust > Brightness &amp; Contrast]</code></li>
+<li>The top two bars adjust the Black and White points</li>
+<ul>
+<li>All data below the black point or above the white point become black or white respectively! (and are thus underexposed or saturated)</li>
+</ul>
+<li>Reset will stretch to the range of the bit depth (ish)</li>
+<li>Set lets you define black and white points</li>
+<li>Apply writes in adjustments (use with care!)</li>
+<li>You can also use <code>[Process > Enhance Contrast]</code> to autocontrast</li>
+</ul>
+<img class="half fragment" src="img-ia/intensity_01.png"/></div>
+</section>
+
+<section data-menu-title="Basic Adjustments: Geometric" data-state="fiji3b"><style>.fiji3b header:after { content: "Basic Adjustments: Geometric"; }</style>
+<ul class="left half">
+<li><code>[Image > Crop]</code>: Reduce the canvas size to current area selection</li>
+<li><code>[Image > Duplicate]</code>: Duplicate the selected window/stack or selection</li>
+<li><code>[Image > Rename]</code>: Change the title of the window</li>
+<li><code>[Image > Scale]</code>: Scale the image pixels up or down (calibration is also scaled)</li>
+<img class="fragment" src="img-ia/basics_02.png">
+</ul>
+<img class="third" src="img-ia/basics_01.png"/>
+</section>
+
+<!-- Consider talking about acceptable adjustments? -->
+
+<section data-menu-title="Measurements" data-state="fiji3z"><style>.fiji3z header:after { content: ""; }</style>
+<h1>Measurements</h1>
+<h4>Making measurements, what to measure, line vs area</h4>
+</section>
+
+<section data-state="fiji3"><style>.fiji3 header:after { content: "Measurements"; }</style>
+<div>
+<ul class="left half">
+<li>Open <a href="material/02-Biological_Image.tif"><code>02-Biological Image.tif</code></a></li>
+<li>Select Line Selection tool (fifth tool from left)</code></li>
+<li>Draw a line (shift sets 45&deg; increments)</li>
+<li>Hit 'm' or run <code>[Analyze > Measure]</code></li>
+<li data-fragment-index="1" class="fragment">Run <code>[Analyze > Plot Profile]</code></li>
+</ul>
+<img data-fragment-index="1" class="half imright fragment" src="img-ia/fiji_meas01.png"/></div>
+<p class="clear">The measurements provided are set via <code>[Analyze > Set Measurements...]</code> except for selection-specific measurements (length, angle, coords)</p>
+</section>
+<section data-state="fiji3"><style>.fiji3 header:after { content: "Measurements"; }</style>
+<div>
+<ul class="left half">
+<li>Open <a href="material/02-Biological_Image.tif"><code>02-Biological Image.tif</code></a></li>
+<li>Select rectangle Selection tool (first tool from left)</code></li>
+<li>Draw a rectangle (shift / ctrl modify)</li>
+<li>Hit 'm' or run <code>[Analyze > Measure]</code></li>
+</ul>
+<img class="half imright fragment" src="img-ia/fiji_meas02.png"/></div>
+<p class="clear">The measurements provided are set via <code>[Analyze > Set Measurements...]</code> except for selection-specific measurements (length, angle, coords)</p>
+</section>
+<section data-state="fiji3"><style>.fiji3 header:after { content: "Measurements"; }</style>
+<p>The ROI manager is used to store and measure selections</p>
+<ul>
+<li>Open <a href="material/02-Biological_Image.tif"><code>02-Biological Image.tif</code></a></li>
+<li>Make a selection (any type)</li>
+<li>Hit 't' or run <code>[Edit > Selection > Add to Manager]</code>
+<li>Repeat several times</li>
+<li class="fragment" data-fragment-index="1">Run <code>[More > Multi-measure]</code></li>
+<li class="fragment" data-fragment-index="3">Use <code>[More > Save]</code> for better data provenance!</li>
+</ul>
+<img class="third" src="img-ia/fiji_roi1.png"/>
+<img data-fragment-index="2" class="third fragment" src="img-ia/fiji_roi2.png"/>
+</section>
+
+<section data-menu-title="Scale Bars and Colour modes" data-state="fiji4z"><style>.fiji4z header:after { content: ""; }</style>
+<h1>Scale Bars and Colour modes</h1>
+<h4>Adding a scale bar, changing the colour mode</h4>
+</section>
+
+<section data-state="fiji4"><style>.fiji4 header:after { content: "Scale Bars"; }</style>
+<div><ul class="left half">
+<li>Open <a href="material/02-Biological_Image.tif"><code>02-Biological Image.tif</code></a></li>
+<li>Check the image is calibrated (infobar or <code>[Image > Properties]</code>)</li>
+<li>Run <code>[Analyze > Tools > Scale Bar]</code></li>
+<li>Pick a non-white colour for the scale bar</li>
+<li>Hit OK</li>
+</ul>
+<img class="half imright" src="img-ia/fiji_scale1.png"/></div>
+<p class="clear fragment">What Happened to our yellow scale bar?</p>
+</section>
+
+<section data-state="fiji4"><style>.fiji4 header:after { content: "Scale Bars"; }</style>
+<p>Open the <a href="material/02-Biological_Image.tif"><code>Original image</code></a></p>
+<img class="half" src="img-ia/fiji_scale2.png"/><img data-fragment-index="2" class="half fragment" src="img-ia/fiji_scale3.png"/>
+<p data-fragment-index="1" class="fragment">Run <code>[Image > Type > RGB Color]</code></p><p data-fragment-index="3" class="fragment">Try adding a scale bar again</p>
+<p data-fragment-index="4" class="fragment" style="font-size:70%">More on scale bars <a href="https://postacquisition.wordpress.com/2015/03/11/a-matter-of-scale-bars/" target="_blank">here</a>. For another way to approach this, see <a href="https://imagej.nih.gov/ij/docs/guide/146-11.html" target="_blank">Overlays</a></p>
+</section>
+
+<section data-state="intro1"><style>.intro1 header:after { content: "How an image is formed"; }</style>
+<img class="left half" src="img-ia/bd3.png"/>
+<p class="right half fragment">32 bit is a special data type called <a href="https://en.wikipedia.org/wiki/Floating-point_arithmetic#Floating-point_numbers" target="_blank">floating point</a>. <br/><br/><b>TL;DR:</b> pixels can have non-integer values which can be useful in applications like ratiometric imaging.</p>
+</section>
+
+<section data-menu-title="Stacks" data-state="fiji5z"><style>.fiji5z header:after { content: ""; }</style>
+<h1>Stacks</h1>
+<h4>Understanding how Fiji deals with multidimensional images</h4>
+</section>
+
+<section data-state="fiji5"><style>.fiji5 header:after { content: "Stacks"; }</style>
+<p>Some file formats (eg. TIF) can store multiple images in one file which are called stacks</p>
+<img class="third" src="img-ia/stacks_01.png"/>
+<img data-fragment-index="1" class="twothirds fragment" src="img-ia/stacks_02.png"/>
+<p class="fragment" data-fragment-index="1">When more than one dimension (time, z, channel) is included, the images are still stored in a linear stack so it's critical to know the dimension order (eg, XYCZT, XYZTC etc) so you can navigate the stack correctly.</p>
+</section>
+<section data-state="fiji5"><style>.fiji5 header:after { content: "Stacks"; }</style>
+<p>You will very rarely have to deal with Interleaved stacks because of <b>Hyperstacks</b> which give you independent control of dimensions with additional control bars.</p>
+<img class="third" src="img-ia/hyperstacks_01.png"/>
+<img data-fragment-index="1" class="third fragment" src="img-ia/hyperstacks_02.png"/>
+<p class="fragment" data-fragment-index="1">Convert between stack types with the <code>[Image > Hyperstack]</code> menu</p>
+</section>
+
+<section data-menu-title="Channel Display Modes" data-state="fiji6"><style>.fiji6 header:after { content: "Channel Display Modes"; }</style>
+<ul style="font-size:80%"><li>Open <a href="material/06-multichannel.tif"><code>06-MultiChannel.tif</code></a></li>
+<li>(If opening via URL run <code>[Image > Stack > Hyperstack]</code>)</li>
+<li>Navigate through the channels then run Channels Tool <code>[Image > Color > Channels Tool]</code> and change to Greyscale</li></ul>
+<img class="half" src="img-ia/modes_01.png"/>
+<img data-fragment-index="1" class="half fragment" src="img-ia/modes_03.png"/>
+<p>In this image, each channel already has an associated Look Up Table (LUT)</p>
+</section>
+<section data-state="fiji6"><style>.fiji6 header:after { content: "Channel Display Modes"; }</style>
+<p>Change to Composite mode</p>
+<img class="half" src="img-ia/modes_02.png"/>
+<ul class="half">
+<li>Use the check boxes (channels tool) to turn channels off</li>
+<li>Navigate through the channels. What happens?</li>
+<li>Adjust the Black and White Points <code>[Image > Adjust > Brightness &amp; Contrast]</code></li>
+<li>Draw a ROI on a bright area and Measure ('m')</li>
+</ul>
+<p class="fragment">IMPORTANT! The nav bar still <i>selects</i> the active channel, and that is where measurements / maniplulations are applied!</p>
+<p class="fragment">The infobar text, slider and 1px coloured image border all indicate which channel is selected.</p>
+</section>
+
+<section data-menu-title="Digital Imaging and Colour" data-state="fiji7z"><style>.fiji7z header:after { content: ""; }</style>
+<h1>Colour in Digital Imaging</h1>
+<h4>What is colour? How and when to use LUTs</h4>
+</section>
+
+<section data-state="fiji7"><style>.fiji7 header:after { content: "Colour"; }</style>
+<p>Colour in your images is (almost always) dictated by arbitrary lookup tables</p>
+<img class="half" src="img-ia/colour_02.png"/>
+<img data-fragment-index="1" class="third fragment" src="img-ia/colourLUT1.png"/>
+<p class="fragment" data-fragment-index="1">Lookup tables (LUTs) translate an intensity (1-256 for 8 bit) to an RGB display value</p>
+</section>
+<section data-state="fiji7"><style>.fiji7 header:after { content: "Colour"; }</style>
+<p>Colour in your images is (almost always) dictated by arbitrary lookup tables</p>
+<img class="third" src="img-ia/colourLUT2.png"/>
+<img data-fragment-index="1" class="third fragment" src="img-ia/colourLUT3.png"/>
+<p>Lookup tables (LUTs) translate an intensity (1-256 for 8 bit) to an RGB display value</p>
+</section>
+<section data-state="fiji7"><style>.fiji7 header:after { content: "Colour"; }</style>
+<p>You can use whatever colours you want (they are arbitrary after all), but the most reliable contrast is greyscale</p>
+<img src="img-ia/colour_05.png"/>
+<p class="subtle">More info on colour and sensitivity of the human eye <a href="https://postacquisition.wordpress.com/2015/04/15/see-the-world-in-black-and-white/" target="_blank">here</a></p>
+<!-- <ol><li>Combinations for multichannel images</li><li>Colour Blindness</li></ol> -->
+</section>
+<section data-state="fiji8"><style>.fiji8 header:after { content: "Colour: Combinations"; }</style>
+<p>Additive and Subtractive Colours can be mixed in defined ways</p>
+<img class="half" src="img-ia/colour_06.png"/>
+<p>Non 'pure' colours cannot be combined in reliable ways (as they contain a mix of other channels)
+</section>
+<section data-state="fiji8"><style>.fiji8 header:after { content: "Colour: Combinations"; }</style>
+<p>BUT! Interpretation is <i>highly</i> context dependent!</p>
+<a href="https://twitter.com/dn_mason/status/1034380257451810816" target="_blank"><img class="third" src="img-ia/colour_07.png"/></a><img class="third" src="img-ia/colour_08.png"/><img data-fragment-index="1" class="third fragment" src="img-ia/colour_11.png"/>
+<p data-fragment-index="1" class="fragment"><a href="https://en.wikipedia.org/wiki/The_dress">https://en.wikipedia.org/wiki/The_dress</a></p>
+</section>
+<section data-state="fiji8"><style>.fiji8 header:after { content: "Colour: Combinations"; }</style>
+<p>Open <a href="material/05-BlueGreenSwirl.png"><code>05-BlueGreenSwirl.png</code></a></p>
+<img src="img-ia/colour_09.png"/>
+</section>
+<section data-state="fiji8b"><style>.fiji8b header:after { content: "Colour: R/G Colour blindness"; }</style>
+<p>~10% of the population have trouble discerning Red and Green. Consider using Green and Magenta instead which still combine to white.</p>
+<img src="img-ia/colour_10.png"/>
+</section>
+
+<section data-state="fiji14a"><style>.fiji14a header:after { content: "Colour: Changing LUTs"; }</style>
+<div class="twothirds left" style="font-size:90%">
+<ul><li>Open <a href="material/06-multichannel.tif"><code>06-MultiChannel.tif</code></a></li>
+<li>(If opening via URL run <code>[Image > Stack > Hyperstack]</code>)</li>
+<li>Run <code>[Image > Lookup Tables]</code>, try a few different ones</li>
+<li>Run Channels Tool <code>[Image > Color > Channels Tool]</code>, make sure you're in Color or Composite mode, hit More, select a LUT</li>
+<li data-fragment-index="1" class="fragment">Run <code>[Image > Color > Display LUTs]</code> to see all the LUTs on your version of Fiji</li></ul>
+<img data-fragment-index="1" class="fragment twothirds" src="img-ia/colourLUT6.png"/>
+</div>
+<img class="third right" src="img-ia/colourLUT5.png"/>
+</section>
+<section data-state="fiji14a"><style>.fiji14a header:after { content: "Colour: Changing LUTs"; }</style>
+<p>A couple of useful LUTs:</p>
+<img class="threequart" src="img-ia/colourLUT7.png"/>
+</section>
+
+
+
+<!-- ---------------------- APPLICATIONS JUMP PAGE -------------------------- -->
+
+<section data-menu-title="Applications: Index Page" data-state="apps90"><style>.apps90 header:after { content: ""; }</style>
+<p>Applications</p>
+<ul>
+<li><a href="#/55">Segmentation and CCA</a></li>
+<li><a href="#/86">Colocalisation</a></li>
+<li><a href="#/95">Tracking</a></li>
+<li><a href="#/70">Batch Processing</a></li>
+<li><a href="#/79">Scripting 101</a></li>
+<li><a href="#/110">Stitching</a></li>
+</ul>
+</section>
+
+
+<!-- ---------------------- APPLICATIONS SEGMENTATION AND CCA -------------------------- -->
+
+
+
+<section data-menu-title="Segmentation" data-state="apps10z"><style>.apps10z header:after { content: ""; }</style>
+<h1>Applications: Segmentation</h1>
+<h4>What is segmentation? thresholding, Connected Component Analysis</h4>
+</section>
+
+<section data-state="apps10y"><style>.apps10y header:after { content: "Segmentation: Before we start"; }</style>
+<p>Fiji has an odd way of dealing with masks</p>
+<img class="third" src="img-ia/setupFiji1.png"/>
+<img class="third" src="img-ia/setupFiji2.png"/>
+<p>Run <code>[Process > Binary > Options]</code> and check <code>Black Background</code>. Hit OK.</p>
+</section> 
+
+<section data-state="apps10"><style>.apps10 header:after { content: "Segmentation: Theory"; }</style>
+<p>Segmentation is the separation of an image into areas of interest and areas that are not of interest</p>
+<img class="left half" src="img-ia/seg_03.png"/><img data-fragment-index="1" class="fragment right half" src="img-ia/seg_04.png"/>
+<p data-fragment-index="1" class="clear fragment">The end point for most segmentation is a binary mask (false/true, 0/255)</p>
+</section> 
+<section data-state="apps10"><style>.apps10 header:after { content: "Segmentation: Theory"; }</style>
+<p>For most applications, intensity-based thresholding works well. This relies on the signal being higher intensity than the background.</p>
+<img class="half" src="img-ia/seg_05.png"/>
+<p>We use a <i>Threshold</i> to pick a cutoff.</p>
+</section> 
+
+<section data-state="apps11"><style>.apps11 header:after { content: "Segmentation: Hands On"; }</style>
+<ul><li>Open <a href="material/07-nuclei.tif"><code>07-nuclei.tif</code></a></li>
+<li>Run <code>[Image > Adjust > Threshold]</code></li>
+<li>Set the lower threshold to 0, 10 and 253, note how the image changes.</li></ul>
+<img class="third" srmc="img-ia/seg_06.png"/><span>&nbsp;&nbsp;</span><img class="third" src="img-ia/seg_07.png"/><span>&nbsp;&nbsp;</span><img class="third" src="img-ia/seg_08.png"/>
+</section>
+
+<section data-state="apps11"><style>.apps11 header:after { content: "Segmentation: Hands On"; }</style>
+<p>Sometimes you will want to automatically set a threshold. Use the dropdown and <code>Auto</code> button</p><p>You can trial all autothresholding methods using <code>[Image > Adjust > Auto Threshold]</code> and select 'Try All'</p>
+<img class="third" src="img-ia/seg_05.png"/><img class="quart fragment" src="img-ia/seg_101.png"/><img class="third fragment" src="img-ia/seg_102.png"/>
+</section>
+
+<section data-state="apps11"><style>.apps11 header:after { content: "Segmentation: Hands On"; }</style>
+<p>Hit 'Apply' to create a mask based on the current Threshold</p>
+<img class="left third" src="img-ia/seg_09.png"/>
+<div class="fragment">
+<div class="right twothirds">
+<p>What can you do with a mask?</p>
+<ol class="half right">
+<li>Count</li>
+<li>Measure</li>
+<li>Visualise</li></ol>
+</div>
+</div>
+</section>
+<section data-state="apps12"><style>.apps12 header:after { content: "Segmentation: Object Counting"; }</style>
+<p>Connected component analysis (CCA) is used to identify contiguous objects in a mask</p>
+<ul class="half left"><li>Open <a href="material/08-nucleiMask.tif"><code>08-nucleiMask.tif</code></a> (or use yours from the last step)</li>
+<li>Run <code>[Analyze > Analyze Particles]</code></li>
+<li>Use the settings on the right, hit OK</li>
+<li>You should have a results table with a Count of 31 (you may also have some other stats but we'll come to these later)</li> </ul>
+<img class="right third" src="img-ia/seg_CCA_1.png"/>
+</section>
+<section data-state="apps12"><style>.apps12 header:after { content: "Segmentation: Object Counting"; }</style>
+<p>But...there are at least 3 problems with this:</p>
+<ol><li>Single pixel spots are counted as objects</li>
+<li>Edge nuclei are counted</li>
+<li>Some nuclei are touching</li>
+</ol><br>
+<img class="third" src="img-ia/seg_CCA_2b.png"/><span>&nbsp;&nbsp;&nbsp;</span><img class="third fragment" src="img-ia/seg_CCA_3.png"/>
+</section>
+<section data-state="apps12"><style>.apps12 header:after { content: "Segmentation: Object Counting"; }</style>
+<p>A quick fix for separating partially-touching roughly circular objects is to use <code>[Process > Binary > Watershed]</code> before running CCA</p>
+<img class="third" src="img-ia/seg_CCA_4.png"/><span>&nbsp;&nbsp;&nbsp;</span><img class="third fragment" src="img-ia/seg_CCA_5.png"/>
+</section>
+
+<section data-state="apps13"><style>.apps13 header:after { content: "Segmentation: Making Measurements"; }</style>
+<p>Analyze Particles comes with the option to <code>Display Results</code></p>
+<img class="third left" src="img-ia/seg_CCA_6.png"/>
+<img data-fragment-index="2" class="third left fragment" src="img-ia/seg_CCA_8.png"/>
+<img class="third fragment left" data-fragment-index="1" src="img-ia/seg_CCA_7.png"/>
+<ul><li>The results table will have a column for anything selected in <code>[Analyze > Set Measurements]</code> and one row per object</li>
+<li>Measurements (including intensity - labelled purple above) are made on the mask!</li></ul>
+</section>
+<section data-state="apps13"><style>.apps13 header:after { content: "Segmentation: Making Measurements"; }</style>
+<p>To apply measurements to the original image: check <code>Add to Manager</code> in Analyze Particles, open the <a href="material/07-nuclei.tif"><code>original image</code></a>, then run <code>[More > Multi Measure]</code></p>
+<img class="third" src="img-ia/seg_CCA_9b.png"/>
+<img class="third fragment" src="img-ia/seg_CCA_9.png"/>
+<img class="third fragment" src="img-ia/seg_CCA_9d.png"/>
+<p>Don't forget <code>[Analyze > Set Measurements]</code> to pick parameters</p>
+</section>
+
+<section data-state="apps14"><style>.apps14 header:after { content: "Segmentation: Visualisation"; }</style>
+<p>You may want to create an output or display image showing the results of CCA or segmentation. Analyze particles has several useful outputs:</p>
+<img class="third" src="img-ia/seg_CCA_10a.png"/>
+<img class="third fragment" src="img-ia/seg_CCA_10.png"/>
+<!-- <img class="third fragment" src="img-ia/seg_CCA_10b.png"/> -->
+<p>Count masks are very useful in combination with <code>[Image > Look Up Tables > Glasbey]</code>-style (IE random) LUTs</p>
+</section>
+<section data-state="apps14"><style>.apps14 header:after { content: "Segmentation: Visualisation"; }</style>
+<p>Another trick is to turn the mask into a composite selection then draw it into the original</p>
+<ul class="twothirds left"><li>Open <a href="material/08-nucleiMask.tif"><code>08-nucleiMask.tif</code></a></li>
+<li>Run <code>[Edit > Selection > Create Selection]</code></li>
+<li>If the black area is selected, run <code>[Edit > Selection > Make Inverse]</code>. Add it to the ROI manager ('t')</li>
+<li>Open the <a href="material/07-nuclei.tif"><code>original image</code></a></li>
+<li>Convert it to RGB <code>[Image > Type > RGB Color]</code> (remember what happened with the <a href="#/36">Scale Bar</a>?)</li>
+<li>Select the ROI, then run <code>[Edit > Draw]</code> (this will use the current foreground colour and line width)</li>
+</ul>
+<img class="right third" src="img-ia/seg_CCA_12.png"/>
+</section>
+<section data-state="apps14"><style>.apps14 header:after { content: "Segmentation: Visualisation"; }</style>
+<section>
+<p>Example visualisation of woundhealing</p>
+<!-- <a href="https://cci.liv.ac.uk/img/gallery/woundhealing.mp4" target="_blank"> -->
+<img class="third" src="img-ia/seg_CCA_13.png"/>
+<p>From the <a href="http://cci.liv.ac.uk/gallery.html" target="_blank">CCI website gallery</a>. Data c/o <a href="https://www.liverpool.ac.uk/integrative-biology/staff/daimark-bennett/" target="_blank">Daimark Bennett</a></p>
+<p><i class="fa fa-chevron-circle-down"></i> for movie</p>
+</section>
+<section>
+<video loop data-autoplay class="half" src="https://cci.liv.ac.uk/img/gallery/woundhealing.mp4"></video>
+<!-- </a> -->
+<p>From the <a href="http://cci.liv.ac.uk/gallery.html" target="_blank">CCI website gallery</a>. Data c/o <a href="https://www.liverpool.ac.uk/integrative-biology/staff/daimark-bennett/" target="_blank">Daimark Bennett</a></p>
+</section>
+</section>
+
+
+
+<!-- ---------------------- APPLICATIONS BATCH PROCESSING -------------------------- -->
+
+
+
+<section data-menu-title="Batch Processing" data-state="apps20z"><style>.apps20z header:after { content: ""; }</style>
+<h1>Applications: Batch Processing</h1>
+<h4>Why batch process? File conversion, batch processing, scripting</h4>
+</section>
+
+
+<section data-state="apps20"><style>.apps20 header:after { content: "Batch Processing: Theory"; }</style>
+<p>Manual analysis (while sometimes necessary) can be laborious, error prone and not provide the provenance required. Batch processing allows the same processing to be run on multiple images.</p>
+
+<p>The built-in <code>[Process > Batch]</code> menu has lots of useful functions:</p>
+<img class="half" src="img-ia/batch_01.png"/>
+</section> 
+
+<section data-state="apps21"><style>.apps21 header:after { content: "Batch Processing: Data"; }</style>
+<p>We'll use a subset of dataset BBBC008 from the <a href="https://data.broadinstitute.org/bbbc/BBBC008/" target="_blank">Broad Bioimage Benchmark Collection</a></p>
+<ul><li>Download the zip file from <a href="materials/BBBC008_partial.zip">here</a> to the desktop</li><li>Unzip (right click and "Extract All") to end up with a folder on your desktop called <code>BBBC008_partial</code></li></ul><br>
+<img class="" src="img-ia/batch_04.png"/>
+<ul><li>Make another folder on the desktop called <code>Output</code></li><ul>
+</section> 
+<section data-state="apps22"><style>.apps22 header:after { content: "Batch Processing: Batch Convert"; }</style>
+<p>For simple file conversion, <code>Convert</code> is a very useful tool</p>
+<ul class="twothirds left"><li>Run <code>[Process > Batch > Convert]</code></li>
+<ul><li>Set the Input directory to point to the downloaded files and the Output to the Output folder</li>
+<li>Set the output format to PNG</li>
+<li>Scale the images to 50% (put 0.5 in the box)</li></ul>
+<li>Hit Convert then check the output folder</li>
+</ul>
+<img class="third right" src="img-ia/batch_03.png"/>
+
+<ul class="clear"><li>If you're using proprietary formats check the "Read Using Bio-Formats" box (although this is slower)</li></ul>
+</section> 
+
+<section data-state="apps23"><style>.apps23 header:after { content: "Batch Processing: Basic Macros"; }</style>
+<p>For slightly more complex manipulations try using the <code>Macro</code> interface</p>
+<ul class="half left"><li>Run <code>[Process > Batch > Macro]</code></li>
+<ul><li>Set the Input directory to point to the downloaded files and the Output to the Output folder</li>
+<li>Set the output format to PNG</li>
+<li>From the dropdown box, select <code>Scale</code> and the macro box will populate</li>
+<li>Change the scale fraction to 0.5 and add the line <code>run("Red");</code></li></ul>
+<li>Hit Process then check the output folder</li>
+</ul>
+<img class="half right" src="img-ia/batch_07.png"/>
+</section> 
+<section data-state="apps23"><style>.apps23 header:after { content: "Batch Processing: Basic Macros"; }</style>
+<p>You should see an output folder containing small red-coloured nuclei</p>
+<img class="twothirds" src="img-ia/batch_09.png"/>
+</section> 
+<section data-state="apps23"><style>.apps23 header:after { content: "Batch Processing: Basic Macros"; }</style>
+<p>But how to figure out the commands?</p>
+<img class="fragment half" src="img-ia/batch_08.png"/>
+<p class="fragment">The macro recorder will record most plugins and commands from the menu. Run <code>[Plugins > Macros > Record]</code> then run a command</p>
+</section> 
+<section data-state="apps23"><style>.apps23 header:after { content: "Batch Processing: Batch Macros"; }</style>
+<div class="twothirds left">
+<p>Pop quiz!</p>
+<ul><p>Use the macro recorder and The Batch Macro function to:
+<li>Calibrate the image to 0.1 microns per pixel (<a href="#/19"><i class="fa fa-external-link"></i></a>)</li>
+<li>Draw a 10&mu;m green scale bar in the bottom left corner (<a href="#/36"><i class="fa fa-external-link"></i></a>)</li>
+<li class="fragment">[BONUS MARKS 1] Also write the filename onto each image (in red) (<a href="https://imagej.nih.gov/ij/developer/macro/functions.html#getTitle"><i class="fa fa-external-link"></i></a>)</li>
+<li class="fragment">[BONUS MARKS 2] Print out the filename and spot count to the log (<a href="https://imagej.nih.gov/ij/docs/guide/146-29.html#sub:Find-Maxima"><i class="fa fa-external-link"></i></a>)</li>
+</li></ul>
+</div>
+<img class="third right" src="img-ia/batch_12.png"/>
+<ul class="left clear"><li>Answers in the next slide - DON'T PEEK UNLESS YOU'RE STUCK :)</li></ul>
+</section> 
+
+<section data-state="apps23"><style>.apps23 header:after { content: "Batch Processing: Basic Macros"; }</style>
+<div class="twothirds left">
+<p>Basic test</p>
+<!-- <pre><code data-trim data-noescape> -->
+<pre><code data-trim data-noescape>
+//-- Calibrate
+run("Properties...", "unit=um pixel_width=0.1 pixel_height=0.1");
+//-- Add the scale bar
+run("RGB Color");
+run("Scale Bar...", "width=10 height=10 font=30 color=Green background=None location=[Lower Left]");
+</code></pre>
+<div data-fragment-index="5" class="fragment">
+<p>Advanced test</p>
+<pre><code data-trim data-noescape>
+//-- [BONUS 2] Estimate and print the counts
+run("Find Maxima...", "noise=10 output=[Point Selection]");
+getSelectionCoordinates(xPos,yPos);
+print("Image:  "+getTitle()+" has "+xPos.length+" objects");
+run("Select None");
+
+//-- [BONUS 1] Add the title
+run("RGB Color");
+setFont("SansSerif", 18, "antialiased");
+setColor("red");
+drawString(getTitle(), 20, 30);
+
+//-- Calibrate
+run("Properties...", "unit=um pixel_width=0.1 pixel_height=0.1");
+//-- Add the scale bar
+run("RGB Color");
+run("Scale Bar...", "width=10 height=10 font=30 color=Green background=None location=[Lower Left]");
+</code></pre>
+</div>
+</div>
+<img data-fragment-index="5" class="fragment third right" src="img-ia/batch_10.png"/><img data-fragment-index="5" class="fragment third right" src="img-ia/batch_11.png"/>
+</section>
+
+<section data-menu-title="Scripting" data-state="apps24z"><style>.apps24z header:after { content: ""; }</style>
+<h1>Scripting</h1>
+<h4>A very brief foray into scripts</h4>
+</section>
+
+<section data-state="apps24"><style>.apps24 header:after { content: "Scripting"; }</style>
+<p>Scripting is useful for running the same process multiple times or having a record of how images were processed to get a particular output</p>
+<p>Fiji supports many scripting languages including Java, Python, Scala, Ruby, Clojure and Groovy through the script editor which also recognises the macro language from the previous example (which we'll be using)</p>
+<!-- <p class="fragment" >Run <code>[Plugins > New > Macro]</code></p></div> -->
+<img class="half fragment" src="img-ia/script01.png"/>
+</section>
+
+<section data-state="apps24"><style>.apps24 header:after { content: "Scripting"; }</style>
+<p>As an example, we're going to (manually) create a montage from a three channel image, then see what the script looks like</p>
+<img class="third" src="img-ia/script3.png"/>
+<ul>
+<li>Open <a href="material/06-multichannel.tif"><code>06-MultiChannel.tif</code></a></li>
+<li>Open the macro recorder: <code>[Plugins > Macros > Record]</code></li>
+</ul>
+</section>
+
+<section data-state="apps24"><style>.apps24 header:after { content: "Scripting"; }</style>
+<ul style="font-size:70%" class="twothirds">
+<li>(If opening via URL run <code>[Image > Stack > Hyperstack]</code>)</li>
+<li>Open the channels tool <code>[Image > Color > Channels Tool]</code> and set the mode to <code>grayscale</code></li>
+<li>Run <code>[Image > Type > RGB color]</code></li>
+<li>Rename this image to <code>channels</code> with <code>[Image > Rename]</code></li>
+<li>Select the original stack, and using the channels tool, set the mode to <code>composite</code></li>
+<li>Run <code>[Image > Type > RGB color]</code></li>
+<li>Rename this image to <code>merge</code> with <code>[Image > Rename]</code></li>
+<li>Close the original (it should be the only 8-bit image open (check the Info bar!)</li>
+<li>Run <code>[Image > Stacks > Tools > Concatenate]</code> and select Channels and merge in the two boxes (see right)</li>
+<li>Run <code>[Image > Stacks > Make Montage]</code> change the border width to 3 then hit OK</li>
+<!-- <li>Run <code>[File > Save As > PNG]</code> and save the file in the output directory</li> -->
+</ul>
+<img class="third" src="img-ia/script02.png">
+<p class="clear fragment">Got it? Have a look at the Macro Recorder and see if you can see the commands you ran</p>
+</section>
+
+<section data-state="apps24"><style>.apps24 header:after { content: "Scripting"; }</style>
+<p>Open the script editor with <code>[Plugins > New > Macro]</code> and copy in the following code:</p>
+<pre><code class="java" data-trim data-noescape>
+//-- Record the filename
+imageName=getTitle();
+print("Processing: "+imageName);
+//-- Display the stack in greyscale, create an RGB version, rename
+Stack.setDisplayMode("grayscale");
+run("RGB Color");
+rename("channels");
+//-- Select the original image
+selectWindow(imageName);
+//-- Display the stack in composite, create an RGB version, rename
+Stack.setDisplayMode("composite");
+run("RGB Color");
+rename("merge");
+//-- Close the original
+close(imageName);
+//-- Put the two RGB images together
+run("Concatenate...", "  title=newStack open image1=channels image2=merge");
+//-- Create a montage
+run("Make Montage...", "columns=4 rows=1 scale=0.50 border=3");
+//-- Close the stack (from concatenation)
+close("newStack");
+</code></pre>
+<p>Open the file again and hit Run</p>
+<p class="subtle fragment">Comments, variables, print, active window</p>
+</section>
+
+<section data-state="apps24"><style>.apps24 header:after { content: "Scripting"; }</style>
+<p>This script operates on an open image but it's easily converted to a batch processing script using the built in templates:</p>
+<img class="half" src="img-ia/script04.png"/>
+<p>The full script is <a href="material/Process_Folder_montage.ijm">here</a>. I added these lines at the top and bottom:</p>
+<pre><code class="java">open(input + File.separator + file);</code></pre>
+<pre><code class="java">saveAs("png", output + File.separator + replace(file, suffix, ".png"));
+close("*");
+</code></pre>
+</section>
+
+<section data-state="apps24"><style>.apps24 header:after { content: "Scripting"; }</style>
+<p>If you're interested in a scripting workshop, drop me an email</p>
+<p>In the meantime:</p>
+<ul>
+<li><a href="https://imagej.nih.gov/ij/developer/macro/macros.html" target="_blank">ImageJ language reference</a></li>
+<li><a href="https://imagej.nih.gov/ij/developer/macro/functions.html" target="_blank">ImageJ function reference</a></li>
+<li><a href="https://postacquisition.wordpress.com/2017/08/29/staying-in-version-control/" target="_blank">Getting started with Version Control for scripting</a></li>
+</ul>
+</section>
+
+
+
+<!-- ---------------------- APPLICATIONS COLOCALISTATION -------------------------- -->
+
+
+
+<section data-menu-title="Colocalisation Analysis" data-state="apps30z"><style>.apps30z header:after { content: ""; }</style>
+<h1>Applications: Co-localisation</h1>
+<h4>Use cases, some simple guidance, JaCoP</h4>
+</section>
+
+
+<section data-state="apps30"><style>.apps30 header:after { content: "Colocalisation: Theory"; }</style>
+<!-- <p>Colocalisation: the bane of Image Analysts</p> -->
+<img class="half" src="img-ia/coloc_00.png"/>
+<p class="subtle">Adapted from a slide by <a href="https://twitter.com/fab_cordelieres" target="_blank">Fabrice Cordelieres</a></p>
+</section>
+
+<section data-state="apps30"><style>.apps30 header:after { content: "Colocalisation: Theory"; }</style>
+<p>Colocalisation is <u>highly</u> dependent upon resolution! Example:</p>
+<img class="third" src="img-ia/coloc_02a.png"/><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><img class="third fragment" src="img-ia/coloc_02b.png"/>
+<p class="fragment">Same idea goes for cells. Keep in mind your imaging resolution!</p>
+</section>
+
+<section data-state="apps35"><style>.apps35 header:after { content: "Bolte and Cordelieres"; }</style>
+<p>We will walk through using JaCoP (Just Another CoLocalisation Plugin) to look at Pearson's and Manders' analysis</p>
+<p>If you're doing colocalisation analysis at all, I <u>highly</u> recommend reading the companion paper <a href="https://doi.org/10.1111/j.1365-2818.2006.01706.x" target="_blank">https://doi.org/10.1111/j.1365-2818.2006.01706.x</a></p>
+
+<img class="half" src="img-ia/coloc_00a.png"/>
+</section>
+
+<section data-state="apps31"><style>.apps31 header:after { content: "Colocalisation: Pearson's Correlation Coefficient"; }</style>
+<p>Pearson's Correlation Coefficient</p>
+<img class="third left" src="img-ia/coloc_10.png"/>
+<ul class="twothirds">
+<li>For each pixel, plot the intensities of two channels in a scatter plot</li>
+<li>Ignore pixels with only one channel (IE intensity below BG)
+<li>P value describes the goodness of fit (-1 to 1)</li>
+<ul>
+<li>1 = perfect correlation</li>
+<li>0 = no positive or negative correlation</li>
+<li>-1 = exclusion</li>
+</ul></ul>
+<p class="subtle clear">Figure from <a href="https://doi.org/10.1111/j.1365-2818.2006.01706.x" target="_blank">https://doi.org/10.1111/j.1365-2818.2006.01706.x</a></p>
+</section>
+<section data-state="apps31"><style>.apps31 header:after { content: "Colocalisation: Pearson's Correlation Coefficient"; }</style>
+<img class="left third" src="img-ia/coloc_11.png"/>
+<ul class="twothirds">
+<li>Download <a href="material/jacop_.jar"><code>JaCoP</code></a></li>
+<li>Run <code>[Plugins > Install Plugin]</code>, point to the jar file</li>
+<li>Restart Fiji</li>
+<li>Open <a href="material/11-colocA.tif"><code>11-colocA.tif</code></a> and <a href="material/12-colocB.tif"><code>12-colocB.tif</code></a></li>
+<li>Run <code>[Plugins > JaCoP]</code>, uncheck everything except Pearsons, select the same image for both channels</li>
+<li>Repeat for different combinations of these images and also <a href="material/13-colocA_half.tif"><code>13</code></a> and <a href="material/14-colocB_quarter.tif"><code>14</code></a></li>
+</ul>
+</section>
+<section data-state="apps32"><style>.apps32 header:after { content: "Colocalisation: Problems with Pearson's"; }</style>
+<img class="left quart" src="img-ia/coloc_10.png"/>
+<ul class="twothirds">
+<li>Great for complete colocalisation</li>
+<li>Unsuitable if there is a lot of noise or partical colocalisation (see below)</li>
+<li>Midrange P-values (-0.5 to 0.5) do not allow reliable conclusions to be drawn</li>
+<li>Bleedthrough can be particularly problematic (as they will always correlate)</li>
+</ul>
+<br>
+<img class="clear half" src="img-ia/coloc_12.png"/>
+</section>
+
+<section data-state="apps33"><style>.apps33 header:after { content: "Colocalisation: Manders'"; }</style>
+<!-- <img class="twothirds" src="img-ia/coloc_13.png"/> -->
+<p>Manders' Overlap Coefficient</p>
+<ul class="twothirds">
+<li>Removes some of the intensity dependence of Pearson's and provides channel-specific overlap coefficients (M1 &amp; M2)</li>
+<li>Values from 0 (no overlap) to 1 (complete overlap)</li>
+<li>Defined as <i>"the ratio of the summed intensities of pixels from one channel for which the intensity in the second channel is above zero to the total intensity in the first channel"</i></li>
+</ul>
+</section>
+
+<section data-state="apps33"><style>.apps33 header:after { content: "Colocalisation: Manders'"; }</style>
+<img class="third" src="img-ia/coloc_11.png"/>
+<ul class="twothirds">
+<li>Use the same images from last time (<a href="material/11-colocA.tif"><code>11</code></a>, <a href="material/12-colocB.tif"><code>12</code></a>,<a href="material/13-colocA_half.tif"><code>13</code></a> and <a href="material/14-colocB_quarter.tif"><code>14</code></a></li>
+<li>Run <code>[Plugins > JaCoP]</code>, check both Pearsons and Manders</li>
+<li>Run for different combinations of these images</li>
+<li>Note the differences in coefficients esp in images 13 and 14</li>
+<li class="fragment">[BONUS] add some noise <code>[Process > Noise > Add Noise]</code> or blur your images <code>[Process > Filters > Gaussian Blur]</code> and see how that affects the coefficients</li></ul>
+</section>
+
+
+
+<!-- ---------------------- APPLICATIONS TRACKING -------------------------- -->
+
+
+
+<section data-menu-title="Tracking" data-state="apps1z"><style>.apps1z header:after { content: ""; }</style>
+<h1>Applications: Tracking</h1>
+<h4>Correlating spatial and temporal phenomena, Feature detection, linkage, gotchas</h4>
+</section>
+ 
+<section data-state="apps1"><style>.apps1 header:after { content: "Tracking: Theory"; }</style>
+<p>Life exists in the fourth dimension. Tracking allows you to correlate spatial and temporal properties.</p>
+<img class="third" src="img-ia/tracks_01.png"/><span>&nbsp;&nbsp;&nbsp;</span><img data-fragment-index="2" class="third fragment" src="img-ia/tracks_02.png"/>
+<p data-fragment-index="1" class="fragment">Most partcles look the same! Without any way to identify them, tracking is probabilistic.</p>
+</section>
+
+<section data-state="apps1"><style>.apps1 header:after { content: "Tracking: Theory"; }</style>
+<p>Tracking has two parts: Feature Identification and Feature Linking</p>
+<img class="half" src="img-ia/tracks_03.png"/><img class="half" src="img-ia/tracks_04.png"/>
+<p>For every frame, features are detected, typically using a Gaussian-based method (eg. <a href="https://en.wikipedia.org/wiki/Blob_detection#The_difference_of_Gaussians_approach" target="_blank">Laplacian of Gaussian</a>: LoG)</p>
+</section>
+<section data-state="apps1"><style>.apps1 header:after { content: "Tracking: Theory"; }</style>
+<p>Spots can be localised to sub-pixel resolution!</p>
+<img class="left half" src="img-ia/tracks_05.png"/>
+<p class="right half">Without sub-pixel localisation, the precision of detection is limited to whole pixel values.</p>
+</section>
+<section data-state="apps1"><style>.apps1 header:after { content: "Tracking: Theory"; }</style>
+<p>Feature linkage</p>
+<!-- <img class="half" src="img-ia/tracks_06.png"/><br> -->
+<img class="half" src="img-ia/tracks_07.png"/>
+<p>For each feature, all possible links in the next frame are calculated. This includes the spot disappearing completely.</p>
+<img data-fragment-index="1" class="fragment half" src="img-ia/tracks_08.png"/>
+<p data-fragment-index="2" class="fragment">A 'cost matrix' is formed to compare the 'cost' of each linkage. This is globally optimised to calculate the lowest cost for all linkages.</p>
+</section>
+<section data-state="apps1"><style>.apps1 header:after { content: "Tracking: Theory"; }</style>
+<!-- <img class="half" src="img-ia/tracks_07.png"/> -->
+<p>In the simplest form, a cost matrix will usually consider distance. Many other parameters can be used such as:</p>
+<ul>
+<li>Intensity</li>
+<li>Shape</li>
+<li>Quality of fit</li>
+<li>Speed</li>
+<li>Motion type</li>
+</ul>
+<p>Which can allow for a more accurate linkage especially in crowded or low S/N environments</p>
+</section>
+
+<section data-state="apps2"><style>.apps2 header:after { content: "Tracking: Hands On"; }</style>
+<p>Open <a href="material/10-tracks.tif"><code>10-tracks.tif</code></a><br>Hit the arrow to play the movie. Right Click on the arrow to set playback speed</p>
+<img class="quart" src="img-ia/tracks_11.png"/>
+<p class="fragment">If you're interested in how the dataset was made see <a href="https://bitbucket.org/snippets/davemason/Ke9zz7" target="_blank">this snippet</a></p>
+</section>
+
+<section data-state="apps2"><style>.apps2 header:after { content: "Tracking: Hands On"; }</style>
+<p>Run <code>[Plugins > Tracking > Trackmate]</code></p>
+
+<img class="half left" src="img-ia/trackmate_01.png"/>
+
+<ul class="half right"><li>Trackmate guides you through tracking using the Next and Prev buttons</li><li>The first dialog lets you select a subset (in space and time) to process. This is handy on large datasets when you want to calculate parameters before processing the whole dataset</li><li>Hit Next, keep the default (LoG) detector then hit Next again to move onto Feature detection.</li></ul>
+</section>
+<section data-state="apps2"><style>.apps2 header:after { content: "Tracking: Hands On"; }</style>
+<img class="left half" src="img-ia/trackmate_02.png"/>
+<ul class="half right"><li>Enter a Blob Diameter of 2 (note the scaled units)</li><li>Hit preview. Without any threshold, all the background noise is detected as features</li><li>Add a threshold of 0.1 and hit Preview again.</li></ul>
+
+<p class="fragment clear">Generally your aim should be to provide the minimum threshold that removes all noise. Slide the naviation bar, then hit Preview to check out a few other timepoints.</p>
+</section>
+<section data-state="apps2"><style>.apps2 header:after { content: "Tracking: Hands On"; }</style>
+<img class="left half" src="img-ia/trackmate_04.png"/>
+<p class="half right">Hit next, accepting defaults until you reach 'Set Filters on Spots'</p>
+</section>
+<section data-state="apps2"><style>.apps2 header:after { content: "Tracking: Hands On"; }</style>
+<img class="left half" src="img-ia/trackmate_05.png"/>
+<ul class="half right">
+<li>Hit next, accepting defaults until you reach 'Settings for Simple LAP tracker'</li>
+<li>Keep the defaults and hit Next</li>
+<li>You have tracks!</li>
+</ul>
+</section>
+<section data-state="apps2"><style>.apps2 header:after { content: "Tracking: Hands On"; }</style>
+<img class="left half" src="img-ia/trackmate_05.png"/>
+<div class="half right">
+<p class="fragment"><code>Linking Max Distance</code> Sets a 'search radius' for linkage</p>
+<img class="fragment" src="img-ia/tracks_09.png"/>
+<p class="fragment"><code>Gap-closing Max Frame Gap</code> Allows linkages to be found in non-adjacent frames</p>
+<img class="fragment" src="img-ia/tracks_10.png"/>
+<p class="fragment"><code>Gap-closing Max Distance</code> Limits search radius in non-adjacent frames</p>
+</div>
+</section>
+
+<section data-state="apps2"><style>.apps2 header:after { content: "Tracking: Hands On"; }</style>
+<p>Common outputs from Trackmate: (1) Tracking data</p>
+<img class="left half" src="img-ia/trackmate_06.png"/>
+<img class="right half" src="img-ia/trackmate_08.png"/>
+</section>
+<section data-state="apps2"><style>.apps2 header:after { content: "Tracking: Hands On"; }</style>
+<p>Common outputs from Trackmate: (2) Movies!</p>
+<img class="left half" src="img-ia/trackmate_07.png"/>
+<img class="right third" src="img-ia/trackmate_09.gif"/>
+<div class="clear"></div>
+<p>You may have to adjust the display options to get the tracks drawing the way you want (try "Local Backwards")</p>
+</section>
+
+<section data-state="apps3"><style>.apps3 header:after { content: "Tracking: Common Problems"; }</style>
+<p>While simple, Tracking is not to be taken on lightly!</p>
+<ul>
+<li>For the best results make sure the inter-particle distance is greater than the frame-to-frame movement. If not, try to increase resolution (more pixels) or decrease interval (more frames)</li>
+<li>The search radius increases processing time with HUGE datasets but in most case, has little effect on processing time. Remember that closer particles will still be linked preferably if possible.</li>
+<li>Keep it simple! Unless you have problems with noise, blinking, focal shifts and similar, do not introduce gap closing as this may lead to false-linkages</li>
+<li>'Simple LAP tracker' does not include merge/spliting events, however Trackmate ships with the more complex 'LAP Tracker' which can handle merge/splitting events (but keep in mind your system!)</li>
+<li>Quality control! Look at your output carefully and make sure you're not getting 'jumps' where one particle is linked to another incorrectly</li>
+</ul>
+</section>
+
+<!-- ---------------------- APPLICATIONS STITCHING -------------------------- -->
+
+
+
+<section data-menu-title="Stitching" data-state="apps40z"><style>.apps40z header:after { content: ""; }</style>
+<h1>Applications: Stitching</h1>
+<h4>Resolution vs field size, stitching, using overlaps, issues and bugs</h4>
+</section>
+
+<section data-state="apps40"><style>.apps40 header:after { content: "Image Stitching"; }</style>
+<p>Increasing <b>resolution</b> (via higher NA lenses) almost always leads to a reduced <b>field</b></p>
+<img class="twothirds" src="img-ia/stitch_01.png"/>
+<p>Often you will want both!</p>
+</section>
+<section data-state="apps40"><style>.apps40 header:after { content: "Image Stitching"; }</style>
+<p>We can achieve this with tile scanning (IE. imaging multiple adjacent fields)</p>
+<img class="twothirds" src="img-ia/stitch_02.png"/>
+<p>Stitching is the method used to put them back together again</p>
+</section>
+
+<section data-state="apps41"><style>.apps41 header:after { content: "Image Stitching: no overlap"; }</style>
+<p>Images acquired as adjacent frames (zero overlap)</p>
+<div class="left twothirds" style="font-size:80%">
+<ul>
+<li>Open <a href="material/Stitching_noOverlap.zip"><code>Stitching_noOverlap.zip</code></a>. Unzip to the desktop.</li>
+<li>Run <code>[Plugins > Stitching > Grid/Collection Stitching]</code></li>
+<li>Select: Column by Column | Up &amp; Right</li>
+<li>Settings:
+<ul><li>Grid Size: 2x2</li>
+<li>Tile Overlap: 0</li>
+<li>Directory: {path to your folder}</li>
+<li>File Names: replace the numbers with <code>{i}</code> zero pad with more <code>i</code></li>
+<li>Uncheck all the options [OPTIONAL] Check add as ROI</li></ul>
+</li>
+<li>Hit OK (accept fast fusion)</li>
+</ul>
+<!-- <img class="third" src="img-ia/stitch_05.png"/> -->
+</div>
+<img class="third" src="img-ia/stitch_04.png"/>
+</section>
+
+<section data-state="apps41"><style>.apps41 header:after { content: "Image Stitching: no overlap"; }</style>
+<img class="third" src="img-ia/stitch_06.png"/>
+<img class="third fragment" src="img-ia/stitch_07.png"/>
+<p class="fragment">Why do the images not line up?</p>
+</section>
+
+<section data-state="apps41"><style>.apps41 header:after { content: "Image Stitching: no overlap"; }</style>
+<p>Run <code>[Plugins > Stitching > Grid/Collection Stitching]</code> again</p>
+<p>Check the settings are as before but add "compute overlap" and hit OK</p>
+<img class="third fragment" src="img-ia/stitch_08.png"/><img class="twothirds fragment" src="img-ia/stitch_09.png"/>
+</section>
+
+<section data-state="apps42"><style>.apps42 header:after { content: "Image Stitching: 10% overlap"; }</style>
+<ul>
+<li>Open <a href="material/Stitching_overlap.zip"><code>Stitching_overlap.zip</code></a>. Unzip to the desktop.</li>
+<li>Run <code>[Plugins > Stitching > Grid/Collection Stitching]</code> again</li>
+<li>Change the directory, filename and overlap.</li>
+<li>Hit OK</li>
+</ul>
+<img class="third fragment" src="img-ia/stitch_10.png"/>
+<div class="half right fragment">
+<p>Two things to remember when using Grid/Collection Stitching:</p>
+<ol>
+<li>Default (R,G,B) LUTs are used after stitching (<a href="#/52"><i class="fa fa-external-link"></i></a>)</li>
+<li>All calibration information is stripped (<a href="#/19"><i class="fa fa-external-link"></i></a>)</li>
+<li>Stitching will have a harder time with sparse features or uneven illumination (<a href="https://postacquisition.wordpress.com/2015/06/17/its-a-stitch-up/" target="_blank">example here</a>)</li>
+</ol>
+</div>
+</section>
+
+<section data-state="apps43"><style>.apps43 header:after { content: "Image Stitching: Issues"; }</style>
+<p>The most important point is to know your data!</p>
+<ul>
+<li>Grid layout (dimensions and order!)</li>
+<li>Overlap</li>
+<li>Calibration</li>
+</ul>
+</section>
+
+</div> <!-- ---------------------- END OF SLIDES -------------------------- -->
+
+
+</div>
+<!-- Footer -->
+<img style="position:fixed;bottom:1em;right:1em;" src="img/logo_UoL.svg" width="15%">
+<img style="position:fixed;bottom:1em;left:1em;" src="img/logo_tw.png" width="20%">
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+
+<script>
+// More info about config & dependencies:
+// - https://github.com/hakimel/reveal.js#configuration
+// - https://github.com/hakimel/reveal.js#dependencies
+Reveal.initialize({
+    controls: false,
+	slideNumber: true, //-- Added for development
+dependencies: [
+{ src: 'plugin/markdown/marked.js' },
+{ src: 'plugin/markdown/markdown.js' },
+{ src: 'plugin/notes/notes.js', async: true },
+{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+{ src: 'plugin/menu/menu.js' }
+],
+menu: {
+hideMissingTitles: true,
+themes: false,
+transitions: false,
+//markers: true,
+numbers: true,
+openButton: false,
+titleSelector: 'span.menu-title',
+custom: [
+{ title: 'Links', icon: '<i class="fa fa-external-link">', content: '<h3>Where to find help:</h3><ul><li><a target="_blank" href="https://imagej.net">ImageJ Website</a></li><li><a target="_blank" href="https://forum.imagej.net">Forum</a></li><li><a target="_blank" href="https://postacquisition.wordpress.com">Post-Acquisition (my blog)</a></li><li><a target="_blank" href="http://cci.liv.ac.uk/contact.html">The CCI</a></li></ul>' },
+{ title: 'About', icon: '<i class="fa fa-info">', content: '<p>An introduction to using Fiji for image analysis.<br>Written by <a target="_blank" href="http://pcwww.liv.ac.uk/~dnmason">Dave Mason</a> from the <a target="_blank" href="http://cci.liv.ac.uk">Liverpool Centre for Cell Imaging</a>.</p><p>This slidedeck was created with <a target="_blank" href="https://github.com/hakimel/reveal.js">reveal.js</a>. The content is licenced under <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a></p><br/><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0;" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a>' }
+		]
+}
+});
+</script>
+</body>
+</html>

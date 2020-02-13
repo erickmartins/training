@@ -1,0 +1,804 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Introduction to Data Analysis with Python</title>
+<link rel="stylesheet" href="css/reveal.css">
+<link rel="stylesheet" href="css/theme/cci.css">
+<link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+<!-- Theme used for syntax highlighting of code -->
+<link rel="stylesheet" href="lib/css/zenburn.css">
+<!-- Printing and PDF exports -->
+<script>
+var link = document.createElement( 'link' );
+link.rel = 'stylesheet';
+link.type = 'text/css';
+link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+document.getElementsByTagName( 'head' )[0].appendChild( link );
+</script>
+</head>
+<body>
+<div class="reveal">
+<!-- Header logo -->
+<!--img style="position:fixed;top:1em;right:1em;" src="img/logo_cci.png" width="15%"-->
+<!-- Slide Title -->
+<header style="position: absolute;top: 1em; left: 1em; z-index:10;"></header>
+
+
+<div class="slides">
+    <section data-menu-title="Title">
+<h2>Introduction to Programming in Fiji</h2>
+<h4>Erick Martins Ratamero<br>Research Fellow</h4>
+</section>
+
+
+    <section data-menu-title="Introduction" data-state="intro0">
+        <h2>Hello</h2>
+        
+            <br/>
+        
+            <br/>
+        
+            <br/>
+        
+        
+            
+            <a href="https://twitter.com/erickratamero" target="_blank">@erickratamero</a>
+        
+    </section>
+    
+
+
+<section data-state="intro0">
+        <h2>
+            <b>Acknowledgements</b>
+        </h2>
+        
+   
+    <ul>
+        <li>Philo van Kemenade (<a href="twitter.com/phivk">@phivk</a>) from whom I "stole" the general structure of the presentation and some of the images </li>
+        <li>(original at <a href="https://slides.com/phivk/intro2python">https://slides.com/phivk/intro2python</a>)</li>
+        </ul>
+    
+    </section>
+
+
+
+    <section data-state="intro0">
+        <h2>
+            <b>This Workshop</b>
+        </h2>
+        
+   
+    <ul>
+        <li>Building blocks</li>
+        <li>Putting the pieces together</li>
+        <li>Writing complete structures</li></ul>
+    
+    </section>
+
+
+
+
+    <section data-state="intro0">
+        <h2>These Slides</h2>
+        
+            <br/>
+        
+            <br/>
+        
+            <br/>
+        
+            <a href="http://tiny.cc/introfiji" target="_blank">tiny.cc/introfiji</a>
+            <br/>
+       
+    </section>
+    
+
+
+
+
+    
+
+
+    <section data-state="python">
+        <h2>Getting help</h2>
+       
+           
+        <p>Documentation at <a href="https://imagej.nih.gov/ij/developer/macro/functions.html" target="_blank">https://imagej.nih.gov/ij/developer/macro/functions.html</a> </p>
+        <p>Plugins -> Macro -> Record is your best friend</p>      
+                
+    </section>
+
+
+
+
+
+   
+
+    <section data-menu-title="Building Blocks" data-state="bb">
+        
+        
+        <h1>
+            
+                Building Blocks
+        </h1>
+        
+    </section>
+
+
+
+
+
+    <section data-state="bb">
+        <h2>VARIABLES</h2>
+        
+            <img src="img-py/var-name-red.png"/>
+        <br/>
+            <font color="#e06666">
+                <b><i>Variables</i></b></font> store <i>values</i> under a specified name
+            <br/>
+        
+    </section>
+
+
+
+
+
+
+    <section data-state="bb">
+        <h2>VARIABLES</h2>
+        
+        <img src="img-py/vars-nametags.png"/>
+       
+    </section>
+
+
+
+    <section data-state="bb">
+        <h2>Assigning variables in Fiji</h2>
+        
+            <pre><code>name = "Erick";
+gender = "male";
+height = 1.73; </code></pre>
+        
+    </section>
+
+
+
+
+
+   
+        <section data-state="bb">
+            <h2>Types of variables</h2>
+            
+                <p>Variables can store values of different <b><i>types</i></b>:</p>
+              
+                <p style="text-align: left;">
+                    <font color="#e06666"><b>string</b></font> - a sequence of characters, comprising text
+                </p>
+                
+                <pre><code>"a", "London", 'X', 'General Assembly'</code></pre>
+
+                <p style="text-align: left;">
+                    <font color="#e06666"><b>int</b></font> - an integer, or whole number
+                </p>
+                
+                <pre><code>1, 5, 9999, -7</code></pre>
+
+                <p style="text-align: left;">
+                    <font color="#e06666"><b>float</b></font> - a floating point number (using a decimal point)
+                </p>
+                
+                <pre><code>3.14, 1.68, 1.0</code></pre>
+
+                <p style="text-align: left;">
+                    <font color="#e06666"><b>bool</b></font> - boolean; binary true or false values
+                </p>
+                
+                <pre><code>true, false</code></pre>
+
+                
+        </section>
+        
+   
+
+    <section data-state="bb">
+            <h2>Changing types</h2>
+            <p>'Casting' a variable to another type requires some of the <a href="https://imagej.nih.gov/ij/developer/macro/functions.html" target="_blank">built-in functions</a> we have mentioned.</p>
+            <p>
+                <br/>
+            </p>
+            <pre><code>a = parseInt("42");
+b = parseFloat("1.69");
+c = d2s(1.5333, 2);
+print(c); //"1.53"
+ </code></pre>
+            <br/>
+        </section>
+
+
+    <section data-state="bb">
+        <h2>Exercise
+            
+        </h2>
+        <br/>
+        Choose 4 things in this room and create variables of 4 different types based on them
+    </section>
+
+
+
+    
+    <section data-state="bb">
+        <h2>Operators</h2>
+        
+            <p>
+                <span class="s1">You can process the values in your variables by 
+                    <b>
+                        <i>
+                            <font color="#e06666">operators</font>
+                        </i>
+                    </b>:
+                </span>
+            </p>
+            <table width="100%" cellspacing="10" cellpadding="5" border="0">
+                <tbody>
+                    <tr>
+                        <td>
+                            <font style="font-size: 30px;" color="#e06666">
+                                <b>=</b>
+                            </font>
+                        </td>
+                        <td>
+                            <font style="font-size: 30px;">Assignment: assign a value to a variable </font>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <font style="font-size: 30px;" color="#e06666">
+                                <b>==</b>
+                            </font>
+                        </td>
+                        <td>
+                            <font style="font-size: 30px;">Comparison: are two variables equal?</font>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <font style="font-size: 30px;" color="#e06666">
+                                <b>!=</b>
+                            </font>
+                        </td>
+                        <td>
+                            <font style="font-size: 30px;">Comparison: are two variables not equal?</font>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p class="p1">
+                                <span class="s1">
+                                    <b>
+                                        <font style="font-size: 30px;" color="#e06666">&lt;, &gt;, &lt;=, &gt;=</font>
+                                    </b>
+                                </span>
+                            </p>
+                        </td>
+                        <td>
+                            <font style="font-size: 30px;">Less-than, greater-than, less or equal, greater or equal</font>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <font style="font-size: 30px;" color="#e06666">
+                                <b>+, -, *, /</b>
+                            </font>
+                        </td>
+                        <td>
+                            <font style="font-size: 30px;">Mathematical operators</font>
+                        </td>
+                    </tr>
+                    <tr></tr>
+                    <tr>
+                        <td>
+                            <font style="font-size: 30px;" color="#e06666">
+                                <b>&& (and), || (or)</b>
+                            </font>
+                        </td>
+                        <td>
+                            <font style="font-size: 30px;">Logical operators</font>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+       
+    </section>
+
+
+
+
+
+
+
+    <section data-state="bb">
+        
+        <h2>
+            
+                &nbsp;Questions?&nbsp;
+            
+        </h2>
+        
+    </section>
+
+
+
+
+    <section data-state="bb">
+        <h2>Exercise</h2>
+        
+            <p>
+                Create two 
+                    <font color="#e06666">
+                        <i>string variables</i>
+                    </font>:
+                
+            </p>
+            <p>
+                
+                    <i>first</i> for your first name and <i>last</i> for your last name.
+
+            </p>
+
+            <p>
+                
+                    Can you make your full name by combining <i>first</i> and <i>last</i>?
+                    
+            </p>
+      
+           
+          <p>
+                <font color="#e06666">
+
+(Cheating encouraged)
+</font>
+            </p>
+       
+    </section>
+
+
+
+
+
+    <section data-state="bb">
+        
+        
+        <h2>
+            
+                Collections
+            
+        </h2>
+    </section>
+
+
+
+
+
+    <section data-state="bb">
+        <h2>Collections of Values</h2>
+        
+        Values can also be stored in a 
+                <font color="#e06666">
+                    <b>
+                        <i>collection</i>
+                    </b>
+                </font>:
+            
+               <p><b>we'll only talk about the Array</b></p> 
+            
+         
+    </section>
+    
+    
+
+
+
+    
+        <section data-state="bb">
+            <h2>Arrays</h2>
+            
+                <p>
+                    We can store multiple values in an <b><i><font color="#e06666">array</font>:</i></b>
+                </p>
+                    
+                <pre><code class="python">&gt;&gt;&gt; l = newArray(1,3,9,4,884328881);
+&gt;&gt;&gt; n = newArray('first', 'second', 'third', 'fourth');
+&gt;&gt;&gt; m = Array.concat(l,n);
+&gt;&gt;&gt; print(m[6]);
+'second'</code></pre>
+            
+            <br/>An array is a ordered sequence of items (between [...]) each with their own index.
+            <br/>
+        </section>
+
+
+
+
+
+
+        <section data-state="bb">
+            <h2>Some array examples
+                <br/>
+            </h2>
+            
+                <pre><code class="java">
+// This macro demonstrates how to use the Array.* functions.
+
+  requires("1.42j");
+  a1 = newArray(10, 5, 15, 2, 1.23456);
+  a2 = Array.copy(a1);
+  list("copy", a2);
+  a2 = Array.trim(a1, 2);
+  list("trim", a2);
+  Array.sort(a1);
+  list("sort", a1);
+  Array.getStatistics(a1, min, max, mean, std);
+  print("stats");
+  print("   min: "+min);
+  print("   max: "+max);
+  print("   mean: "+mean);
+  print("   std dev: "+std);
+  Array.fill(a1, -1);
+  list("fill", a1);
+
+  a1 = newArray("one", "two", "three", "four");
+  print("");
+  a2 = Array.copy(a1);
+  list("copy", a2);
+  a2 = Array.trim(a1, 2);
+  list("trim", a2);
+  Array.sort(a1);
+  list("sort", a1);
+
+  function list(name, a) {
+      print(name);
+      for (i=0; i< a.length; i++)
+          print("   "+a[i]);
+  }
+                </code></pre>
+           
+            
+        </section>
+
+
+
+
+
+    
+    <section data-state="bb">
+        
+        <h2>
+            
+                Questions?
+            
+        </h2>
+        
+    </section>
+
+
+
+
+
+
+
+
+
+    <section data-menu-title="Putting the pieces together" data-state="pp">
+        
+        
+        <h1>
+                Putting the pieces together
+
+        </h1>
+        
+    </section>
+
+
+
+<section data-state="pp">
+        
+        
+        <h1>
+                Loops
+        </h1>
+        
+    </section>
+
+
+
+
+
+
+    
+        <section data-state="pp">
+            <h2>For Loops</h2>
+            
+                <p>
+                    You use <i><font color="#e06666">loops</font></i> to repeat a statement.
+                
+                </p>
+                <p>
+                   A <b><i><font color="#e06666">for-loop</font></i></b> is useful when you know how many times you want to repeat an action (e.g. for every item in a list)
+                
+                </p>
+                
+                <pre><code class="C">for (start; condition; increment){
+          do something
+  }</code></pre>
+            
+            
+        </section>
+
+
+
+    <section data-state="pp">
+        <h2>For Loops</h2>
+        
+        <p>for example:
+        </p>
+        <pre><code class="C">ages = newArray(18, 21, 16, 12);
+for(i=0; i< lengthOf(ages); i++){
+    print(ages[i]);
+}
+....
+18
+21
+16
+12 </code></pre>
+        
+    </section>
+
+
+
+
+
+        <section data-state="pp">
+            <h2>While Loops</h2>
+            
+                <p>A <b><i><font color="#e06666">while-loop</font></i></b> is useful when you don’t know when you want to stop looping yet.
+                </p>
+                <p>A while-loop statement checks a <i>condition</i> and loops until the condition is no longer satisfied.
+                </p>
+                
+                
+                <pre><code class="C">while (condition){
+    do something;
+}
+   </code></pre>
+                
+           
+        </section>
+
+
+
+
+
+
+
+
+
+
+
+
+    <section data-state="pp">
+        <h2>While Loops</h2>
+        <p>for example:
+           
+        </p>
+        
+        <pre><code class="C">x = 5;
+while(x > 0){
+    print("hooray!");
+    x = x - 1;
+}
+... 
+hooray!
+hooray!
+hooray!
+hooray!
+hooray!
+</code></pre>
+        
+    </section>
+
+
+
+
+
+
+
+    <section data-state="pp">
+        
+        <h2>
+            Conditional Statements
+        </h2>
+        
+    </section>
+
+
+
+
+
+
+
+
+        <section data-state="pp">
+            <h2>Conditional statements</h2>
+            
+                <p><b><i><font color="#e06666">Conditional statements</font></i></b> enable you to deal with multiple options.
+                </p>
+                <p>
+                    A part of your code is executed based on the truth value of a condition. You perform conditional checks with: <b>if, else</b>
+
+                </p>
+                <pre><code class="python">if(condition){
+    action
+}
+else{
+    final action
+}</code></pre>
+                <pre><code class="C">age = 17;
+if(age &lt; 18){
+    print("no drinks for you");
+}
+... 
+no drinks for you</code></pre>
+                    
+        </section>
+
+
+
+
+
+
+
+
+
+
+
+    <section data-state="pp">
+        
+        <h2>
+            Functions
+        </h2>
+        
+    </section>
+
+
+
+
+
+
+
+
+        <section data-state="pp">
+            <h2>Functions</h2>
+            
+                <p><font color="#e06666"><b><i>Functions</i></b></font> perform a collections of tasks, bundled under a specific name
+                </p>
+                <p>Take input <i>argument(s)</i>, execute statement(s), return output
+                </p>
+                <p>
+                    Input and output can be of all different types
+                </p>
+                
+                <pre><code class="C">name = "Erick Ratamero";
+length = lengthOf(name);
+print(length);</code></pre>
+            
+            <br/>
+        </section>
+
+
+
+
+
+
+        <section data-state="pp">
+            <h2>Built in functions</h2>
+            
+            <p>
+                <a href="https://imagej.nih.gov/ij/developer/macro/functions.html" target="_blank">https://imagej.nih.gov/ij/developer/macro/functions.html</a>
+            </p>
+           
+        </section>
+
+
+
+
+
+    <section data-state="pp">
+        <h2>Functions</h2>
+        
+            <p>You can also <i>define</i> your own functions like this:
+            </p>
+          
+            <pre><code class="C">function function_name(argument(s)){
+actions with argument(s)
+return statement
+    }
+</code></pre>
+           
+            <pre><code class="C">function calculate(x, y, sigma){
+    factor = exp(-1.0*(pow(x,2)+pow(y,2))/(2*pow(sigma,2)));
+    
+    return factor;
+}</code></pre>
+       
+
+        
+    </section>
+
+
+
+
+
+
+
+
+     <section data-state="pp">
+        
+        <h2>
+            
+                Questions?
+            
+        </h2>
+        
+    </section>
+
+
+
+
+
+
+
+    </div>
+
+
+
+
+
+<img style="position:fixed;bottom:1em;right:1em;" src="img/logo_WMS.jpg" width="10%">
+</div>
+
+    <script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+
+<script>
+// More info about config & dependencies:
+// - https://github.com/hakimel/reveal.js#configuration
+// - https://github.com/hakimel/reveal.js#dependencies
+Reveal.initialize({
+    controls: false,
+    slideNumber: true, //-- Added for development
+dependencies: [
+{ src: 'plugin/markdown/marked.js' },
+{ src: 'plugin/markdown/markdown.js' },
+{ src: 'plugin/notes/notes.js', async: true },
+{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+{ src: 'plugin/menu/menu.js' }
+],
+menu: {
+hideMissingTitles: true,
+themes: false,
+transitions: false,
+//markers: true,
+numbers: true,
+openButton: false,
+titleSelector: 'span.menu-title'
+
+}
+});
+</script>
+</body>
+</html>
