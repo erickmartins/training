@@ -43,7 +43,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 <li>These slides: https://erickmartins.github.io/training/ImageAnalysis.html</li>	
 <ul><li>Navigation: arrow keys left and right to navigate</li><li>'m' key to get to navigation menu</li><li>Escape for slide overview</li></ul>
 <li>Where to find help after the workshop (links also available on the menu):</li>
-<ul><li><a target="_blank" href="https://imagej.net">ImageJ Website</a></li><li><a target="_blank" href="https://forum.image.sc">Forum</a></li><li><a target="_blank" href="http://www.warwick.ac.uk/camdu">CAMDU</a></li></ul>
+<ul><li><a target="_blank" href="https://imagej.net">ImageJ Website</a></li><li><a target="_blank" href="https://forum.image.sc">image.sc Forum</a></li><li><a target="_blank" href="https://jacksonlaboratory.sharepoint.com/sites/ComputationalCommunity/SitePages/Computational-Image-Analysis.aspx">Computational Image Analysis on MyJAX</a></li></ul>
 </ul>
 </section>
 
@@ -149,7 +149,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 
 <section data-state="fiji2"><style>.fiji2 header:after { content: "Fiji Basics"; }</style>
 <ol class="left twothirds">
-<li>Run Fiji (Look for the shortcut on your desktop)</li>
+<li>Run Fiji</li>
 <!-- <li>Right click <a href="">this link</a> and "copy link location"</li> -->
 <li>Open <code><a href="material/01-Photo.tif">01-Photo.tif</a></code> and <a href="material/02-Biological_Image.tif"><code>02-Biological_Image.tif</code></a></li>
 <ul>
@@ -296,8 +296,8 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 </section>
 
 <section data-menu-title="Scale Bars and Colour modes" data-state="fiji4z"><style>.fiji4z header:after { content: ""; }</style>
-<h1>Scale Bars and Colour modes</h1>
-<h4>Adding a scale bar, changing the colour mode</h4>
+<h1>Scale Bars</h1>
+<h4>Adding a scale bar</h4>
 </section>
 
 <section data-state="fiji4"><style>.fiji4 header:after { content: "Scale Bars"; }</style>
@@ -309,14 +309,6 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 <li>Hit OK</li>
 </ul>
 <img class="half imright" src="img-ia/fiji_scale1.png"/></div>
-<p class="clear fragment">What Happened to our yellow scale bar?</p>
-</section>
-
-<section data-state="fiji4"><style>.fiji4 header:after { content: "Scale Bars"; }</style>
-<p>Open the <a href="material/02-Biological_Image.tif"><code>Original image</code></a></p>
-<img class="half" src="img-ia/fiji_scale2.png"/><img data-fragment-index="2" class="half fragment" src="img-ia/fiji_scale3.png"/>
-<p data-fragment-index="1" class="fragment">Run <code>[Image > Type > RGB Color]</code></p><p data-fragment-index="3" class="fragment">Try adding a scale bar again</p>
-<p data-fragment-index="4" class="fragment" style="font-size:70%">More on scale bars <a href="https://postacquisition.wordpress.com/2015/03/11/a-matter-of-scale-bars/" target="_blank">here</a>. For another way to approach this, see <a href="https://imagej.nih.gov/ij/docs/guide/146-11.html" target="_blank">Overlays</a></p>
 </section>
 
 
@@ -341,7 +333,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 
 <section data-menu-title="Channel Display Modes" data-state="fiji6"><style>.fiji6 header:after { content: "Channel Display Modes"; }</style>
 <ul style="font-size:80%"><li>Open <a href="material/06-multichannel.tif"><code>06-MultiChannel.tif</code></a></li>
-<li>(If opening via URL run <code>[Image > Hyperstacks > Stack to Hyperstack]</code>)</li>
+<li>(If necessary run <code>[Image > Hyperstacks > Stack to Hyperstack]</code>)</li>
 <li>Navigate through the channels then run Channels Tool <code>[Image > Color > Channels Tool]</code> and change to Greyscale</li></ul>
 <img class="half" src="img-ia/modes_01.png"/>
 <img data-fragment-index="1" class="half fragment" src="img-ia/modes_03.png"/>
@@ -405,7 +397,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 <section data-state="fiji14a"><style>.fiji14a header:after { content: "Colour: Changing LUTs"; }</style>
 <div class="twothirds left" style="font-size:90%">
 <ul><li>Open <a href="material/06-multichannel.tif"><code>06-MultiChannel.tif</code></a></li>
-<li>(If opening via URL run <code>[Image > Hyperstacks > Stack to Hyperstack]</code>)</li>
+<li>(If opening necessary <code>[Image > Hyperstacks > Stack to Hyperstack]</code>)</li>
 <li>Run <code>[Image > Lookup Tables]</code>, try a few different ones</li>
 <li>Run Channels Tool <code>[Image > Color > Channels Tool]</code>, make sure you're in Color or Composite mode, hit More, select a LUT</li>
 <li data-fragment-index="1" class="fragment">Run <code>[Image > Color > Display LUTs]</code> to see all the LUTs on your version of Fiji</li></ul>
@@ -537,7 +529,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 <li>Run <code>[Edit > Selection > Create Selection]</code></li>
 <li>If the black area is selected, run <code>[Edit > Selection > Make Inverse]</code>. Add it to the ROI manager ('t')</li>
 <li>Open the <a href="material/07-nuclei.tif"><code>original image</code></a></li>
-<li>Convert it to RGB <code>[Image > Type > RGB Color]</code> (remember what happened with the <a href="#/36">Scale Bar</a>?)</li>
+<li>Convert it to RGB <code>[Image > Type > RGB Color]</code> </li>
 <li>Select the ROI, then run <code>[Edit > Draw]</code> (this will use the current foreground colour and line width)</li>
 </ul>
 <img class="right third" src="img-ia/seg_CCA_12.png"/>
@@ -689,7 +681,7 @@ run("Scale Bar...", "width=10 height=10 font=30 color=Green background=None loca
 
 <section data-state="apps24"><style>.apps24 header:after { content: "Scripting"; }</style>
 <ul style="font-size:70%" class="twothirds">
-<li>(If opening via URL run <code>[Image > Hyperstacks > Stack to Hyperstack]</code>)</li>
+<li>(If necessary <code>[Image > Hyperstacks > Stack to Hyperstack]</code>)</li>
 <li>Open the channels tool <code>[Image > Color > Channels Tool]</code> and set the mode to <code>grayscale</code></li>
 <li>Run <code>[Image > Type > RGB color]</code></li>
 <li>Rename this image to <code>channels</code> with <code>[Image > Rename]</code></li>
@@ -745,7 +737,7 @@ close("*");
 </section>
 
 <section data-state="apps24"><style>.apps24 header:after { content: "Scripting"; }</style>
-<p>If you're interested in a scripting workshop, let me know! We can put one together in the near future.</p>
+<p>We'll go into more detail on scripts in the future.</p>
 <p>In the meantime:</p>
 <ul>
 <li><a href="https://imagej.nih.gov/ij/developer/macro/macros.html" target="_blank">ImageJ language reference</a></li>

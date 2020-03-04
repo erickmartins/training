@@ -1,0 +1,673 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Image Analysis with Fiji</title>
+<link rel="stylesheet" href="css/reveal.css">
+<link rel="stylesheet" href="css/theme/cci.css">
+<link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+<!-- Theme used for syntax highlighting of code -->
+<link rel="stylesheet" href="lib/css/zenburn.css">
+<!-- Printing and PDF exports -->
+<script>
+var link = document.createElement( 'link' );
+link.rel = 'stylesheet';
+link.type = 'text/css';
+link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+document.getElementsByTagName( 'head' )[0].appendChild( link );
+</script>
+</head>
+<body>
+<div class="reveal">
+<!-- Header logo -->
+<!--img style="position:fixed;top:1em;right:1em;" src="img/logo_cci.png" width="15%"-->
+<!-- Slide Title -->
+<header style="position: absolute;top: 1em; left: 1em; z-index:10;"></header>
+<div class="slides">
+    <section data-menu-title="Title">
+<h2>Assembling a ImageJ macro</h2>
+	    <h4>Erick Martins Ratamero (he/him)</h4>
+	    
+</section>
+
+
+<section data-menu-title="Intro" class="future" style="top: 224px; display: block;" hidden="" aria-hidden="true">
+        <h2>
+            <b>Acknowledgements</b>
+        </h2>
+        
+   
+    <ul>
+        <li>Some material from <a href="https://imagej.net/Introduction_into_Macro_Programming">https://imagej.net/Introduction_into_Macro_Programming</a></li>
+        </ul>
+    
+    </section>
+
+
+    <section data-state="python" class="future" style="top: 194px; display: block;" hidden="" aria-hidden="true">
+        <h2>Why macros?</h2>
+       
+         <ul>
+             <li>Automation: do the same thing many times over</li>
+             <li>Reproducibility: do exactly the same thing every time, show the world what you've done</li>
+             <li>Sharing: let someone else do exactly the same analysis as you</li>
+             <li>Extension: do things Fiji cannot do by default</li>
+         </ul>  
+       
+                
+    </section>
+
+    <section data-menu-title="Objective" class="future" style="top: 149.5px; display: none;" hidden="" aria-hidden="true">
+        <h2>"My first proper macro"</h2>
+        <h3>Objective: apply a simple analysis pipeline over a set of images</h3>
+       
+         <ul>
+             <li>Download our <a href="./material/data_session6.zip">test data</a> to your desktop.</li>
+             <li>Unzip (right click and "Extract All") and rename the folder to <code>Input</code></li>
+             <li>Make another folder on the desktop called <code>Output</code></li>
+             <li>Find the ImageJ macro template "Process_Folder"<br><code>[File &gt; New &gt; Script...]</code><br><code>[Templates &gt; ImageJ 1.x &gt; Batch &gt; Process Folder (IJ1 macro)]</code></li>
+         </ul>    
+    </section>
+    
+            <section data-state="python" class="future" style="top: 60px; display: none;" hidden="" aria-hidden="true">
+        <h2>Process_Folder</h2>
+	<p><code>[Templates &gt; ImageJ 1.x &gt; Batch &gt; Process Folder (IJ1 macro)]</code> </p> 
+    <pre><code data-trim="" data-noescape="" class="hljs stata"><span class="hljs-comment">/*
+ * Macro template to process multiple images in a folder
+ */</span>
+
+#@ <span class="hljs-keyword">File</span> (<span class="hljs-keyword">label</span> = <span class="hljs-string">"Input directory"</span>, style = <span class="hljs-string">"directory"</span>) <span class="hljs-keyword">input</span>
+#@ <span class="hljs-keyword">File</span> (<span class="hljs-keyword">label</span> = <span class="hljs-string">"Output directory"</span>, style = <span class="hljs-string">"directory"</span>) output
+#@ String (<span class="hljs-keyword">label</span> = <span class="hljs-string">"File suffix"</span>, value = <span class="hljs-string">".tif"</span>) suffix
+
+<span class="hljs-comment">// See also Process_Folder.py for a version of this code</span>
+<span class="hljs-comment">// in the Python scripting language.</span>
+
+processFolder(<span class="hljs-keyword">input</span>);
+
+<span class="hljs-comment">// function to scan folders/subfolders/files to find files with correct suffix</span>
+function processFolder(<span class="hljs-keyword">input</span>) {
+	<span class="hljs-keyword">list</span> = getFileList(<span class="hljs-keyword">input</span>);
+	<span class="hljs-keyword">list</span> = Array.<span class="hljs-keyword">sort</span>(<span class="hljs-keyword">list</span>);
+	<span class="hljs-keyword">for</span> (i = 0; i &lt; <span class="hljs-keyword">list</span>.length; i++) {
+		<span class="hljs-keyword">if</span>(<span class="hljs-keyword">File</span>.isDirectory(<span class="hljs-keyword">input</span> + <span class="hljs-keyword">File</span>.separator + <span class="hljs-keyword">list</span>[i]))
+			processFolder(<span class="hljs-keyword">input</span> + <span class="hljs-keyword">File</span>.separator + <span class="hljs-keyword">list</span>[i]);
+		<span class="hljs-keyword">if</span>(endsWith(<span class="hljs-keyword">list</span>[i], suffix))
+			processFile(<span class="hljs-keyword">input</span>, output, <span class="hljs-keyword">list</span>[i]);
+	}
+}
+
+function processFile(<span class="hljs-keyword">input</span>, output, <span class="hljs-keyword">file</span>) {
+	<span class="hljs-comment">// Do the processing here by adding your own code.</span>
+	<span class="hljs-comment">// Leave the print statements until things work, then remove them.</span>
+	<span class="hljs-keyword">print</span>(<span class="hljs-string">"Processing: "</span> + <span class="hljs-keyword">input</span> + <span class="hljs-keyword">File</span>.separator + <span class="hljs-keyword">file</span>);
+	<span class="hljs-keyword">print</span>(<span class="hljs-string">"Saving to: "</span> + output);
+}</code></pre>
+                  
+    </section>
+
+        <section data-state="python" class="future" style="top: 86px; display: none;" hidden="" aria-hidden="true">
+        <h2>Hints</h2>
+       
+         <ul>
+             <li>Use each macro to make the next one.</li>
+             <li>Remember the macro recorder.</li>
+         </ul>
+		<br>
+	<img src="./macroWorkshop_files/semi-meme.jpeg" width="300">     
+    </section>
+
+    <section data-menu-title="Task 1" class="future" style="top: 250px; display: none;" hidden="" aria-hidden="true">
+        <h2>Task 1- Create a macro that:</h2>
+       
+         <ol>
+             <li>Opens every image and prints the image name to the log.</li>
+         </ol>  
+           <p>
+        (Hint: What do the variables input, output, file and file.seperator mean?)
+        </p>      
+    </section>
+    
+    <section data-menu-title="Task 2" class="future" style="top: 234px; display: none;" hidden="" aria-hidden="true">
+        <h2>Task 2- Create a macro that:</h2>
+       
+         <ol>
+             <li>Opens every image, prints how many slices there are in the image and then closes the image.</li>
+         </ol>  
+         <p>i.e. you shouldn't have all of the image open at the end</p>  
+    </section>
+    
+
+                
+    
+    <section data-menu-title="Task 3" class="future" style="top: 239px; display: none;" hidden="" aria-hidden="true">
+        <h2>Task 3- Create a macro that:</h2>
+       
+         <ol>
+             <li>Opens every image, prints how many slices there are in the image...</li>
+             <li>duplicates the first slice</li>
+             <li>then saves this as a seperate image (with a suitable filename).</li>
+             <li>Closes all the images.</li>
+         </ol>        
+    </section>
+
+                
+    
+    <section data-menu-title="Task 4" class="future" style="top: 223.5px; display: none;" hidden="" aria-hidden="true">
+        <h2>Task 4- Create a macro that:</h2>
+         <ol>
+             <li>Opens every image, prints how many slices there are in the image then ...</li>
+	     <li>Sets the slice to 5, duplicates this frame, </li>
+	     <li>performs background subtraction then saves this as a seperate image (with a suitable filename).</li>
+             <li>Closes all the images.</li>
+         </ol>     
+    </section>
+	
+
+	<section data-menu-title="Task 5" class="future" style="top: 239px; display: none;" hidden="" aria-hidden="true">
+        <h2>Task 5- Create a macro that:</h2>
+         <ol>
+             <li>Opens every image, prints how many slices there are in the image then ...</li>
+	     <li>Loops through every individual slice of the image, subtracts the background and saves each as new image.</li>
+             <li>Closes all the images.</li>
+         </ol>     
+    </section>
+	
+	
+    <section data-menu-title="Extension task 6" class="future" style="top: 208.5px; display: none;" hidden="" aria-hidden="true">
+        <h2>Extension task 6- Create a macro that:</h2>
+         <ol>
+	     <li>Opens every image, prints how many slices there are in the image then ...</li>
+	     <li>Loops through every individual slice of the image and saves each as new image.</li>
+             <li>Does a Z projection between slices 3 and 7 and measures the "mean gray value" of this projection.</li>
+             <li>Closes all the images and then saves the results table as a .csv file.</li>
+         </ol>     
+    </section>
+	
+    <section data-menu-title="Solution 1" class="future" style="top: 112px; display: none;" hidden="" aria-hidden="true">
+    <h2>Solution 1:</h2>
+    <pre><code data-trim="" data-noescape="" class="hljs stata">#@ <span class="hljs-keyword">File</span> (<span class="hljs-keyword">label</span> = <span class="hljs-string">"Input directory"</span>, style = <span class="hljs-string">"directory"</span>) <span class="hljs-keyword">input</span>
+#@ <span class="hljs-keyword">File</span> (<span class="hljs-keyword">label</span> = <span class="hljs-string">"Output directory"</span>, style = <span class="hljs-string">"directory"</span>) output
+#@ String (<span class="hljs-keyword">label</span> = <span class="hljs-string">"File suffix"</span>, value = <span class="hljs-string">".tif"</span>) suffix
+
+processFolder(<span class="hljs-keyword">input</span>);
+
+<span class="hljs-comment">// function to scan folders/subfolders/files to find files with correct suffix</span>
+function processFolder(<span class="hljs-keyword">input</span>) {
+	<span class="hljs-keyword">list</span> = getFileList(<span class="hljs-keyword">input</span>);
+	<span class="hljs-keyword">list</span> = Array.<span class="hljs-keyword">sort</span>(<span class="hljs-keyword">list</span>);
+	<span class="hljs-keyword">for</span> (i = 0; i &lt; <span class="hljs-keyword">list</span>.length; i++) {
+		<span class="hljs-keyword">if</span>(<span class="hljs-keyword">File</span>.isDirectory(<span class="hljs-keyword">input</span> + <span class="hljs-keyword">File</span>.separator + <span class="hljs-keyword">list</span>[i]))
+			processFolder(<span class="hljs-keyword">input</span> + <span class="hljs-keyword">File</span>.separator + <span class="hljs-keyword">list</span>[i]);
+		<span class="hljs-keyword">if</span>(endsWith(<span class="hljs-keyword">list</span>[i], suffix))
+			processFile(<span class="hljs-keyword">input</span>, output, <span class="hljs-keyword">list</span>[i]);
+	}
+}
+
+function processFile(<span class="hljs-keyword">input</span>, output, <span class="hljs-keyword">file</span>) {	
+	<span class="hljs-keyword">print</span>(<span class="hljs-keyword">file</span>);
+	<span class="hljs-comment">// or print(input+ File.seperator + file);</span>
+}</code></pre>
+    </section>
+	
+    <section data-menu-title="Solution 2" class="future" style="top: 97px; display: none;" hidden="" aria-hidden="true">
+    <h2>Solution 2:</h2>
+    <pre><code data-trim="" data-noescape="" class="hljs stata">#@ <span class="hljs-keyword">File</span> (<span class="hljs-keyword">label</span> = <span class="hljs-string">"Input directory"</span>, style = <span class="hljs-string">"directory"</span>) <span class="hljs-keyword">input</span>
+#@ <span class="hljs-keyword">File</span> (<span class="hljs-keyword">label</span> = <span class="hljs-string">"Output directory"</span>, style = <span class="hljs-string">"directory"</span>) output
+#@ String (<span class="hljs-keyword">label</span> = <span class="hljs-string">"File suffix"</span>, value = <span class="hljs-string">".tif"</span>) suffix
+
+processFolder(<span class="hljs-keyword">input</span>);
+
+<span class="hljs-comment">// function to scan folders/subfolders/files to find files with correct suffix</span>
+function processFolder(<span class="hljs-keyword">input</span>) {
+	<span class="hljs-keyword">list</span> = getFileList(<span class="hljs-keyword">input</span>);
+	<span class="hljs-keyword">list</span> = Array.<span class="hljs-keyword">sort</span>(<span class="hljs-keyword">list</span>);
+	<span class="hljs-keyword">for</span> (i = 0; i &lt; <span class="hljs-keyword">list</span>.length; i++) {
+		<span class="hljs-keyword">if</span>(<span class="hljs-keyword">File</span>.isDirectory(<span class="hljs-keyword">input</span> + <span class="hljs-keyword">File</span>.separator + <span class="hljs-keyword">list</span>[i]))
+			processFolder(<span class="hljs-keyword">input</span> + <span class="hljs-keyword">File</span>.separator + <span class="hljs-keyword">list</span>[i]);
+		<span class="hljs-keyword">if</span>(endsWith(<span class="hljs-keyword">list</span>[i], suffix))
+			processFile(<span class="hljs-keyword">input</span>, output, <span class="hljs-keyword">list</span>[i]);
+	}
+}
+
+function processFile(<span class="hljs-keyword">input</span>, output, <span class="hljs-keyword">file</span>) {
+	
+	<span class="hljs-keyword">open</span>(<span class="hljs-keyword">input</span>+<span class="hljs-keyword">File</span>.separator+<span class="hljs-keyword">file</span>);
+	<span class="hljs-keyword">print</span>(nSlices);
+	<span class="hljs-keyword">close</span>();
+}</code></pre>
+    </section>
+	
+    <section data-menu-title="Solution 3" class="future" style="top: 85.5px; display: none;" hidden="" aria-hidden="true">
+    <h2>Solution 3:</h2>
+    <pre><code data-trim="" data-noescape="" class="hljs stata">#@ <span class="hljs-keyword">File</span> (<span class="hljs-keyword">label</span> = <span class="hljs-string">"Input directory"</span>, style = <span class="hljs-string">"directory"</span>) <span class="hljs-keyword">input</span>
+#@ <span class="hljs-keyword">File</span> (<span class="hljs-keyword">label</span> = <span class="hljs-string">"Output directory"</span>, style = <span class="hljs-string">"directory"</span>) output
+#@ String (<span class="hljs-keyword">label</span> = <span class="hljs-string">"File suffix"</span>, value = <span class="hljs-string">".tif"</span>) suffix
+
+processFolder(<span class="hljs-keyword">input</span>);
+
+<span class="hljs-comment">// function to scan folders/subfolders/files to find files with correct suffix</span>
+function processFolder(<span class="hljs-keyword">input</span>) {
+	<span class="hljs-keyword">list</span> = getFileList(<span class="hljs-keyword">input</span>);
+	<span class="hljs-keyword">list</span> = Array.<span class="hljs-keyword">sort</span>(<span class="hljs-keyword">list</span>);
+	<span class="hljs-keyword">for</span> (i = 0; i &lt; <span class="hljs-keyword">list</span>.length; i++) {
+		<span class="hljs-keyword">if</span>(<span class="hljs-keyword">File</span>.isDirectory(<span class="hljs-keyword">input</span> + <span class="hljs-keyword">File</span>.separator + <span class="hljs-keyword">list</span>[i]))
+			processFolder(<span class="hljs-keyword">input</span> + <span class="hljs-keyword">File</span>.separator + <span class="hljs-keyword">list</span>[i]);
+		<span class="hljs-keyword">if</span>(endsWith(<span class="hljs-keyword">list</span>[i], suffix))
+			processFile(<span class="hljs-keyword">input</span>, output, <span class="hljs-keyword">list</span>[i]);
+	}
+}
+
+function processFile(<span class="hljs-keyword">input</span>, output, <span class="hljs-keyword">file</span>) {	
+	<span class="hljs-keyword">open</span>(<span class="hljs-keyword">input</span>+<span class="hljs-string">"/"</span>+<span class="hljs-keyword">file</span>);
+	<span class="hljs-keyword">print</span>(nSlices);
+	<span class="hljs-keyword">run</span>(<span class="hljs-string">"Duplicate..."</span>, <span class="hljs-string">" "</span>);
+	saveAs(<span class="hljs-string">"Tiff"</span>, output+<span class="hljs-keyword">File</span>.separator+<span class="hljs-keyword">File</span>.nameWithoutExtension+<span class="hljs-string">"_slice1.tiff"</span>);
+	<span class="hljs-keyword">close</span>();
+	<span class="hljs-keyword">close</span>();
+	<span class="hljs-comment">//or close("*")</span>
+}</code></pre>
+    </section>
+	
+    <section data-menu-title="Solution 4" class="future" style="top: 85.5px; display: none;" hidden="" aria-hidden="true">
+    <h2>Solution 4:</h2>
+    <pre><code data-trim="" data-noescape="" class="hljs stata">#@ <span class="hljs-keyword">File</span> (<span class="hljs-keyword">label</span> = <span class="hljs-string">"Input directory"</span>, style = <span class="hljs-string">"directory"</span>) <span class="hljs-keyword">input</span>
+#@ <span class="hljs-keyword">File</span> (<span class="hljs-keyword">label</span> = <span class="hljs-string">"Output directory"</span>, style = <span class="hljs-string">"directory"</span>) output
+#@ String (<span class="hljs-keyword">label</span> = <span class="hljs-string">"File suffix"</span>, value = <span class="hljs-string">".tif"</span>) suffix
+
+processFolder(<span class="hljs-keyword">input</span>);
+
+<span class="hljs-comment">// function to scan folders/subfolders/files to find files with correct suffix</span>
+function processFolder(<span class="hljs-keyword">input</span>) {
+	<span class="hljs-keyword">list</span> = getFileList(<span class="hljs-keyword">input</span>);
+	<span class="hljs-keyword">list</span> = Array.<span class="hljs-keyword">sort</span>(<span class="hljs-keyword">list</span>);
+	<span class="hljs-keyword">for</span> (i = 0; i &lt; <span class="hljs-keyword">list</span>.length; i++) {
+		<span class="hljs-keyword">if</span>(<span class="hljs-keyword">File</span>.isDirectory(<span class="hljs-keyword">input</span> + <span class="hljs-keyword">File</span>.separator + <span class="hljs-keyword">list</span>[i]))
+			processFolder(<span class="hljs-keyword">input</span> + <span class="hljs-keyword">File</span>.separator + <span class="hljs-keyword">list</span>[i]);
+		<span class="hljs-keyword">if</span>(endsWith(<span class="hljs-keyword">list</span>[i], suffix))
+			processFile(<span class="hljs-keyword">input</span>, output, <span class="hljs-keyword">list</span>[i]);
+	}
+}
+
+function processFile(<span class="hljs-keyword">input</span>, output, <span class="hljs-keyword">file</span>) {	
+	<span class="hljs-keyword">open</span>(<span class="hljs-keyword">input</span>+<span class="hljs-string">"/"</span>+<span class="hljs-keyword">file</span>);
+	<span class="hljs-keyword">print</span>(nSlices);
+	setSlice(5);
+	<span class="hljs-keyword">run</span>(<span class="hljs-string">"Duplicate..."</span>, <span class="hljs-string">" "</span>);
+	<span class="hljs-keyword">run</span>(<span class="hljs-string">"Subtract Background..."</span>, <span class="hljs-string">"rolling=20"</span>);
+	saveAs(<span class="hljs-string">"tiff"</span>, output+<span class="hljs-keyword">File</span>.separator+<span class="hljs-keyword">File</span>.nameWithoutExtension+<span class="hljs-string">"_slice5"</span>+<span class="hljs-string">".tiff"</span>);
+	<span class="hljs-keyword">close</span>();
+	<span class="hljs-keyword">close</span>();
+}</code></pre>
+    </section>
+	
+    <section data-menu-title="Solution 5" class="future" style="top: 85.5px; display: none;" hidden="" aria-hidden="true">
+    <h2>Solution 5:</h2>
+    <pre><code data-trim="" data-noescape="" class="hljs stata">#@ <span class="hljs-keyword">File</span> (<span class="hljs-keyword">label</span> = <span class="hljs-string">"Input directory"</span>, style = <span class="hljs-string">"directory"</span>) <span class="hljs-keyword">input</span>
+#@ <span class="hljs-keyword">File</span> (<span class="hljs-keyword">label</span> = <span class="hljs-string">"Output directory"</span>, style = <span class="hljs-string">"directory"</span>) output
+#@ String (<span class="hljs-keyword">label</span> = <span class="hljs-string">"File suffix"</span>, value = <span class="hljs-string">".tif"</span>) suffix
+
+processFolder(<span class="hljs-keyword">input</span>);
+
+<span class="hljs-comment">// function to scan folders/subfolders/files to find files with correct suffix</span>
+function processFolder(<span class="hljs-keyword">input</span>) {
+	<span class="hljs-keyword">list</span> = getFileList(<span class="hljs-keyword">input</span>);
+	<span class="hljs-keyword">list</span> = Array.<span class="hljs-keyword">sort</span>(<span class="hljs-keyword">list</span>);
+	<span class="hljs-keyword">for</span> (i = 0; i &lt; <span class="hljs-keyword">list</span>.length; i++) {
+		<span class="hljs-keyword">if</span>(<span class="hljs-keyword">File</span>.isDirectory(<span class="hljs-keyword">input</span> + <span class="hljs-keyword">File</span>.separator + <span class="hljs-keyword">list</span>[i]))
+			processFolder(<span class="hljs-keyword">input</span> + <span class="hljs-keyword">File</span>.separator + <span class="hljs-keyword">list</span>[i]);
+		<span class="hljs-keyword">if</span>(endsWith(<span class="hljs-keyword">list</span>[i], suffix))
+			processFile(<span class="hljs-keyword">input</span>, output, <span class="hljs-keyword">list</span>[i]);
+	}
+}
+
+function processFile(<span class="hljs-keyword">input</span>, output, <span class="hljs-keyword">file</span>) {	
+	<span class="hljs-keyword">open</span>(<span class="hljs-keyword">input</span>+<span class="hljs-string">"/"</span>+<span class="hljs-keyword">file</span>);
+	<span class="hljs-keyword">print</span>(nSlices);
+	<span class="hljs-keyword">for</span> (i=1; i&lt;=nSlices; i++){
+		setSlice(i);
+		<span class="hljs-keyword">run</span>(<span class="hljs-string">"Duplicate..."</span>, <span class="hljs-string">" "</span>);
+		<span class="hljs-keyword">run</span>(<span class="hljs-string">"Subtract Background..."</span>, <span class="hljs-string">"rolling=20"</span>);
+		saveAs(<span class="hljs-string">"tiff"</span>, output+<span class="hljs-keyword">File</span>.separator+<span class="hljs-keyword">File</span>.nameWithoutExtension+<span class="hljs-string">"_slice"</span>+i+<span class="hljs-string">".tiff"</span>);
+		<span class="hljs-keyword">close</span>();
+	}
+	<span class="hljs-keyword">close</span>();
+}</code></pre>
+    </section>
+	    
+    <section data-menu-title="Solution 6" class="future" style="top: 85.5px; display: none;" hidden="" aria-hidden="true">
+    <h2>Solution 6:</h2>
+    <pre><code data-trim="" data-noescape="" class="hljs stata">#@ <span class="hljs-keyword">File</span> (<span class="hljs-keyword">label</span> = <span class="hljs-string">"Input directory"</span>, style = <span class="hljs-string">"directory"</span>) <span class="hljs-keyword">input</span>
+#@ <span class="hljs-keyword">File</span> (<span class="hljs-keyword">label</span> = <span class="hljs-string">"Output directory"</span>, style = <span class="hljs-string">"directory"</span>) output
+#@ String (<span class="hljs-keyword">label</span> = <span class="hljs-string">"File suffix"</span>, value = <span class="hljs-string">".tif"</span>) suffix
+
+processFolder(<span class="hljs-keyword">input</span>);
+
+<span class="hljs-comment">// function to scan folders/subfolders/files to find files with correct suffix</span>
+function processFolder(<span class="hljs-keyword">input</span>) {
+	<span class="hljs-keyword">list</span> = getFileList(<span class="hljs-keyword">input</span>);
+	<span class="hljs-keyword">list</span> = Array.<span class="hljs-keyword">sort</span>(<span class="hljs-keyword">list</span>);
+	<span class="hljs-keyword">for</span> (i = 0; i &lt; <span class="hljs-keyword">list</span>.length; i++) {
+		<span class="hljs-keyword">if</span>(<span class="hljs-keyword">File</span>.isDirectory(<span class="hljs-keyword">input</span> + <span class="hljs-keyword">File</span>.separator + <span class="hljs-keyword">list</span>[i]))
+			processFolder(<span class="hljs-keyword">input</span> + <span class="hljs-keyword">File</span>.separator + <span class="hljs-keyword">list</span>[i]);
+		<span class="hljs-keyword">if</span>(endsWith(<span class="hljs-keyword">list</span>[i], suffix))
+			processFile(<span class="hljs-keyword">input</span>, output, <span class="hljs-keyword">list</span>[i]);
+	}
+}
+
+function processFile(<span class="hljs-keyword">input</span>, output, <span class="hljs-keyword">file</span>) {	
+	<span class="hljs-keyword">open</span>(<span class="hljs-keyword">input</span>+<span class="hljs-string">"/"</span>+<span class="hljs-keyword">file</span>);
+	<span class="hljs-keyword">print</span>(nSlices);
+	<span class="hljs-keyword">for</span> (i=1; i&lt;=nSlices; i++){
+		setSlice(i);
+		<span class="hljs-keyword">run</span>(<span class="hljs-string">"Duplicate..."</span>, <span class="hljs-string">" "</span>);
+		<span class="hljs-keyword">run</span>(<span class="hljs-string">"Subtract Background..."</span>, <span class="hljs-string">"rolling=20"</span>);
+		saveAs(<span class="hljs-string">"tiff"</span>, output+<span class="hljs-keyword">File</span>.separator+<span class="hljs-keyword">File</span>.nameWithoutExtension+<span class="hljs-string">"_slice"</span>+i+<span class="hljs-string">".tiff"</span>);
+		<span class="hljs-keyword">close</span>();
+	}
+	<span class="hljs-keyword">run</span>(<span class="hljs-string">"Z Project..."</span>, <span class="hljs-string">"start=3 stop=7 projection=[Average Intensity]"</span>);
+	<span class="hljs-keyword">run</span>(<span class="hljs-string">"Set Measurements..."</span>, <span class="hljs-string">"mean redirect=None decimal=7"</span>);
+	<span class="hljs-keyword">run</span>(<span class="hljs-string">"Measure"</span>);
+	<span class="hljs-keyword">run</span>(<span class="hljs-string">"Subtract Background..."</span>, <span class="hljs-string">"rolling=100"</span>);
+	saveAs(<span class="hljs-string">"tiff"</span>, output+<span class="hljs-keyword">File</span>.separator+<span class="hljs-keyword">File</span>.nameWithoutExtension+<span class="hljs-string">"_projection_BackSubtract.tiff"</span>);
+	<span class="hljs-keyword">close</span>(<span class="hljs-string">"*"</span>);
+}
+
+<span class="hljs-comment">// Note this is outside the processFile function </span>
+saveAs(<span class="hljs-string">"Results"</span>, output+<span class="hljs-keyword">File</span>.separator+<span class="hljs-string">"MeanIntensity.csv"</span>);</code></pre>
+    </section>
+	
+<div class="slides">
+    <section data-menu-title="Session 7" class="future" style="top: 208px; display: none;" hidden="" aria-hidden="true">
+<h2>Assembling a ImageJ macro- Session 7</h2>
+	    <h4>Sam Garforth,<br> Daniel Moore,<br>Lewis Mosby,<br><b>PhD helpers</b></h4>
+	    
+	    <p> Hit <b>m</b> to see the plan for today </p>
+</section>
+	
+    <section data-menu-title="Objective2" class="future" style="top: 134.5px; display: none;" hidden="" aria-hidden="true">
+        <h2>A more complex FIJI macro</h2>
+        <h3>Objective: a more advanced macro similar to the assignment</h3>
+       
+         <ul>
+             <li>On the microscopy moodle page download all 6 zip files in the data folder under ImageJ assignment details (A1-3 and B1-3).</li>
+             <li>Unzip and put all six images in a desktop folder called <code>Input</code>.</li>
+             <li>Make another folder on the desktop called <code>Output</code>.</li>
+             <li>Find the ImageJ macro template "Process_Folder"<br><code>[File &gt; New &gt; Script...]</code><br><code>[Templates &gt; ImageJ 1.x &gt; Batch &gt; Process Folder (IJ1 macro)]</code></li>
+         </ul>    
+    </section>
+	
+	<section data-state="python" class="future" style="top: 163px; display: none;" hidden="" aria-hidden="true">
+        <h2>Introduction</h2>
+       
+         <ul>
+             <li>There are six z-stack images of cells. Each has three channels: a cytoplasmic marker (1), a brightfield image (2) and a fluorescence image (3).</li>
+             <li>Whilst the first two channels could be useful for cell segmentation, all we want here is an accurate count of the number of foci in the third channel.</li>
+	     <li>We will try two methods of finding the number of foci: thresholding versus finding maxima.</li>
+	     <li>There's multiple ways to do these tasks and lots of them have validity.</li>
+	</ul>  
+    </section>
+	    
+    <section data-menu-title="Task 1" class="future" style="top: 219px; display: none;" hidden="" aria-hidden="true">
+        <h2>Task 1- Create a macro that:</h2>
+         <ol>
+             <li>Opens every image and performs a z-projection on the fluorescence channel.</li>
+	     <li>Saves a thresholded version of this projection.</li>
+         </ol> 
+	    <p> You'll want to close all images as you move onto the next file. Remember to generalise your code so that the image name doesn't matter.</p>
+    </section>
+	
+    <section data-menu-title="Task 2" class="future" style="top: 239px; display: none;" hidden="" aria-hidden="true">
+        <h2>Task 2- Create a macro that:</h2>
+         <ol>
+             <li>Opens every image and performs a z-projection on the fluorescence channel.</li>
+	     <li>Saves a thresholded version of this projection.</li>
+	     <li>Measures the area and centre of mass of each thresholded spot and saves it as a csv file.</li>
+         </ol> 
+    </section>
+	
+    <section data-menu-title="Task 3" class="future" style="top: 269.5px; display: none;" hidden="" aria-hidden="true">
+        <h2>Task 3- Create a macro that:</h2>
+         <ol>
+             <li>Opens every image and performs a z-projection on the fluorescence channel.</li>
+	     <li>Applies the find_maxima function and saves a list of foci locations as csv file.</li>
+         </ol> 
+    </section>
+	
+  <section data-menu-title="Task 4" class="future" style="top: 219px; display: none;" hidden="" aria-hidden="true">
+        <h2>Task 4- Create a macro that:</h2>
+         <ol>
+             <li>Opens every image and performs a z-projection on the fluorescence channel.</li>
+	     <li>Counts the foci in the each image using whichever method you prefer.</li>
+	     <li>Saves a csv file with the total number of foci in all images in the folder.</li>
+         </ol> 
+	  <p> Hint: consider how you would return a variable from the processFile function.</p>
+    </section>
+	
+	
+    <section data-menu-title="Solution 1" class="future" style="top: 85.5px; display: none;" hidden="" aria-hidden="true">
+    <h2>Solution 1:</h2>
+    <pre><code data-trim="" data-noescape="" class="hljs stata">#@ <span class="hljs-keyword">File</span> (<span class="hljs-keyword">label</span> = <span class="hljs-string">"Input directory"</span>, style = <span class="hljs-string">"directory"</span>) <span class="hljs-keyword">input</span>
+#@ <span class="hljs-keyword">File</span> (<span class="hljs-keyword">label</span> = <span class="hljs-string">"Output directory"</span>, style = <span class="hljs-string">"directory"</span>) output
+#@ String (<span class="hljs-keyword">label</span> = <span class="hljs-string">"File suffix"</span>, value = <span class="hljs-string">".tif"</span>) suffix
+
+processFolder(<span class="hljs-keyword">input</span>);
+
+<span class="hljs-comment">// function to scan folders/subfolders/files to find files with correct suffix</span>
+function processFolder(<span class="hljs-keyword">input</span>) {
+	<span class="hljs-keyword">list</span> = getFileList(<span class="hljs-keyword">input</span>);
+	<span class="hljs-keyword">list</span> = Array.<span class="hljs-keyword">sort</span>(<span class="hljs-keyword">list</span>);
+	<span class="hljs-keyword">for</span> (i = 0; i &lt; <span class="hljs-keyword">list</span>.length; i++) {
+		<span class="hljs-keyword">if</span>(<span class="hljs-keyword">File</span>.isDirectory(<span class="hljs-keyword">input</span> + <span class="hljs-keyword">File</span>.separator + <span class="hljs-keyword">list</span>[i]))
+			processFolder(<span class="hljs-keyword">input</span> + <span class="hljs-keyword">File</span>.separator + <span class="hljs-keyword">list</span>[i]);
+		<span class="hljs-keyword">if</span>(endsWith(<span class="hljs-keyword">list</span>[i], suffix))
+			processFile(<span class="hljs-keyword">input</span>, output, <span class="hljs-keyword">list</span>[i]);
+	}
+}
+
+function processFile(<span class="hljs-keyword">input</span>, output, <span class="hljs-keyword">file</span>) {
+	<span class="hljs-keyword">open</span>(<span class="hljs-keyword">input</span>+<span class="hljs-string">"/"</span>+<span class="hljs-keyword">file</span>);
+	original = getTitle();
+	orig_name = <span class="hljs-keyword">File</span>.nameWithoutExtension;
+	<span class="hljs-keyword">run</span>(<span class="hljs-string">"Duplicate..."</span>, <span class="hljs-string">"duplicate channels=3"</span>);
+	ch3 = getTitle();
+	<span class="hljs-keyword">run</span>(<span class="hljs-string">"Z Project..."</span>, <span class="hljs-string">"projection=[Max Intensity]"</span>);
+	selectWindow(original);
+	<span class="hljs-keyword">close</span>();
+	selectWindow(ch3);
+	<span class="hljs-keyword">close</span>();
+	<span class="hljs-keyword">run</span>(<span class="hljs-string">"Auto Threshold"</span>, <span class="hljs-string">"method=MaxEntropy white"</span>);
+	saveAs(<span class="hljs-string">"tiff"</span>, output+<span class="hljs-keyword">File</span>.separator+orig_name + <span class="hljs-string">"_thresh.tiff"</span>);
+	<span class="hljs-keyword">close</span>();
+}</code></pre>
+    </section>
+	    
+    <section data-menu-title="Solution 2" class="future" style="top: 85.5px; display: none;" hidden="" aria-hidden="true">
+    <h2>Solution 2:</h2>
+    <pre><code data-trim="" data-noescape="" class="hljs hsp"><span class="hljs-meta">#@ File (label = <span class="hljs-meta-string">"Input directory"</span>, style = <span class="hljs-meta-string">"directory"</span>) input</span>
+<span class="hljs-meta">#@ File (label = <span class="hljs-meta-string">"Output directory"</span>, style = <span class="hljs-meta-string">"directory"</span>) output</span>
+<span class="hljs-meta">#@ String (label = <span class="hljs-meta-string">"File suffix"</span>, value = <span class="hljs-meta-string">".tif"</span>) suffix</span>
+
+processFolder(<span class="hljs-keyword">input</span>)<span class="hljs-comment">;</span>
+
+function processFolder(<span class="hljs-keyword">input</span>) {
+	list = getFileList(<span class="hljs-keyword">input</span>)<span class="hljs-comment">;</span>
+	list = Array.sort(list)<span class="hljs-comment">;</span>
+	<span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span><span class="hljs-comment">; i &lt; list.length; i++) {</span>
+		<span class="hljs-keyword">if</span>(File.isDirectory(<span class="hljs-keyword">input</span> + File.separator + list[i]))
+			processFolder(<span class="hljs-keyword">input</span> + File.separator + list[i])<span class="hljs-comment">;</span>
+		<span class="hljs-keyword">if</span>(endsWith(list[i], suffix))
+			processFile(<span class="hljs-keyword">input</span>, output, list[i])<span class="hljs-comment">;</span>
+	}
+}
+
+function processFile(<span class="hljs-keyword">input</span>, output, file) {
+	open(<span class="hljs-keyword">input</span>+<span class="hljs-string">"/"</span>+file)<span class="hljs-comment">;</span>
+	original = getTitle()<span class="hljs-comment">;</span>
+	orig_name = File.nameWithoutExtension<span class="hljs-comment">;</span>
+	<span class="hljs-keyword">run</span>(<span class="hljs-string">"Duplicate..."</span>, <span class="hljs-string">"duplicate channels=3"</span>)<span class="hljs-comment">;</span>
+	ch3 = getTitle()<span class="hljs-comment">;</span>
+	<span class="hljs-keyword">run</span>(<span class="hljs-string">"Z Project..."</span>, <span class="hljs-string">"projection=[Max Intensity]"</span>)<span class="hljs-comment">;</span>
+	selectWindow(original)<span class="hljs-comment">;</span>
+	close()<span class="hljs-comment">;</span>
+	selectWindow(ch3)<span class="hljs-comment">;</span>
+	close()<span class="hljs-comment">;</span>
+	<span class="hljs-keyword">run</span>(<span class="hljs-string">"Auto Threshold"</span>, <span class="hljs-string">"method=MaxEntropy white"</span>)<span class="hljs-comment">;</span>
+	thresh = getTitle()<span class="hljs-comment">;</span>
+	<span class="hljs-keyword">run</span>(<span class="hljs-string">"Set Measurements..."</span>, <span class="hljs-string">"area center redirect=None decimal=7"</span>)<span class="hljs-comment">;</span>
+	<span class="hljs-keyword">run</span>(<span class="hljs-string">"Analyze Particles..."</span>, <span class="hljs-string">"size=10-Infinity show=Outlines display clear"</span>)<span class="hljs-comment">;</span>
+	saveAs(<span class="hljs-string">"tiff"</span>, output+File.separator+orig_name + <span class="hljs-string">"_outlines.tiff"</span>)<span class="hljs-comment">;</span>
+	close()<span class="hljs-comment">;</span>
+	selectWindow(thresh)<span class="hljs-comment">;</span>
+	close()<span class="hljs-comment">;</span>
+	selectWindow(<span class="hljs-string">"Results"</span>)<span class="hljs-comment">; </span>
+	saveAs(<span class="hljs-string">"results"</span>, output+File.separator+orig_name + <span class="hljs-string">"_results.csv"</span>)<span class="hljs-comment">;</span>
+	<span class="hljs-keyword">run</span>(<span class="hljs-string">"Close"</span>)<span class="hljs-comment">;</span>
+}</code></pre>
+    </section>
+	 
+    <section data-menu-title="Solution 3" class="future" style="top: 85.5px; display: none;" hidden="" aria-hidden="true">
+    <h2>Solution 3:</h2>
+    <pre><code data-trim="" data-noescape="" class="hljs stata">#@ <span class="hljs-keyword">File</span> (<span class="hljs-keyword">label</span> = <span class="hljs-string">"Input directory"</span>, style = <span class="hljs-string">"directory"</span>) <span class="hljs-keyword">input</span>
+#@ <span class="hljs-keyword">File</span> (<span class="hljs-keyword">label</span> = <span class="hljs-string">"Output directory"</span>, style = <span class="hljs-string">"directory"</span>) output
+#@ String (<span class="hljs-keyword">label</span> = <span class="hljs-string">"File suffix"</span>, value = <span class="hljs-string">".tif"</span>) suffix
+
+processFolder(<span class="hljs-keyword">input</span>);
+
+function processFolder(<span class="hljs-keyword">input</span>) {
+	
+	<span class="hljs-keyword">list</span> = getFileList(<span class="hljs-keyword">input</span>);
+	<span class="hljs-keyword">list</span> = Array.<span class="hljs-keyword">sort</span>(<span class="hljs-keyword">list</span>);
+	<span class="hljs-keyword">for</span> (i = 0; i &lt; <span class="hljs-keyword">list</span>.length; i++) {
+		<span class="hljs-keyword">if</span>(<span class="hljs-keyword">File</span>.isDirectory(<span class="hljs-keyword">input</span> + <span class="hljs-keyword">File</span>.separator + <span class="hljs-keyword">list</span>[i]))
+			processFolder(<span class="hljs-keyword">input</span> + <span class="hljs-keyword">File</span>.separator + <span class="hljs-keyword">list</span>[i]);
+		<span class="hljs-keyword">if</span>(endsWith(<span class="hljs-keyword">list</span>[i], suffix))
+			processFile(<span class="hljs-keyword">input</span>, output, <span class="hljs-keyword">list</span>[i]);
+	}
+	
+}
+
+function processFile(<span class="hljs-keyword">input</span>, output, <span class="hljs-keyword">file</span>) {
+	<span class="hljs-keyword">open</span>(<span class="hljs-keyword">input</span>+<span class="hljs-string">"/"</span>+<span class="hljs-keyword">file</span>);
+	original = getTitle();
+	orig_name = <span class="hljs-keyword">File</span>.nameWithoutExtension;
+	<span class="hljs-keyword">run</span>(<span class="hljs-string">"Duplicate..."</span>, <span class="hljs-string">"duplicate channels=3"</span>);
+	ch3 = getTitle();
+	<span class="hljs-keyword">run</span>(<span class="hljs-string">"Z Project..."</span>, <span class="hljs-string">"projection=[Max Intensity]"</span>);
+	selectWindow(original);
+	<span class="hljs-keyword">close</span>();
+	selectWindow(ch3);
+	<span class="hljs-keyword">close</span>();
+	<span class="hljs-keyword">run</span>(<span class="hljs-string">"Find Maxima..."</span>, <span class="hljs-string">"prominence=80 output=List"</span>);
+	<span class="hljs-keyword">close</span>();
+	selectWindow(<span class="hljs-string">"Results"</span>); 
+	saveAs(<span class="hljs-string">"results"</span>, output+<span class="hljs-keyword">File</span>.separator+orig_name + <span class="hljs-string">"_maxima.csv"</span>);
+	<span class="hljs-keyword">run</span>(<span class="hljs-string">"Close"</span>);
+	
+}</code></pre>
+    </section>
+
+    <section data-menu-title="Solution 4" class="future" style="top: 85.5px; display: none;" hidden="" aria-hidden="true">
+    <h2>Solution 4:</h2>
+    <pre><code data-trim="" data-noescape="" class="hljs stata">#@ <span class="hljs-keyword">File</span> (<span class="hljs-keyword">label</span> = <span class="hljs-string">"Input directory"</span>, style = <span class="hljs-string">"directory"</span>) <span class="hljs-keyword">input</span>
+#@ <span class="hljs-keyword">File</span> (<span class="hljs-keyword">label</span> = <span class="hljs-string">"Output directory"</span>, style = <span class="hljs-string">"directory"</span>) output
+#@ String (<span class="hljs-keyword">label</span> = <span class="hljs-string">"File suffix"</span>, value = <span class="hljs-string">".tif"</span>) suffix
+
+processFolder(<span class="hljs-keyword">input</span>);
+
+function processFolder(<span class="hljs-keyword">input</span>) {
+	<span class="hljs-keyword">total</span> = 0;
+	f = <span class="hljs-keyword">File</span>.<span class="hljs-keyword">open</span>(output+<span class="hljs-keyword">File</span>.separator+<span class="hljs-string">"totals.csv"</span>);
+	<span class="hljs-keyword">print</span>(f, <span class="hljs-string">"file,count"</span>);
+	<span class="hljs-keyword">list</span> = getFileList(<span class="hljs-keyword">input</span>);
+	<span class="hljs-keyword">list</span> = Array.<span class="hljs-keyword">sort</span>(<span class="hljs-keyword">list</span>);
+	<span class="hljs-keyword">for</span> (i = 0; i &lt; <span class="hljs-keyword">list</span>.length; i++) {
+		<span class="hljs-keyword">if</span>(<span class="hljs-keyword">File</span>.isDirectory(<span class="hljs-keyword">input</span> + <span class="hljs-keyword">File</span>.separator + <span class="hljs-keyword">list</span>[i]))
+			processFolder(<span class="hljs-keyword">input</span> + <span class="hljs-keyword">File</span>.separator + <span class="hljs-keyword">list</span>[i]);
+		<span class="hljs-keyword">if</span>(endsWith(<span class="hljs-keyword">list</span>[i], suffix)){
+			result = processFile(<span class="hljs-keyword">input</span>, output, <span class="hljs-keyword">list</span>[i]);
+			<span class="hljs-keyword">print</span>(f, <span class="hljs-keyword">list</span>[i]+<span class="hljs-string">","</span>+result);
+			<span class="hljs-keyword">total</span> = <span class="hljs-keyword">total</span> + result;
+		}
+	}
+	<span class="hljs-keyword">print</span>(f, <span class="hljs-string">"total,"</span>+<span class="hljs-keyword">total</span>);
+	<span class="hljs-keyword">File</span>.<span class="hljs-keyword">close</span>(f);
+}
+
+function processFile(<span class="hljs-keyword">input</span>, output, <span class="hljs-keyword">file</span>) {
+	<span class="hljs-keyword">open</span>(<span class="hljs-keyword">input</span>+<span class="hljs-string">"/"</span>+<span class="hljs-keyword">file</span>);
+	original = getTitle();
+	orig_name = <span class="hljs-keyword">File</span>.nameWithoutExtension;
+	<span class="hljs-keyword">run</span>(<span class="hljs-string">"Duplicate..."</span>, <span class="hljs-string">"duplicate channels=3"</span>);
+	ch3 = getTitle();
+	<span class="hljs-keyword">run</span>(<span class="hljs-string">"Z Project..."</span>, <span class="hljs-string">"projection=[Max Intensity]"</span>);
+	selectWindow(original);
+	<span class="hljs-keyword">close</span>();
+	selectWindow(ch3);
+	<span class="hljs-keyword">close</span>();
+	<span class="hljs-keyword">run</span>(<span class="hljs-string">"Find Maxima..."</span>, <span class="hljs-string">"prominence=80 output=List"</span>);
+	<span class="hljs-keyword">close</span>();
+	selectWindow(<span class="hljs-string">"Results"</span>); 
+	saveAs(<span class="hljs-string">"results"</span>, output+<span class="hljs-keyword">File</span>.separator+orig_name + <span class="hljs-string">"_maxima.csv"</span>);
+	results = nResults;
+	<span class="hljs-keyword">run</span>(<span class="hljs-string">"Close"</span>);
+	<span class="hljs-keyword">return</span> results;
+}</code></pre>
+    </section>
+	    
+    
+    <section data-menu-title="Last few things" class="future" style="top: 208.5px; display: none;" hidden="" aria-hidden="true">
+        <h2>Last few things</h2>
+       
+         <ol>
+             <li>Good luck with the assignment.</li>
+             <li>All details should be on Moodle. </li>
+             <li>Anything unclear you are free to contact any of us:
+		 sam.garforth@warwick.ac.uk,Daniel.J.Moore@warwick.ac.uk, L.S.Mosby@warwick.ac.uk </li>
+             <li>Help each other (within reason).</li>
+         </ol>        
+    </section>
+
+                
+	    
+</div> <!-- ---------------------- END OF SLIDES -------------------------- -->
+
+
+</div>
+<!-- Footer -->
+<img style="position:fixed;bottom:1em;right:1em;" src="img/jax.jpg" width="20%">
+<!--img style="position:fixed;bottom:1em;left:1em;" src="img/logo_tw.png" width="20%"-->
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+
+<script>
+// More info about config & dependencies:
+// - https://github.com/hakimel/reveal.js#configuration
+// - https://github.com/hakimel/reveal.js#dependencies
+Reveal.initialize({
+    controls: false,
+	slideNumber: true, //-- Added for development
+dependencies: [
+{ src: 'plugin/markdown/marked.js' },
+{ src: 'plugin/markdown/markdown.js' },
+{ src: 'plugin/notes/notes.js', async: true },
+{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+{ src: 'plugin/menu/menu.js' }
+],
+menu: {
+hideMissingTitles: true,
+themes: false,
+transitions: false,
+//markers: true,
+numbers: true,
+openButton: false,
+titleSelector: 'span.menu-title'
+
+}
+});
+</script>
+</body>
+</html>
