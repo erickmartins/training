@@ -40,10 +40,12 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 
 <section data-menu-title="Links and Resources" data-state="intro0"><style>.intro0 header:after { content: "Links and Resources"; }</style>
 <ul>
-<li>These slides: https://erickmartins.github.io/training/ImageAnalysis.html</li>	
+<li>These slides: <a target="_blank" href="https://erickmartins.github.io/training/ImageAnalysis.html">https://erickmartins.github.io/training/ImageAnalysis.html</a></li>	
 <ul><li>Navigation: arrow keys left and right to navigate</li><li>'m' key to get to navigation menu</li><li>Escape for slide overview</li></ul>
 <li>Where to find help after the workshop (links also available on the menu):</li>
-<ul><li><a target="_blank" href="https://imagej.net">ImageJ Website</a></li><li><a target="_blank" href="https://forum.image.sc">image.sc Forum</a></li><li><a target="_blank" href="https://jacksonlaboratory.sharepoint.com/sites/ComputationalCommunity/SitePages/Computational-Image-Analysis.aspx">Computational Image Analysis on MyJAX</a></li></ul>
+<ul><li><a target="_blank" href="https://imagej.net">ImageJ Website</a></li>
+	<li><a target="_blank" href="https://forum.image.sc">image.sc Forum</a></li>
+	<li><a target="_blank" href="https://jacksonlaboratory.sharepoint.com/sites/ComputationalCommunity/SitePages/Computational-Image-Analysis.aspx">Computational Image Analysis on MyJAX</a></li></ul>
 </ul>
 </section>
 
@@ -149,8 +151,10 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 
 <section data-state="fiji2"><style>.fiji2 header:after { content: "Fiji Basics"; }</style>
 <ol class="left twothirds">
-<li>Run Fiji</li>
-<!-- <li>Right click <a href="">this link</a> and "copy link location"</li> -->
+<li>Open <code><a href="material/Task1.pdf">Task1.pdf</a></code> and follow the instructions there.</li>
+<li>You will need these two images: <code><a href="material/01-Photo.tif">01-Photo.tif</a></code> and <a href="material/02-Biological_Image.tif"><code>02-Biological_Image.tif</code></a></li>
+
+<!--BEGINNING of TASK 1 -->
 <li>Open <code><a href="material/01-Photo.tif">01-Photo.tif</a></code> and <a href="material/02-Biological_Image.tif"><code>02-Biological_Image.tif</code></a></li>
 <ul>
 <li>Zoom using +/- keys</li>
@@ -172,6 +176,9 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 </ul>
 <img class="third imright" src="img-ia/fiji9.png"/>
 </section>
+
+<!--END of TASK 1 -->
+
 
 <section data-menu-title="Basic Adjustments: Intensity" data-state="fiji3az"><style>.fiji3az header:after { content: ""; }</style>
 <h1>Basic Manipulations</h1>
@@ -223,9 +230,14 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 <p class="clear">The best advice is to get it right during acquisition!</p>
 </section>
 
+
+<!--BEGINNING of TASK 2 -->
+
 <section data-state="fiji3a"><style>.fiji3a header:after { content: "Basic Adjustments: Intensity"; }</style>
 <div>
 <ul style="font-size:90%" class="left half">
+<li>Open <code><a href="material/Task2.pdf">Task2.pdf</a></code> and follow the instructions there.</li>
+<li>You will need this image: <a href="material/02-Biological_Image.tif"><code>02-Biological Image.tif</code></a></li>
 <li>Open <a href="material/02-Biological_Image.tif"><code>02-Biological Image.tif</code></a></li>
 <li>Run <code>[Image > Adjust > Brightness &amp; Contrast]</code></li>
 <li>The top two bars adjust the Black and White points</li>
@@ -251,16 +263,23 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 <img class="third" src="img-ia/basics_01.png"/>
 </section>
 
+<!--END of TASK 2 -->
+
+
 <!-- Consider talking about acceptable adjustments? -->
 
 <section data-menu-title="Measurements" data-state="fiji3z"><style>.fiji3z header:after { content: ""; }</style>
-<h1>Measurements</h1>
-<h4>Making measurements, what to measure, line vs area</h4>
+<h1>Measurements and scale bars</h1>
+<h4>Making measurements, what to measure, line vs area, adding a scale bar</h4>
 </section>
+
+<!--BEGINNING of TASK 3 -->
 
 <section data-state="fiji3"><style>.fiji3 header:after { content: "Measurements"; }</style>
 <div>
 <ul class="left half">
+<li>Open <code><a href="material/Task3.pdf">Task3.pdf</a></code> and follow the instructions there.</li>
+<li>You will need this image: <a href="material/02-Biological_Image.tif"><code>02-Biological Image.tif</code></a></li>
 <li>Open <a href="material/02-Biological_Image.tif"><code>02-Biological Image.tif</code></a></li>
 <li>Select Line Selection tool (fifth tool from left)</code></li>
 <li>Draw a line (shift sets 45&deg; increments)</li>
@@ -295,11 +314,6 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 <img data-fragment-index="2" class="third fragment" src="img-ia/fiji_roi2.png"/>
 </section>
 
-<section data-menu-title="Scale Bars and Colour modes" data-state="fiji4z"><style>.fiji4z header:after { content: ""; }</style>
-<h1>Scale Bars</h1>
-<h4>Adding a scale bar</h4>
-</section>
-
 <section data-state="fiji4"><style>.fiji4 header:after { content: "Scale Bars"; }</style>
 <div><ul class="left half">
 <li>Open <a href="material/02-Biological_Image.tif"><code>02-Biological Image.tif</code></a></li>
@@ -311,6 +325,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 <img class="half imright" src="img-ia/fiji_scale1.png"/></div>
 </section>
 
+<!--END of TASK 3 -->
 
 
 <section data-menu-title="Stacks" data-state="fiji5z"><style>.fiji5z header:after { content: ""; }</style>
@@ -331,8 +346,14 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 <p class="fragment" data-fragment-index="1">Convert between stack types with the <code>[Image > Hyperstack]</code> menu</p>
 </section>
 
+
+<!--BEGINNING of TASK 4 -->
+
 <section data-menu-title="Channel Display Modes" data-state="fiji6"><style>.fiji6 header:after { content: "Channel Display Modes"; }</style>
-<ul style="font-size:80%"><li>Open <a href="material/06-multichannel.tif"><code>06-MultiChannel.tif</code></a></li>
+<ul style="font-size:80%">
+<li>Open <code><a href="material/Task4.pdf">Task4.pdf</a></code> and follow the instructions there.</li>
+<li>You will need this image: <a href="material/06-multichannel.tif"><code>06-MultiChannel.tif</code></a></li>	
+<li>Open <a href="material/06-multichannel.tif"><code>06-MultiChannel.tif</code></a></li>
 <li>(If necessary run <code>[Image > Hyperstacks > Stack to Hyperstack]</code>)</li>
 <li>Navigate through the channels then run Channels Tool <code>[Image > Color > Channels Tool]</code> and change to Greyscale</li></ul>
 <img class="half" src="img-ia/modes_01.png"/>
@@ -351,6 +372,9 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 <p class="fragment">IMPORTANT! The nav bar still <i>selects</i> the active channel, and that is where measurements / maniplulations are applied!</p>
 <p class="fragment">The infobar text, slider and 1px coloured image border all indicate which channel is selected.</p>
 </section>
+
+<!--END of TASK 4 -->
+
 
 <section data-menu-title="Digital Imaging and Colour" data-state="fiji7z"><style>.fiji7z header:after { content: ""; }</style>
 <h1>Colour in Digital Imaging</h1>
@@ -394,9 +418,14 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 <img src="img-ia/colour_10.png"/>
 </section>
 
+
+<!--BEGINNING of TASK 5 -->
 <section data-state="fiji14a"><style>.fiji14a header:after { content: "Colour: Changing LUTs"; }</style>
 <div class="twothirds left" style="font-size:90%">
-<ul><li>Open <a href="material/06-multichannel.tif"><code>06-MultiChannel.tif</code></a></li>
+<ul>
+<li>Open <code><a href="material/Task5.pdf">Task5.pdf</a></code> and follow the instructions there.</li>
+<li>You will need this image: <a href="material/06-multichannel.tif"><code>06-MultiChannel.tif</code></a></li>	
+<li>Open <a href="material/06-multichannel.tif"><code>06-MultiChannel.tif</code></a></li>
 <li>(If opening necessary <code>[Image > Hyperstacks > Stack to Hyperstack]</code>)</li>
 <li>Run <code>[Image > Lookup Tables]</code>, try a few different ones</li>
 <li>Run Channels Tool <code>[Image > Color > Channels Tool]</code>, make sure you're in Color or Composite mode, hit More, select a LUT</li>
@@ -405,6 +434,9 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 </div>
 <img class="third right" src="img-ia/colourLUT5.png"/>
 </section>
+
+<!--END of TASK 5 -->
+
 <section data-state="fiji14a"><style>.fiji14a header:after { content: "Colour: Changing LUTs"; }</style>
 <p>A couple of useful LUTs:</p>
 <img class="threequart" src="img-ia/colourLUT7.png"/>
