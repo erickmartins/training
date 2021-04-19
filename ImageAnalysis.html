@@ -433,88 +433,8 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 
 <section data-state="apps22"><style>.apps22 header:after { content: "Batch Processing: Batch Convert"; }</style>
 <li>Open <code><a href="material/Task7.pdf">Task7.pdf</a></code> and follow the instructions there.</li>
-<p>For simple file conversion, <code>Convert</code> is a very useful tool</p>
-<ul class="twothirds left"><li>Run <code>[Process > Batch > Convert]</code></li>
-<ul><li>Set the Input directory to point to the downloaded files and the Output to the Output folder</li>
-<li>Set the output format to PNG</li>
-<li>Scale the images to 50% (put 0.5 in the box)</li></ul>
-<li>Hit Convert then check the output folder</li>
-</ul>
-<img class="third right" src="img-ia/batch_03.png"/>
-
-<ul class="clear"><li>If you're using proprietary formats check the "Read Using Bio-Formats" box (although this is slower)</li></ul>
 </section> 
 
-<section data-state="apps23"><style>.apps23 header:after { content: "Batch Processing: Basic Macros"; }</style>
-<p>For slightly more complex manipulations try using the <code>Macro</code> interface</p>
-<ul class="half left"><li>Run <code>[Process > Batch > Macro]</code></li>
-<ul><li>Set the Input directory to point to the downloaded files and the Output to the Output folder</li>
-<li>Set the output format to PNG</li>
-<li>From the dropdown box, select <code>Scale</code> and the macro box will populate</li>
-<li>Change the scale fraction to 0.5 and add the line <code>run("Red");</code></li></ul>
-<li>Hit Process then check the output folder</li>
-</ul>
-<img class="half right" src="img-ia/batch_07.png"/>
-</section> 
-<section data-state="apps23"><style>.apps23 header:after { content: "Batch Processing: Basic Macros"; }</style>
-<p>You should see an output folder containing small red-coloured nuclei</p>
-<img class="twothirds" src="img-ia/batch_09.png"/>
-</section> 
-<section data-state="apps23"><style>.apps23 header:after { content: "Batch Processing: Basic Macros"; }</style>
-<p>But how to figure out the commands?</p>
-<img class="fragment half" src="img-ia/batch_08.png"/>
-<p class="fragment">The macro recorder will record most plugins and commands from the menu. Run <code>[Plugins > Macros > Record]</code> then run a command</p>
-</section> 
-<section data-state="apps23"><style>.apps23 header:after { content: "Batch Processing: Batch Macros"; }</style>
-<div class="twothirds left">
-<p>Pop quiz!</p>
-<ul><p>Use the macro recorder and The Batch Macro function to:
-<li>Calibrate the image to 0.1 microns per pixel (<a href="#/19"><i class="fa fa-external-link"></i></a>)</li>
-<li>Draw a 10&mu;m green scale bar in the bottom left corner (<a href="#/36"><i class="fa fa-external-link"></i></a>)</li>
-<li class="fragment">[BONUS MARKS 1] Also write the filename onto each image (in red) (<a href="https://imagej.nih.gov/ij/developer/macro/functions.html#getTitle"><i class="fa fa-external-link"></i></a>)</li>
-<li class="fragment">[BONUS MARKS 2] Print out the filename and spot count to the log (<a href="https://imagej.nih.gov/ij/docs/guide/146-29.html#sub:Find-Maxima"><i class="fa fa-external-link"></i></a>)</li>
-</li></ul>
-</div>
-<img class="third right" src="img-ia/batch_12.png"/>
-<ul class="left clear"><li>Answers in the next slide - DON'T PEEK UNLESS YOU'RE STUCK :)</li></ul>
-</section> 
-
-<section data-state="apps23"><style>.apps23 header:after { content: "Batch Processing: Basic Macros"; }</style>
-<div class="twothirds left">
-<p>Basic test</p>
-<!-- <pre><code data-trim data-noescape> -->
-<pre><code data-trim data-noescape>
-//-- Calibrate
-run("Properties...", "unit=um pixel_width=0.1 pixel_height=0.1");
-//-- Add the scale bar
-run("RGB Color");
-run("Scale Bar...", "width=10 height=10 font=30 color=Green background=None location=[Lower Left]");
-</code></pre>
-<div data-fragment-index="5" class="fragment">
-<p>Advanced test</p>
-<pre><code data-trim data-noescape>
-//-- [BONUS 2] Estimate and print the counts
-run("Find Maxima...", "noise=10 output=[Point Selection]");
-getSelectionCoordinates(xPos,yPos);
-print("Image:  "+getTitle()+" has "+xPos.length+" objects");
-run("Select None");
-
-//-- [BONUS 1] Add the title
-run("RGB Color");
-setFont("SansSerif", 18, "antialiased");
-setColor("red");
-drawString(getTitle(), 20, 30);
-
-//-- Calibrate
-run("Properties...", "unit=um pixel_width=0.1 pixel_height=0.1");
-//-- Add the scale bar
-run("RGB Color");
-run("Scale Bar...", "width=10 height=10 font=30 color=Green background=None location=[Lower Left]");
-</code></pre>
-</div>
-</div>
-<img data-fragment-index="5" class="fragment third right" src="img-ia/batch_10.png"/><img data-fragment-index="5" class="fragment third right" src="img-ia/batch_11.png"/>
-</section>
 
 
 <!--END of TASK 7 -->
