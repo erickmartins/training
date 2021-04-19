@@ -385,93 +385,11 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 <section data-state="apps11"><style>.apps11 header:after { content: "Segmentation: Hands On"; }</style>
 <li>Open <code><a href="material/Task6.pdf">Task6.pdf</a></code> and follow the instructions there.</li>
 <li>You will need these images: <a href="material/07-nuclei.tif"><code>07-nuclei.tif</code></a> and <a href="material/08-nucleiMask.tif"><code>08-nucleiMask.tif</code></a></li>	
-<ul><li>Open <a href="material/07-nuclei.tif"><code>07-nuclei.tif</code></a></li>
-<li>Run <code>[Image > Adjust > Threshold]</code></li>
-<li>Set the lower threshold to 0, 10 and 253, note how the image changes.</li></ul>
-<img class="third" srmc="img-ia/seg_06.png"/><span>&nbsp;&nbsp;</span><img class="third" src="img-ia/seg_07.png"/><span>&nbsp;&nbsp;</span><img class="third" src="img-ia/seg_08.png"/>
 </section>
 
-<section data-state="apps11"><style>.apps11 header:after { content: "Segmentation: Hands On"; }</style>
-<p>Sometimes you will want to automatically set a threshold. Use the dropdown and <code>Auto</code> button</p><p>You can trial all autothresholding methods using <code>[Image > Adjust > Auto Threshold]</code> and select 'Try All'</p>
-<img class="third" src="img-ia/seg_05.png"/><img class="quart fragment" src="img-ia/seg_101.png"/><img class="third fragment" src="img-ia/seg_102.png"/>
-</section>
-
-<section data-state="apps11"><style>.apps11 header:after { content: "Segmentation: Hands On"; }</style>
-<p>Hit 'Apply' to create a mask based on the current Threshold</p>
-<img class="left third" src="img-ia/seg_09.png"/>
-<div class="fragment">
-<div class="right twothirds">
-<p>What can you do with a mask?</p>
-<ol class="half right">
-<li>Count</li>
-<li>Measure</li>
-<li>Visualise</li></ol>
-</div>
-</div>
-</section>
-<section data-state="apps12"><style>.apps12 header:after { content: "Segmentation: Object Counting"; }</style>
-<p>Connected component analysis (CCA) is used to identify contiguous objects in a mask</p>
-<ul class="half left"><li>Open <a href="material/08-nucleiMask.tif"><code>08-nucleiMask.tif</code></a> (or use yours from the last step)</li>
-<li>Run <code>[Analyze > Analyze Particles]</code></li>
-<li>Use the settings on the right, hit OK</li>
-<li>You should have a results table with a Count of 31 (you may also have some other stats but we'll come to these later)</li> </ul>
-<img class="right third" src="img-ia/seg_CCA_1.png"/>
-</section>
-<section data-state="apps12"><style>.apps12 header:after { content: "Segmentation: Object Counting"; }</style>
-<p>But...there are at least 3 problems with this:</p>
-<ol><li>Single pixel spots are counted as objects</li>
-<li>Edge nuclei are counted</li>
-<li>Some nuclei are touching</li>
-</ol><br>
-<img class="third" src="img-ia/seg_CCA_2b.png"/><span>&nbsp;&nbsp;&nbsp;</span><img class="third fragment" src="img-ia/seg_CCA_3.png"/>
-</section>
-<section data-state="apps12"><style>.apps12 header:after { content: "Segmentation: Object Counting"; }</style>
-<p>A quick fix for separating partially-touching roughly circular objects is to use <code>[Process > Binary > Watershed]</code> before running CCA</p>
-<img class="third" src="img-ia/seg_CCA_4.png"/><span>&nbsp;&nbsp;&nbsp;</span><img class="third fragment" src="img-ia/seg_CCA_5.png"/>
-</section>
-
-<section data-state="apps13"><style>.apps13 header:after { content: "Segmentation: Making Measurements"; }</style>
-<p>Analyze Particles comes with the option to <code>Display Results</code></p>
-<img class="third left" src="img-ia/seg_CCA_6.png"/>
-<img data-fragment-index="2" class="third left fragment" src="img-ia/seg_CCA_8.png"/>
-<img class="third fragment left" data-fragment-index="1" src="img-ia/seg_CCA_7.png"/>
-<ul><li>The results table will have a column for anything selected in <code>[Analyze > Set Measurements]</code> and one row per object</li>
-<li>Measurements (including intensity - labelled purple above) are made on the mask!</li></ul>
-</section>
-<section data-state="apps13"><style>.apps13 header:after { content: "Segmentation: Making Measurements"; }</style>
-<p>To apply measurements to the original image: check <code>Add to Manager</code> in Analyze Particles, open the <a href="material/07-nuclei.tif"><code>original image</code></a>, then run <code>[More > Multi Measure]</code></p>
-<img class="third" src="img-ia/seg_CCA_9b.png"/>
-<img class="third fragment" src="img-ia/seg_CCA_9.png"/>
-<img class="third fragment" src="img-ia/seg_CCA_9d.png"/>
-<p>Don't forget <code>[Analyze > Set Measurements]</code> to pick parameters</p>
-</section>
 
 <section data-state="apps14"><style>.apps14 header:after { content: "Segmentation: Visualisation"; }</style>
-<p>You may want to create an output or display image showing the results of CCA or segmentation. Analyze particles has several useful outputs:</p>
-<img class="third" src="img-ia/seg_CCA_10a.png"/>
-<img class="third fragment" src="img-ia/seg_CCA_10.png"/>
-<!-- <img class="third fragment" src="img-ia/seg_CCA_10b.png"/> -->
-<p>Count masks are very useful in combination with <code>[Image > Look Up Tables > Glasbey]</code>-style (IE random) LUTs</p>
-</section>
-<section data-state="apps14"><style>.apps14 header:after { content: "Segmentation: Visualisation"; }</style>
-<p>Another trick is to turn the mask into a composite selection then draw it into the original</p>
-<ul class="twothirds left"><li>Open <a href="material/08-nucleiMask.tif"><code>08-nucleiMask.tif</code></a></li>
-<li>Run <code>[Edit > Selection > Create Selection]</code></li>
-<li>If the black area is selected, run <code>[Edit > Selection > Make Inverse]</code>. Add it to the ROI manager ('t')</li>
-<li>Open the <a href="material/07-nuclei.tif"><code>original image</code></a></li>
-<li>Convert it to RGB <code>[Image > Type > RGB Color]</code> </li>
-<li>Select the ROI, then run <code>[Edit > Draw]</code> (this will use the current foreground colour and line width)</li>
-</ul>
-<img class="right third" src="img-ia/seg_CCA_12.png"/>
-</section>
-<section data-state="apps14"><style>.apps14 header:after { content: "Segmentation: Visualisation"; }</style>
 
-
-<!--END of TASK 6 -->
-
-
-
-<section>
 <p>Example visualisation of woundhealing</p>
 <!-- <a href="https://cci.liv.ac.uk/img/gallery/woundhealing.mp4" target="_blank"> -->
 <img class="third" src="img-ia/seg_CCA_13.png"/>
