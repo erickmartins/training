@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Introduction to Data Analysis with Python</title>
+<title>Introduction to Programming in Fiji</title>
 <link rel="stylesheet" href="css/reveal.css">
 <link rel="stylesheet" href="css/theme/cci.css">
 <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
@@ -30,24 +30,9 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
     <section data-menu-title="Title">
 <h2>Introduction to Programming in Fiji</h2>
 <h4>Erick Martins Ratamero (he/him)<br>Systems Analyst, RIT</h4>
+<p class="subtle">Use <i class="fa fa-arrow-right"></i> to advance the slide</p>
 </section>
 
-
-    <section data-menu-title="Introduction" data-state="intro0">
-        <h2>Hello</h2>
-        
-            <br/>
-        
-            <br/>
-        
-            <br/>
-        
-        
-            
-            <a href="https://twitter.com/erickratamero" target="_blank">@erickratamero</a>
-        
-    </section>
-    
 
 
 <section data-state="intro0">
@@ -90,7 +75,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
         
             <br/>
         
-            <a href="http://tiny.cc/introfiji" target="_blank">tiny.cc/introfiji</a>
+            <a href="https://erickmartins.github.io/training/IntroProgrammingIJ.html" target="_blank">https://erickmartins.github.io/training/IntroProgrammingIJ.html</a>
             <br/>
        
     </section>
@@ -224,7 +209,7 @@ print(c); //"1.53"
             
         </h2>
         <br/>
-        Choose 4 things in this room and create variables of 4 different types based on them
+        Choose 4 things around you and create variables of 4 different types based on them
     </section>
 
 
@@ -434,7 +419,6 @@ print(c); //"1.53"
                 <pre><code class="java">
 // This macro demonstrates how to use the Array.* functions.
 
-  requires("1.42j");
   a1 = newArray(10, 5, 15, 2, 1.23456);
   a2 = Array.copy(a1);
   list("copy", a2);
@@ -528,7 +512,7 @@ print(c); //"1.53"
                 
                 </p>
                 <p>
-                   A <b><i><font color="#e06666">for-loop</font></i></b> is useful when you know how many times you want to repeat an action (e.g. for every item in a list)
+                   A <b><i><font color="#e06666">for-loop</font></i></b> is useful when you know how many times you want to repeat an action (e.g. for every item in an array)
                 
                 </p>
                 
@@ -565,7 +549,7 @@ for(i=0; i< lengthOf(ages); i++){
         <section data-state="pp">
             <h2>While Loops</h2>
             
-                <p>A <b><i><font color="#e06666">while-loop</font></i></b> is useful when you don’t know when you want to stop looping yet.
+                <p>A <b><i><font color="#e06666">while-loop</font></i></b> is useful when you don’t know how many times you want to run, but you know when you need to stop.
                 </p>
                 <p>A while-loop statement checks a <i>condition</i> and loops until the condition is no longer satisfied.
                 </p>
@@ -596,10 +580,10 @@ for(i=0; i< lengthOf(ages); i++){
            
         </p>
         
-        <pre><code class="C">x = 5;
+        <pre><code class="C">x = 2;
 while(x > 0){
     print("hooray!");
-    x = x - 1;
+    x = x - random;
 }
 ... 
 hooray!
@@ -731,9 +715,15 @@ return statement
            
             <pre><code class="C">function calculate(x, y, sigma){
     factor = exp(-1.0*(pow(x,2)+pow(y,2))/(2*pow(sigma,2)));
-    
     return factor;
-}</code></pre>
+}
+
+result = calculate(1,2,5)
+print(result)
+...
+
+0.9048
+</code></pre>
        
 
         
@@ -757,6 +747,9 @@ return statement
     </section>
 
 
+
+
+    
 
 
 
