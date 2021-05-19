@@ -393,10 +393,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 
 <p>Example visualisation of woundhealing</p>
 <!-- <a href="https://cci.liv.ac.uk/img/gallery/woundhealing.mp4" target="_blank"> -->
-<img class="third" src="img-ia/seg_CCA_13.png"/>
-<p>From the <a href="http://cci.liv.ac.uk/gallery.html" target="_blank">CCI website gallery</a>. Data c/o <a href="https://www.liverpool.ac.uk/integrative-biology/staff/daimark-bennett/" target="_blank">Daimark Bennett</a></p>
-<p><i class="fa fa-chevron-circle-down"></i> for movie</p>
-<section>
+
 	<video loop data-autoplay class="half" src="https://cci.liv.ac.uk/img/gallery/woundhealing.mp4"></video>
 	<!-- </a> -->
 	<p>From the <a href="http://cci.liv.ac.uk/gallery.html" target="_blank">CCI website gallery</a>. Data c/o <a href="https://www.liverpool.ac.uk/integrative-biology/staff/daimark-bennett/" target="_blank">Daimark Bennett</a></p>
@@ -505,9 +502,9 @@ run("Concatenate...", "  title=newStack open image1=channels image2=merge");
 //-- Create a montage
 run("Make Montage...", "columns=4 rows=1 scale=0.50 border=3");
 //-- Close the stack (from concatenation)
-close(newStack);
+close("newStack");
 </code></pre>
-<p>Open the file again and hit Run</p>
+<p>Open <a href="material/06-multichannel.tif"><code>06-MultiChannel.tif</code></a> again and hit Run</p>
 <p class="subtle fragment">Comments, variables, print, active window</p>
 </section>
 
