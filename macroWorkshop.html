@@ -369,7 +369,6 @@ function processFile(<span class="hljs-keyword">input</span>, output, <span clas
 	<span class="hljs-keyword">run</span>(<span class="hljs-string">"Z Project..."</span>, <span class="hljs-string">"start=3 stop=7 projection=[Average Intensity]"</span>);
 	<span class="hljs-keyword">run</span>(<span class="hljs-string">"Set Measurements..."</span>, <span class="hljs-string">"mean redirect=None decimal=7"</span>);
 	<span class="hljs-keyword">run</span>(<span class="hljs-string">"Measure"</span>);
-	<span class="hljs-keyword">run</span>(<span class="hljs-string">"Subtract Background..."</span>, <span class="hljs-string">"rolling=100"</span>);
 	saveAs(<span class="hljs-string">"tiff"</span>, output+<span class="hljs-keyword">File</span>.separator+<span class="hljs-keyword">File</span>.nameWithoutExtension+<span class="hljs-string">"_projection_BackSubtract.tiff"</span>);
 	<span class="hljs-keyword">close</span>(<span class="hljs-string">"*"</span>);
 }
