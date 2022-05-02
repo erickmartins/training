@@ -467,7 +467,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 <li>Open the channels tool <code>[Image > Color > Channels Tool]</code> and set the mode to <code>grayscale</code></li>
 <li>Run <code>[Image > Type > RGB color]</code></li>
 <li>Rename this image to <code>channels</code> with <code>[Image > Rename]</code></li>
-<li>Select the original stack, and using the channels tool, set the mode to <code>composite</code></li>
+<li>Select the original stack, and using the channels tool, set the mode to <code>composite sum</code></li>
 <li>Run <code>[Image > Type > RGB color]</code></li>
 <li>Rename this image to <code>merge</code> with <code>[Image > Rename]</code></li>
 <li>Close the original (it should be the only 8-bit image open (check the Info bar!)</li>
@@ -480,7 +480,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 </section>
 
 <section data-state="apps24"><style>.apps24 header:after { content: "Scripting"; }</style>
-<p>Open the script editor with <code>[Plugins > New > Script]</code> and copy in the following code:</p>
+<p>Open the script editor with <code>[File > New > Script]</code> and copy in the following code:</p>
 <pre><code class="java" data-trim data-noescape>
 //-- Record the filename
 imageName=getTitle();
