@@ -384,8 +384,8 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 <!--BEGINNING of TASK 6 -->
 
 <section data-state="apps11"><style>.apps11 header:after { content: "Segmentation: Hands On"; }</style>
-<li>Open <code><a href="material/Task6.pdf">Task6.pdf</a></code> and follow the instructions there.</li>
-<li>You will need these images: <a href="material/07-nuclei.tif"><code>07-nuclei.tif</code></a> and <a href="material/08-nucleiMask.tif"><code>08-nucleiMask.tif</code></a></li>	
+<p>Open <code><a href="material/Task6.pdf">Task6.pdf</a></code> and follow the instructions there.</p>
+<p>You will need these images: <a href="material/07-nuclei.tif"><code>07-nuclei.tif</code></a> and <a href="material/08-nucleiMask.tif"><code>08-nucleiMask.tif</code></a></p>
 </section>
 
 
@@ -431,7 +431,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 <!--BEGINNING of TASK 7 -->
 
 <section data-state="apps22"><style>.apps22 header:after { content: "Batch Processing: Batch Convert"; }</style>
-<li>Open <code><a href="material/Task7.pdf">Task7.pdf</a></code> and follow the instructions there.</li>
+<p>Open <code><a href="material/Task7.pdf">Task7.pdf</a></code> and follow the instructions there.</p>
 </section> 
 
 
@@ -467,7 +467,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 <li>Open the channels tool <code>[Image > Color > Channels Tool]</code> and set the mode to <code>grayscale</code></li>
 <li>Run <code>[Image > Type > RGB color]</code></li>
 <li>Rename this image to <code>channels</code> with <code>[Image > Rename]</code></li>
-<li>Select the original stack, and using the channels tool, set the mode to <code>composite sum</code></li>
+<li>Select the original stack, and using the channels tool, set the mode to <code>composite</code></li>
 <li>Run <code>[Image > Type > RGB color]</code></li>
 <li>Rename this image to <code>merge</code> with <code>[Image > Rename]</code></li>
 <li>Close the original (it should be the only 8-bit image open (check the Info bar!)</li>
@@ -486,12 +486,14 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 imageName=getTitle();
 print("Processing: "+imageName);
 //-- Display the stack in greyscale, create an RGB version, rename
+Property.set("CompositeProjection", "null");
 Stack.setDisplayMode("grayscale");
 run("RGB Color");
 rename("channels");
 //-- Select the original image
 selectWindow(imageName);
 //-- Display the stack in composite, create an RGB version, rename
+Property.set("CompositeProjection", "Sum");
 Stack.setDisplayMode("composite");
 run("RGB Color");
 rename("merge");
